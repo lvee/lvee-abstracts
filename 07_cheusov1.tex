@@ -13,6 +13,17 @@
 \def\progref!#1!{\texttt{#1}}
 
 \maketitle
+
+\begin{abstract}paexec distributes tasks across several CPUs or machines in a
+network and collects results from those CPUs/machines. paexec runs
+several instances of ``calculator'' on remote/local machines and sends
+them tasks one by one recieving results from them. ``tasks'' given on
+input may be either a list of independent tasks or a dependency
+graph. ``transport'' is any rsh/ssh-like program. Cool features:
+resistance to network failures, minimization of total calculation
+time.
+\end{abstract}
+
 В последнее время все большее распространение получают компьютерные
 системы оснащенные большим количеством процессоров или ядер.  В
 настоящее время многоядерными процессорами комплектуются не только
