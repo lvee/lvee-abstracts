@@ -1,8 +1,3 @@
-%.pdf: %.ps
-	ps2pdf $<
+%.pdf: %.tex
+	pdflatex $<
 
-%.ps: %.dvi
-	dvips $<
-
-%.dvi: %.tex
-	latex $<
