@@ -1,0 +1,311 @@
+% vim: set tw=80:spell
+%
+\documentclass[twoside,14pt]{extarticle}
+%\documentclass[twoside,14pt,draft]{extarticle}
+%\documentclass[twoside,14pt,draft]{scrartcl}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtext}
+\usepackage[T2A]{fontenc}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+%\usepackage{cyrtimes}
+\usepackage[english,russian]{babel}
+\usepackage{indentfirst}
+\usepackage{portland}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage[labelsep=period,justification=centering]{caption}
+%\usepackage{ccaption}
+%\captiondelim{. }
+\usepackage{tweaklist}
+\usepackage{trace}
+%\usepackage{tikz}
+%\usetikzlibrary{calc}
+%\usetikzlibrary{positioning}
+\usepackage{subfig}
+\renewcommand{\enumhook}{\setlength{\topsep}{0pt}%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt plus 1pt minus 1pt}\setlength{\parsep}{0pt}}
+\renewcommand{\itemhook}{\setlength{\topsep}{0pt}%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt plus 1pt minus 1pt}\setlength{\parsep}{0pt}}
+%\renewcommand{\enumhook}{\setlength{\topsep}{0pt}%
+%  \setlength{\itemsep}{0pt}}
+%\renewcommand{\itemhook}{\setlength{\topsep}{0pt}%
+%  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\setlength{\parsep}{0pt}}
+%\renewcommand{\enumhook}{\setlength{\topsep}{0pt}%
+%  \setlength{\itemsep}{0pt}}
+%\renewcommand{\itemhook}{\setlength{\topsep}{0pt}%
+%  \setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+
+\clubpenalty=10000%
+\widowpenalty=10000%
+\setlength{\parindent}{1.25cm}%
+
+\usepackage[inner=2cm,top=2cm,outer=2cm,bottom=2cm,nohead]{geometry}
+\def\plb{\relax}
+\newcommand\familyname[1]{\textbf{#1}}
+\author{~}
+\def\fullauthor{}
+\title{LVEE-2011  \plb
+Сборник тезисов}
+\date{Минск 2011}
+%\def\udk{\emph{004.451}}
+%\def\bbk{\emph{32.973.26--018.2}}
+%\def\auth{\emph{П85}}
+%\def\rec{\emph{???}}
+%\def\isbn{\emph{NO-ISBN!}}
+
+\def\udk{004}
+\def\bbk{32}
+\def\auth{L\,97}
+\def\rec{Xxxxxx X.\,X.}
+\def\isbn{XXX-XXX-XXX-XXX-X}
+
+\DeclareMathOperator{\e}{e}
+\DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\diag}{diag}
+
+\newcommand{\longpage}{\enlargethispage{\baselineskip}}
+\newcommand{\shortpage}{\enlargethispage{-\baselineskip}}
+
+\newcommand\eof{\writetotalpages\end{document}\endinput}
+
+\newcommand\key[1]{\textbf{#1}}
+\newcommand\vect[1]{\mathbf{#1}}
+\def\eqn #1 $#2${\begin{equation}\label{eq:#1}#2\end{equation}}
+%\def\where #1
+\newcommand\eqnref[1]{(\ref{eq:#1})}
+\makeatletter
+\def\p@subfigure{\thefigure,~}
+\def\thesubfigure{\asbuk{subfigure}}
+\@newctr{figure}[section]
+\renewcommand \thefigure {\@arabic\c@section.\@arabic\c@figure}
+\@newctr{equation}[section]
+\renewcommand\theequation{\@arabic\c@section.\@arabic\c@equation}
+\newcommand\ps@twoside{%
+ \makeatletter%
+ \renewcommand\@oddfoot{~\hfill\thepage}%
+ \renewcommand\@evenfoot{\thepage\hfill~}%
+ \makeatother%
+}
+\newcounter{totalpages}
+\def\writetotalpages{%
+  \protected@write\@auxout
+      {}%
+      {\string\setcounter{totalpages}{\thepage}}}
+\newcounter{totalfigures}%
+\newcounter{totalsubfigures}%
+\newcounter{totalsections}%
+\newcounter{totalsubsections}%
+\newcounter{totalsubsubsections}%
+\newcounter{totalparagraphs}%
+\newcommand\makebooktitle{%
+\thispagestyle{empty}
+\begin{center}
+~ \\
+~ \\
+~ \linebreak ~\\~\\
+~\\%
+\vskip8\baselineskip%
+\makeatletter%
+\@author%
+\makeatother%
+\vskip4\baselineskip%
+\makeatletter%
+\let\@@@@plb\plb
+\def\plb{\linebreak}
+\begin{minipage}[h!]{0.8\textwidth}%%
+\centering \@title%
+\end{minipage}
+\let\plb\@@@@plb
+\makeatother%
+\vfill
+\makeatletter%
+\@date%
+\makeatother%
+\end{center}
+\newpage
+}%
+\newcommand\makesecondpage{%
+\makeatletter%
+\thispagestyle{empty}
+\begin{flushleft}
+\quadУДК~\udk\\
+\quadББК~\bbk\\
+\qquad\auth
+\vspace{2cm}
+\begin{center}
+~ %
+\end{center}
+\vspace{5cm}
+%\addtolength{\Annotw}{-2em}
+\begin{tabular}{p{1.5cm}p{15cm}}
+~ & \textbf{\@author}\\
+\auth & \hspace{\parindent}\@title~/~\@author.~--- \thetotalpages~с.: ил.~\thetotalfigures\\
+ & \qquad ISBN~\isbn{} \\
+\vspace{1cm}
+ & ~
+\end{tabular}
+\end{flushleft}
+\vfill
+\begin{flushright}
+{\small \textbf{УДК~\udk}\\
+\textbf{ББК~\bbk}}
+\end{flushright}
+\vspace{5cm}
+\begin{tabular}{p{9.5cm}p{7cm}}
+\textbf{ISBN~\isbn} & (copyrights)
+\end{tabular}
+\makeatother%
+}
+\def\loadlof{%
+\makeatletter%
+\let\@@@@contentsline\contentsline%
+\def\contentsline##1##2##3{}%
+\@starttoc{lof}%
+\let\contentsline\@@@@contentsline%
+\makeatother%
+}%
+\def\addcontentsline#1#2#3{%
+  \addtocontents{#1}{\protect\contentsline{#2}{#3}{\thepage}%
+  \protect\stepcounter{total#2s}}}
+\makeatother
+\newcommand\comment[1]{\textsf{#1}}
+\renewcommand\labelitemi{\textendash}
+%\renewcommand\labelitemii{\textendash}
+
+\makeatletter%
+\newcommand\makelastpage{%
+\thispagestyle{empty}
+~\hfill%
+~ %Св. план 2009, поз.%
+\\
+\vskip4\baselineskip%
+\begin{center}
+Сборник тезисов\\
+~\\
+\let\@@@@plb\plb
+\def\plb{\linebreak}
+\fullauthor
+\vskip6\baselineskip%
+\makeatletter%
+\begin{minipage}[h!]{0.8\textwidth}%%
+\centering \@title%
+\end{minipage}
+\end{center}
+\let\plb\@@@@plb
+\makeatother%
+\vfill
+Редактор\hfill~\\
+Корректор\hfill~\\
+{\small\begin{tabular}{lll}
+\hline
+Подписано в печать ~~~~~~~~~ & Формат 60$\times$84 1/16 & Бумага офсетная \cr
+Усл. печ. л.                 & Печать ризографическая & Гарнитура <<Компьютер модерн>> \cr
+Уч.-изд. л. 2,0.             & Тираж 100 экз.         & Заказ \cr
+\hline
+\end{tabular}}
+\begin{center}\small
+Издатель и полиграфическое исполнение: ~%
+
+~%
+
+~%
+
+~%
+\end{center}
+}%
+\makeatother%
+
+% перенос формул в тексте
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}%
+  {\hbox{$\mathsurround=0pt #1$}}{}}
+
+\def\layersep{2.5cm}
+
+\begin{document}
+\pagestyle{twoside}
+\loadlof%
+
+\makebooktitle
+\makesecondpage
+
+\newpage
+
+\thispagestyle{empty}
+\newpage
+\tableofcontents
+%\listoffigures
+
+\def\documentclass[#1]#2{}
+
+\makeatletter
+
+\def\@self@name{00}
+\def\@preamble@name{preamble.tex}
+
+\def\document{\newpage}
+\let\@lvee@enddoc\enddocument
+
+\let\@lvee@input\input
+\def\enddocument{%
+\gdef\@title{}%
+\gdef\@author{}%
+}
+
+\renewcommand\maketitle{\par
+  \begingroup
+    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+    \long\def\@makefntext##1{\parindent 1em\noindent
+            \hb@xt@1.8em{%
+                \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+    \if@twocolumn
+      \ifnum \col@number=\@ne
+        \@maketitle
+      \else
+        \twocolumn[\@maketitle]%
+      \fi
+    \else
+      \newpage
+      \global\@topnum\z@   % Prevents figures from going at top of page.
+      \@maketitle
+    \fi
+    \thispagestyle{plain}\@thanks
+  \endgroup
+}
+
+\def\input#1{
+\def\@@@curfile{#1}
+\message{@@\@@@curfile @@}
+\ifx \@@@curfile \@preamble@name
+    \message{An attempt to include the preamble has occured, ignoring.^^J}
+\else
+    \ifx \@@@curfile \@self@name
+        \message{An attempt to include ourselves had occured, ignoring.^^J}
+    \else
+        \@lvee@input#1
+    \fi
+\fi
+}
+\makeatother
+
+\input{01_aliaksey_kandratsenka}
+\input{02_ddos}
+
+\newpage
+
+\makeatletter
+\let\enddocument\@lvee@enddoc
+\let\input\@lvee@input
+\makeatother
+
+\makelastpage
+
+\eof
+
+
