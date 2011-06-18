@@ -148,6 +148,22 @@
   \setcounter{footnote}{0}%
 }
 
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    {\large
+      \lineskip .2em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+  \end{center}%
+  \par
+}
+
 \def\input#1{
 \def\@@@curfile{#1}
 \message{@@\@@@curfile @@}
