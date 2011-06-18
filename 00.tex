@@ -56,10 +56,10 @@
 \makeatletter
 \def\p@subfigure{\thefigure,~}
 \def\thesubfigure{\asbuk{subfigure}}
-\@newctr{figure}[section]
-\renewcommand \thefigure {\@arabic\c@section.\@arabic\c@figure}
-\@newctr{equation}[section]
-\renewcommand\theequation{\@arabic\c@section.\@arabic\c@equation}
+\@newctr{figure}
+\renewcommand \thefigure {\@arabic\c@figure}
+\@newctr{equation}
+\renewcommand\theequation{\@arabic\c@equation}
 \newcommand\ps@twoside{%
  \makeatletter%
  \renewcommand\@oddfoot{~\hfill\thepage}%
