@@ -56,9 +56,9 @@
 \makeatletter
 \def\p@subfigure{\thefigure,~}
 \def\thesubfigure{\asbuk{subfigure}}
-\@newctr{figure}
+\@newctr{figure}[section]
 \renewcommand \thefigure {\@arabic\c@figure}
-\@newctr{equation}
+\@newctr{equation}[section]
 \renewcommand\theequation{\@arabic\c@equation}
 \newcommand\ps@twoside{%
  \makeatletter%
