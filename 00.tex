@@ -120,7 +120,7 @@
 \setcounter{articleno}0
 
 \def\thanks#1{\footnotemark
-    \protected@xdef\@thanks{
+    \protected@xdef\@thanks{% don't accumulate the text here!
         \protect\footnotetext[\the\c@footnote]{#1}}%
 }
 \renewcommand\maketitle{\par
