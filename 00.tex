@@ -119,12 +119,9 @@
 \newcounter{articleno}
 \setcounter{articleno}0
 
-\def\thanks#1{\footnotemark
-    \protected@xdef\@thanks{% don't accumulate the text here!
-        \protect\footnotetext[\the\c@footnote]{#1}}%
-}
 \renewcommand\maketitle{\par
   \begingroup
+     \def\@thanks{}% flush all the thanks we have already collected so they don't accumulate
      \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
      \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
      \long\def\@makefntext##1{\parindent 1em\noindent
