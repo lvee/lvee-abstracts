@@ -116,26 +116,36 @@
 \gdef\@author{}%
 }
 
+\newcounter{articleno}
+\setcounter{articleno}0
+
+\def\thanks#1{\footnotemark
+    \protected@xdef\@thanks{
+        \protect\footnotetext[\the\c@footnote]{#1}}%
+}
 \renewcommand\maketitle{\par
   \begingroup
-    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
-    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
-    \long\def\@makefntext##1{\parindent 1em\noindent
-            \hb@xt@1.8em{%
-                \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
-    \if@twocolumn
-      \ifnum \col@number=\@ne
-        \@maketitle
-      \else
-        \twocolumn[\@maketitle]%
-      \fi
-    \else
+     \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+     \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+     \long\def\@makefntext##1{\parindent 1em\noindent
+             \hb@xt@1.8em{%
+                 \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+%     \if@twocolumn
+%       \ifnum \col@number=\@ne
+%         \@maketitle
+%       \else
+%         \twocolumn[\@maketitle]%
+%       \fi
+%     \else
       \newpage
       \global\@topnum\z@   % Prevents figures from going at top of page.
+      \stepcounter{articleno}%
+      \addcontentsline{toc}{section}{\numberline{\thearticleno} \@title}%
       \@maketitle
-    \fi
+%     \fi
     \thispagestyle{twoside}\@thanks
   \endgroup
+  \setcounter{footnote}{0}%
 }
 
 \def\input#1{
