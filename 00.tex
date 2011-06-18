@@ -1,6 +1,6 @@
 % vim: set tw=80:spell
 %
-\documentclass[twoside,14pt]{extarticle}
+\documentclass[twoside,a5paper,10pt]{extarticle}
 %\documentclass[twoside,14pt,draft]{extarticle}
 %\documentclass[twoside,14pt,draft]{scrartcl}
 \usepackage{amsmath}
@@ -8,14 +8,14 @@
 \usepackage{amsfonts}
 \usepackage{mathtext}
 \input{preamble.tex}
-\usepackage{portland}
-\usepackage{lscape}
-\usepackage{rotating}
+%\usepackage{portland}
+%\usepackage{lscape}
+%\usepackage{rotating}
 \usepackage[labelsep=period,justification=centering]{caption}
 %\usepackage{ccaption}
 %\captiondelim{. }
 \usepackage{tweaklist}
-\usepackage{trace}
+%\usepackage{trace}
 %\usepackage{tikz}
 %\usetikzlibrary{calc}
 %\usetikzlibrary{positioning}
@@ -37,24 +37,7 @@
 \widowpenalty=10000%
 \setlength{\parindent}{1.25cm}%
 
-\def\plb{\relax}
 \newcommand\familyname[1]{\textbf{#1}}
-\author{~}
-\def\fullauthor{}
-\title{LVEE-2011  \plb
-Сборник тезисов}
-\date{Минск 2011}
-%\def\udk{\emph{004.451}}
-%\def\bbk{\emph{32.973.26--018.2}}
-%\def\auth{\emph{П85}}
-%\def\rec{\emph{???}}
-%\def\isbn{\emph{NO-ISBN!}}
-
-\def\udk{004}
-\def\bbk{32}
-\def\auth{L\,97}
-\def\rec{Xxxxxx X.\,X.}
-\def\isbn{XXX-XXX-XXX-XXX-X}
 
 \DeclareMathOperator{\e}{e}
 \DeclareMathOperator{\cov}{cov}
@@ -94,123 +77,15 @@
 \newcounter{totalsubsections}%
 \newcounter{totalsubsubsections}%
 \newcounter{totalparagraphs}%
-\newcommand\makebooktitle{%
-\thispagestyle{empty}
-\begin{center}
-~ \\
-~ \\
-~ \linebreak ~\\~\\
-~\\%
-\vskip8\baselineskip%
-\makeatletter%
-\@author%
-\makeatother%
-\vskip4\baselineskip%
-\makeatletter%
-\let\@@@@plb\plb
-\def\plb{\linebreak}
-\begin{minipage}[h!]{0.8\textwidth}%%
-\centering \@title%
-\end{minipage}
-\let\plb\@@@@plb
-\makeatother%
-\vfill
-\makeatletter%
-\@date%
-\makeatother%
-\end{center}
-\newpage
-}%
-\newcommand\makesecondpage{%
-\makeatletter%
-\thispagestyle{empty}
-\begin{flushleft}
-\quadУДК~\udk\\
-\quadББК~\bbk\\
-\qquad\auth
-\vspace{2cm}
-\begin{center}
-~ %
-\end{center}
-\vspace{5cm}
-%\addtolength{\Annotw}{-2em}
-\begin{tabular}{p{1.5cm}p{15cm}}
-~ & \textbf{\@author}\\
-\auth & \hspace{\parindent}\@title~/~\@author.~--- \thetotalpages~с.: ил.~\thetotalfigures\\
- & \qquad ISBN~\isbn{} \\
-\vspace{1cm}
- & ~
-\end{tabular}
-\end{flushleft}
-\vfill
-\begin{flushright}
-{\small \textbf{УДК~\udk}\\
-\textbf{ББК~\bbk}}
-\end{flushright}
-\vspace{5cm}
-\begin{tabular}{p{9.5cm}p{7cm}}
-\textbf{ISBN~\isbn} & (copyrights)
-\end{tabular}
-\makeatother%
-}
-\def\loadlof{%
-\makeatletter%
-\let\@@@@contentsline\contentsline%
-\def\contentsline##1##2##3{}%
-\@starttoc{lof}%
-\let\contentsline\@@@@contentsline%
-\makeatother%
-}%
+
 \def\addcontentsline#1#2#3{%
   \addtocontents{#1}{\protect\contentsline{#2}{#3}{\thepage}%
   \protect\stepcounter{total#2s}}}
 \makeatother
 \newcommand\comment[1]{\textsf{#1}}
 \renewcommand\labelitemi{\textendash}
-%\renewcommand\labelitemii{\textendash}
+\renewcommand\labelitemii{\textendash}
 
-\makeatletter%
-\newcommand\makelastpage{%
-\thispagestyle{empty}
-~\hfill%
-~ %Св. план 2009, поз.%
-\\
-\vskip4\baselineskip%
-\begin{center}
-Сборник тезисов\\
-~\\
-\let\@@@@plb\plb
-\def\plb{\linebreak}
-\fullauthor
-\vskip6\baselineskip%
-\makeatletter%
-\begin{minipage}[h!]{0.8\textwidth}%%
-\centering \@title%
-\end{minipage}
-\end{center}
-\let\plb\@@@@plb
-\makeatother%
-\vfill
-Редактор\hfill~\\
-Корректор\hfill~\\
-{\small\begin{tabular}{lll}
-\hline
-Подписано в печать ~~~~~~~~~ & Формат 60$\times$84 1/16 & Бумага офсетная \cr
-Усл. печ. л.                 & Печать ризографическая & Гарнитура <<Компьютер модерн>> \cr
-Уч.-изд. л. 2,0.             & Тираж 100 экз.         & Заказ \cr
-\hline
-\end{tabular}}
-\begin{center}\small
-Издатель и полиграфическое исполнение: ~%
-
-~%
-
-~%
-
-~%
-\end{center}
-}%
-\makeatother%
 
 % перенос формул в тексте
 \newcommand*{\hm}[1]{#1\nobreak\discretionary{}%
@@ -219,18 +94,10 @@
 \def\layersep{2.5cm}
 
 \begin{document}
-\pagestyle{twoside}
-\loadlof%
-
-\makebooktitle
-\makesecondpage
-
-\newpage
 
 \thispagestyle{empty}
 \newpage
 \tableofcontents
-%\listoffigures
 
 \def\documentclass[#1]#2{}
 
@@ -296,8 +163,6 @@
 \let\enddocument\@lvee@enddoc
 \let\input\@lvee@input
 \makeatother
-
-\makelastpage
 
 \eof
 
