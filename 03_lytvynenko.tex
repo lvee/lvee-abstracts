@@ -22,7 +22,7 @@
 \maketitle
 
 \begin{abstract}
-Interpreted programming languages are known for their flexibility and convenience, but suffer from low execution speed comparing to compiled ones. However, they find a use for time-consuming applications. The enhanced methods of acceleration for interpreted languages are available, first of all just-in-time (JIT) compilation. The effect of the JIT compilation on the execution speed of a time-consuming scientific program is reported, and a few implementations of JIT compilers for Python are compared. \progname{PyPy} was found to be the fastest one, \progname{Psyco} --- slightly slower, \progname{Unladen Swallow} --- nearly useless.
+Interpreted programming languages are known for their fle\-xibility and convenience, but suffer from low execution speed comparing to compiled ones. However, they find a use for time-consuming applications. The enhanced methods of acceleration for interpreted languages are available, first of all just-in-time (JIT) compilation. The effect of the JIT compilation on the execution speed of a time-consuming scientific program is re\-ported, and a few imp\-le\-mentations of JIT compilers for Python are compared. \progname{PyPy} was found to be the fastest one, \progname{Psyco} --- slightly slower, \progname{Unladen Swallow} --- nearly useless.
 \end{abstract}
 
 Інтэрпрэтаваныя мовы праграмавання ўсё часцей ужываюцца пры напісанні праграм для разнастайных сфераў дастасавання, у тым ліку такіх, што традыцыйна не асацыююцца з інтэрпрэтаванымі мовамі, а менавіта "--- напісанне праграм, якія патрабуюць вялікіх вылічальных рэсурсаў.
@@ -80,11 +80,11 @@ $$
 
 Найбольш цікавымі з'яўляюцца праекты JIT-кампілятараў:
 \begin{itemize}
-\item Модуль \progname{Psyco}. Рэалізаваны як модуль \progname{CPython} (стандартнае рэалізацыі мовы). З'яўляецца найбольш старым, вядомым, зручным, а да апошняга часу "--- і самым хуткім. Недахопы: прывязаны да версіі інтэрпрэтатара і платформы (толькі x86), прычым распрацоўка новых версій ускладненая (напрыклад, версіі пад Python 2.7 няма дагэтуль).
+\item Модуль \progname{Psyco}. Рэалізаваны як модуль \progname{CPython} (стандартнае рэалізацыі мовы). З'яўляецца найбольш старым, вядомым, \linebreak зручным, а да апошняга часу "--- і самым хуткім. Недахопы: прывязаны да версіі інтэрпрэтатара і платформы (толькі x86), прычым распрацоўка новых версій ускладненая (напрыклад, версіі пад Python 2.7 няма дагэтуль).
 
 \item Праект \progname{PyPy}. З'яўляецца інтэпрэтатарам і JIT"=кампілятарам. Хуткасць выканання расце ад версіі да версіі і ўжо перавышае хуткасць Psyco \cite{speed}. Ускладненая праца з вонкавымі бібліятэкамі на C.
 
-\item Праект \progname{Unladen Swallow}. Пазіцыянуецца як аптымізаваны \progname{CPython} з JIT-кампіляцыяй. Пакуль што працуе нашмат павольней за папярэднія два.
+\item Праект \progname{Unladen Swallow}. Пазіцыянуецца як аптымізаваны \linebreak \progname{CPython} з JIT-кампіляцыяй. Пакуль што працуе нашмат павольней за папярэднія два.
 \end{itemize}
 
 Агульная праблема ўсіх JIT"=рэалізацый "--- патрабаванне большага аб'ёму памяці, чым \progname{CPython}.
