@@ -10,8 +10,8 @@
 \maketitle
 \renewcommand{\abstractname}{Abstract}
 \begin{abstract}
-Drupal is a popular CMS/CMF used to power the different types of web-projects worldwide. The desire of developers to make their system competitive in terms of functionality and flexibility sooner or later leads to increase of server load and reduced performance. Extensive functionality, flexibility in \linebreak configuration and extensibility through third"=party modules are undoubtedly a huge advantage, enabling to carry out projects of varying complexity and purpose, but the price often is a poor performance of high loaded Drupal-powered sites.
-In our review we are going to revise existing standard methods of Drupal \linebreak performance optimization (both server- and client-side) and \linebreak demonstrate custom solutions that can be applied to some of the critical areas of Drupal"=powered high"=loaded website. In our real"=life example we are going to show how to build Google Map page, capable to show thousands of markers based on Drupal content nodes.
+Drupal is a popular CMS/CMF used to power the different types of web-projects worldwide. The desire of developers to make their system competitive in terms of functionality and flexibility sooner or later leads to increase of server load and reduced performance. Extensive functionality, flexibility in configu\-ration and extensibility through third"=party modules are undoubtedly a huge advantage, enabling to carry out projects of varying complexity and purpose, but the price often is a poor perfor\-mance of high loaded Drupal-powered sites.
+In our review we are going to revise existing standard methods of Drupal perfor\-mance optimi\-za\-tion (both server- and client-side) and  demonstrate cus\-tom solutions that can be applied to some of the critical areas of Drupal"=powered high"=loaded website. In our real"=life example we are going to show how to build Google Map page, capable to show thousands of markers based on Drupal content nodes.
 \end{abstract}
   
 Drupal (7-ая, текущая версия) является достаточно развитой системой управления контентом. Стремление разработчиков сделать свою систему универсальной и более функциональной, чем у конкурентов, рано или поздно приводит к тому, что возрастают нагрузки на сервер, снижается быстродействие. Обширный функционал, гибкость в конфигурировании и расширяемость посредством сторонних модулей несомненно являются огромным преимуществом, благодаря которому позволяет выполнять проекты различной сложности и назначения, но плата за него --- низкая производительность готового решения. 
@@ -34,10 +34,10 @@ Drupal (7-ая, текущая версия) является достаточн
 	\item конвертировать таблицы MySQL в UTF8 InnoDB;
 	\item создать индексы для медленных запросов Views. Желательно проанализировать такие запросы и увеличить производительность созданием индексов для полей;
 	\item использовать ImageMagick вместо стандартной GD image \linebreak library, т.~к. он лучше использует ресурсы сервера и дает лучшее качество изображений;
-	\item использовать модуль Content Delivery Network integration. Он позволяет распределить файлы на множество отделенных друг от друга серверов. При этом снижается динамическая нагрузка на сервер, но требуется дополнительная плата за каждый сервер;
+	\item использовать модуль Content Delivery Network integration. Он позволяет распределить файлы на множество разделенных серверов. При этом снижается динамическая нагрузка на сервер, но требуется дополнительная плата за каждый сервер;
 \end{itemize}
 
-Наиболее продуктивным способом увеличения производительности является использование отдельной  эффективной системы кэширования.
+Наиболее продуктивный способ увеличения производительности "--- отдельная эффективная система кэширования.
 
 {\bf Boost}. Одна из лучших систем кэширования для shared hosts. Cоздает копии html-станиц, которые генерирует Drupal, и хранит их в каталоге cache. Используя правила <<.htaccess>>, Boost проверяет, существует ли необходимый файл. Если да, то загружает статичный html, полностью избегая Drupal/PHP/MySQL. Если нет,  генерирует файл. Старые файлы удаляются по cron для того, чтобы выводимое содержимое сайта оставалось свежим (актуальным).
 
@@ -54,18 +54,17 @@ Drupal (7-ая, текущая версия) является достаточн
 \begin{itemize}
 	\item 150 000+  уникальных посетителей в день
 	\item 6000+ ивентов, созданных пользователями
-	\item ~500 авторизованных пользователей в среднем постоянно на сайте
-	\item Самая посещаемая страница: карта ивентов (/map)
+	\item ок. 500 авторизованных пользователей постоянно на сайте
+	\item самая посещаемая страница: карта ивентов (/map)
 \end{itemize}
 
-Кэширование критично как для анонимов, так и для авторизованных пользователей. Используется Pressflow/Varnish
+Кэширование критично как для анонимов, так и для авторизованных пользователей. Используется Pressflow/Varnish и специальные меры для повышения производительности:
 \longpage
-Cпециальные меры и собственные разработки для повышения производительности включают:
 \begin{itemize}
 	\item Отказ от Views для генерации больших массивов данных
-	\item  XML файл на диск вместо DB кэш (плюсы/минусы)
-	\item Кэширование на диск всех RSS фидов
-	\item Ajax запросы информации для маркеров на карте
+	\item XML"=файл на диск вместо DB"=кэша (плюсы/минусы)
+	\item Кэширование на диск всех RSSЭ=фидов
+	\item Ajax"=запросы информации для маркеров на карте.
 \end{itemize}
 
 \end{document}
