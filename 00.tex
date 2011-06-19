@@ -162,15 +162,17 @@
 \def\@maketitle{%
   \newpage
   \null
-  \vskip 1em%
   \begin{center}%
   \let \footnote \thanks
-    {\LARGE \@title \par}%
+    {\LARGE \@title }\\%
+    \ifx \@author \@empty
+    \else
     {\large
       \lineskip .2em%
       \begin{tabular}[t]{c}%
         \@author
-      \end{tabular}\par}%
+      \end{tabular}}%
+    \fi
   \end{center}%
   \par
 }
