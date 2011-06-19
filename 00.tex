@@ -116,6 +116,17 @@
 \newcounter{articleno}
 \setcounter{articleno}0
 
+\def\@lbibitem[#1]#2{\setlength{\topsep}{0pt}%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt plus 1pt minus 1pt}\setlength{\parsep}{0pt}%
+    \item[\@biblabel{#1}\hfill]\if@filesw
+      {\let\protect\noexpand
+       \immediate
+       \write\@auxout{\string\bibcite{#2}{#1}}}\fi\ignorespaces}
+\def\@bibitem#1{\setlength{\topsep}{0pt}%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt plus 1pt minus 1pt}\setlength{\parsep}{0pt}%
+    \item\if@filesw \immediate\write\@auxout
+       {\string\bibcite{#1}{\the\value{\@listctr}}}\fi\ignorespaces}
+
 \renewcommand\maketitle{\par
   \begingroup
      \def\@thanks{}% flush all the thanks we have already collected so they don't accumulate
