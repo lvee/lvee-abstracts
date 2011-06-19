@@ -134,7 +134,8 @@
       \newpage
       \global\@topnum\z@   % Prevents figures from going at top of page.
       \stepcounter{articleno}%
-      \addcontentsline{toc}{section}{\numberline{\thearticleno} \@title}%
+      \def\footnote##1{}
+      \addcontentsline{toc}{section}{\numberline{\thearticleno} \@author: \@title}%
       \@maketitle
 %     \fi
     \thispagestyle{twoside}\@thanks
