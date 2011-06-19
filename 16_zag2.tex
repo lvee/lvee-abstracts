@@ -2,7 +2,7 @@
 \input{preamble.tex}
 \frenchspacing
 \begin{document}
-\title{Perl 6 Pod --- формат ведения документации}
+\title{Perl 6 Pod "--- формат ведения документации}
 \author{Александр Загацкий\footnote{Витебск, Беларусь, \url{http://zag.ru}, \url{me@zag.ru}}}
 \date{}
 \maketitle
@@ -15,7 +15,7 @@ expressive. Established in 2005, specification
 has undergone several revisions and is currently stable. The
 specification is written in Perl 6 Pod and is a
 good means of testing the implementations.
-There are several implementations in Perl 5 and Perl 6.
+There are several imple\-men\-ta\-tions in Perl 5 and Perl 6.
 Presentation covers the differences from Perl 5 POD, key features and 
 experience of Perl 6 Pod personal usage.
 \end{abstract}
@@ -32,7 +32,7 @@ experience of Perl 6 Pod personal usage.
 является тот факт, что эти блоки документации становятся доступными
 через специальный атрибут \verb!.WHY!. Например:
 
-\begin{lstlisting}[language={Perl}]
+\begin{verbatim}
  sub fu (           #= This text stored in &fu.WHY
   Any     $bar,    #= This text stored in $bar.WHY
   Mode    :$baz   #= This text stored in $baz.WHY
@@ -43,7 +43,7 @@ experience of Perl 6 Pod personal usage.
 
  say $chainsaw.WHY; # prints: This is a special chainsaw
                    #         (It has a rocket launcher)
-\end{lstlisting}
+\end{verbatim}
 
 
 В приведенном примере текст документации к переменной \linebreak \verb!$chainsaw!
