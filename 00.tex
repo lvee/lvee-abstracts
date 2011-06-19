@@ -91,6 +91,7 @@
 \def\layersep{2.5cm}
 
 \begin{document}
+\addtocounter{page}{2}%
 \pagestyle{twoside}
 
 \thispagestyle{empty}
@@ -147,9 +148,9 @@
       \stepcounter{articleno}%
       \def\footnote##1{}
       \ifx \@author \@empty
-          \addcontentsline{toc}{section}{\numberline{\thearticleno} \@title}%
+          \addcontentsline{toc}{section}{\numberline{} \@title}%
       \else
-          \addcontentsline{toc}{section}{\numberline{\thearticleno} \@author: \@title}%
+          \addcontentsline{toc}{section}{\numberline{} \@author: \@title}%
       \fi
       \@maketitle
 %     \fi
