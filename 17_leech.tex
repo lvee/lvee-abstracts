@@ -1,17 +1,10 @@
 \documentclass[10pt, a5paper]{article}
-\usepackage{ucs}
-\usepackage[utf8]{inputenc}
-\usepackage[T2A]{fontenc}
-\usepackage[english, russian]{babel}
-\usepackage{hyperref}
-\usepackage{geometry}
-\frenchspacing
-
+\input{preamble.tex}
 \begin{document}
 
 \title{LeechCraft: открытый модульный интернет-клиент}
 
-\author{Георгий Рудой\footnote{Московский физико-технический институт, \url{0xd34df00d@gmail.com}}, Олег Линкин\footnote{Министерство Обороны Республики Беларусь, MaledictusDeMagog@gmail.com}}
+\author{Георгий Рудой\footnote{Московский физико-технический институт, \url{0xd34df00d@gmail.com}}, Олег Линкин\footnote{Министерство Обороны Республики Беларусь, \url{MaledictusDeMagog@gmail.com}}}
 \date{}
 \maketitle
 
@@ -67,7 +60,7 @@ cookies.
 сообщение, либо отказаться от его обработки.
 
 В то же время иногда необходимо тесное связывание модулей друг с
-другом. Например, модуль блокировки рекламы в веб-браузере тесно
+другом. Например, модуль блокировки рекламы в веб"=браузере тесно
 связан с самой реализацией модуля-браузера, и сделать его
 абстрактным не представляется возможным. Аналогично, система
 поддержки стилей чатов в клиенте мгновенных сообщений связана с
