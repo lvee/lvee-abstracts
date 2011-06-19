@@ -1,12 +1,5 @@
 \documentclass[10pt, a5paper]{article}
-\usepackage{ucs}
-\usepackage[utf8]{inputenc}
-\usepackage[T2A]{fontenc}
-\usepackage[english, russian]{babel}
-\usepackage{hyperref}
-\usepackage{geometry}
-\usepackage{graphicx}
-\frenchspacing
+\input{preamble.tex}
 \begin{document}
 \title{Построение домашнего медиацентра с помощью LIRC}
 \author{Алексей Бутько\footnote{Минск, Беларусь, \url{gnomkun@gmail.com}}}
@@ -45,14 +38,9 @@ much more on just one button press.
 
 \begin{figure}[ht]
 \centering{\includegraphics[width=8cm]{26_lirc_fig1}}
+\centering{\includegraphics[width=11cm]{26_lirc_fig2}}
 %\label{pic:fl1}
 \caption{Схема инфракрасного приемника}
-\end{figure}
-
-\begin{figure}[ht]
-\centering{\includegraphics[width=8cm]{26_lirc_fig2}}
-%\label{pic:fl1}
-%\caption{Приложения по категориям}
 \end{figure}
 
 Такое решение является наиболее простым и доступным, однако, т.~к. COM-порт 
@@ -76,7 +64,7 @@ PIC-программатора.
 \end{itemize}
 Кроме того, стоит упомянуть вспомогательные программы для отладки и настройки:
 \begin{itemize}
-	\item irrecord "--- утилита для записи сегналов пульта и создания lircd.conf
+	\item irrecord "--- утилита для записи сегналов пульта и создания \linebreak lircd.conf
 	\item irw "--- читает сообщения с сокета lircd и выдает на stdout; в качестве параметра можно указать имя сокета
 	\item ircat "--- отладочная программа для конфигурационного файла ~/.lircrc; в качестве параметра указывается имя программы (точнее имя описывающей
 её секции); по нажатию кнопки на пульте ДУ ircat выводит на stdout строку, привязанную к этой кнопке
