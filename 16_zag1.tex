@@ -1,12 +1,5 @@
 \documentclass[10pt, a5paper]{article}
-\usepackage{ucs}
-\usepackage[utf8]{inputenc}
-\usepackage[T2A]{fontenc}
-\usepackage[english, russian]{babel}
-\usepackage{hyperref}
-\usepackage{geometry}
-\usepackage{graphicx}
-\frenchspacing
+\input{preamble.tex}
 \begin{document}
 \title{Открытые протоколы --- основа распределенных социальных сетей}
 \author{Александр Загацкий\footnote{Витебск, Беларусь, \url{http://zag.ru}, \url{me@zag.ru}}}
@@ -58,9 +51,9 @@ Amazon EC2 произошел сбой \cite{zag1}, в результате че
  Ключевыми из них являются следующие:
 
  \subsubsection*{Atom/RSS}
- \begin{figure}[ht]
-\centering{\includegraphics{16_zag1_atom-logo.png}}
-\end{figure}
+% \begin{figure}[ht]
+%\centering{\includegraphics{16_zag1_atom-logo.png}}
+%\end{figure}
 
     Формат синдикации Atom основан на XML и позволяет описывать наборы
     веб-ресурсов. Например: новостные ленты, анонсы статей в блоге,
@@ -72,9 +65,9 @@ Amazon EC2 произошел сбой \cite{zag1}, в результате че
     данных --- сведения о серверах аутентификации, публичные криптоключи и т.д.
 
     \subsubsection*{WebFinder}
- \begin{figure}[ht]
-\centering{\includegraphics{16_zag1_WebFinger.png}}
-\end{figure}
+% \begin{figure}[ht]
+%\centering{\includegraphics{16_zag1_WebFinger.png}}
+%\end{figure}
     Протокол, позволяющий идентифицироваться пользователю. В качестве
     идентификации используется запись вида 
     
@@ -84,16 +77,16 @@ Amazon EC2 произошел сбой \cite{zag1}, в результате че
     пользователя и извлекаются XRD-записи.
 
  \subsubsection*{OpenID/OAuth}
-  \begin{figure}[ht]
-\centering{\includegraphics{16_zag1_penid-icon.png}}
-\end{figure}
+%  \begin{figure}[ht]
+%\centering{\includegraphics{16_zag1_penid-icon.png}}
+%\end{figure}
     Протоколы аутентификации и авторизации. Позволяют повысить
     безопасность при взаимодействии нескольких независимых сервисов.
 
     \subsubsection*{Pubsubhubbub}
-   \begin{figure}[ht]
-\centering{\includegraphics{16_zag1_pubsubhubbub.png}}
-\end{figure}
+%   \begin{figure}[ht]
+%\centering{\includegraphics{16_zag1_pubsubhubbub.png}}
+%\end{figure}
     Протокол позволяет сообщать об обновлениях другим ресурсам. При этом
     используются так называемые хабы, которые сообщают об изменениях на
     основном ресурсе подписчикам. Такая схема позволяет реализовать 
@@ -103,13 +96,13 @@ Amazon EC2 произошел сбой \cite{zag1}, в результате че
     Slatkin. Источник обновления децентрализуется. Адрес hub для
     обновлений указывается в RSS/Atom в следующем формате:
 
-     \verb!<link rel="hub" href="http://myhub.example.com/endpoint" />!
+\noindent     \verb!<link rel="hub" href="http://myhub.example.com/endpoint"/>!
 
 
      \subsubsection*{Salmon}
-    \begin{figure}[ht]
-\centering{\includegraphics{16_zag1_customLogo.png}}
-\end{figure}
+%    \begin{figure}[ht]
+%\centering{\includegraphics{16_zag1_customLogo.png}}
+%\end{figure}
     Этот протокол позволяет отправлять действия по отношению к объекту
     (например, статье или заметке) с агрегаторов в оригинальный
     источник. Например, Salmon используется для сбора комментариев к
@@ -118,16 +111,17 @@ Amazon EC2 произошел сбой \cite{zag1}, в результате че
 
     Адрес для отправки обновлений указан в RSS/Atom:
 
-        \verb!<link rel="salmon" href="http://example.org/salmon-endpoint"/>!
+\noindent        \verb!<link rel="salmon"! \linebreak
+\verb!href="http://example.org/salmon-endpoint"/>!
 
     Особенностью данного протокола является крипто-подпись сообщений,
     которая позволяет решить проблемы со спамом. Для получения
     публичного ключа используется формат XRD.
 
     \subsubsection*{ActivityStreams}
-    \begin{figure}[ht]
-\centering{\includegraphics{16_zag1_icon-lg.png}}
-\end{figure}
+%    \begin{figure}[ht]
+%\centering{\includegraphics{16_zag1_icon-lg.png}}
+%\end{figure}
     Формат описания активности пользователя на ресурсах. Благодаря этому
     формату происходит уведомление узлов распределенной сети о действиях
     пользователей: написании комментария, выставление оценки <<нравится>>,
@@ -144,7 +138,7 @@ Amazon EC2 произошел сбой \cite{zag1}, в результате че
     сервисам \cite{zag5}. При этом используется протокол OAuth, и
     пользователь управляет доступом к своему списку контактов.
 
- Среди проектов создания распределенных социальных сетей можно отметить
+ Среди проектов создания распределенных социальных сетей \linebreak можно отметить
  следующие:
  \begin{description}
 	 \item[StatusNet] \cite{zag6}\\
@@ -161,7 +155,7 @@ Amazon EC2 произошел сбой \cite{zag1}, в результате че
     публикации фотографий. Лицензия: AGPL-3.0.
     \item[friendika] \cite{zag9}\\
     Возможности: cервер профилей и поддержка ряда других сетей
-    (Diaspora, Google Buzz, Identi.ca, Twitter), поддержка шифрования
+    (Diaspora, Google Buzz, Identi.ca, Twitter), поддержка \linebreak шифрования
     между серверами. Лицензия: BSD License.
     \item[OneSocialWeb] \cite{zag10}
     Данная сеть микроблоггинга использует в качестве транспорта протокол

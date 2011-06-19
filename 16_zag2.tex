@@ -1,11 +1,5 @@
 \documentclass[10pt, a5paper]{article}
-\usepackage{ucs}
-\usepackage[utf8]{inputenc}
-\usepackage[T2A]{fontenc}
-\usepackage[english, russian]{babel}
-\usepackage{hyperref}
-\usepackage{geometry}
-\usepackage{listings}
+\input{preamble.tex}
 \frenchspacing
 \begin{document}
 \title{Perl 6 Pod --- формат ведения документации}
@@ -52,7 +46,7 @@ experience of Perl 6 Pod personal usage.
 \end{lstlisting}
 
 
-В приведенном примере текст документации к переменной \verb!$chainsaw!
+В приведенном примере текст документации к переменной \linebreak \verb!$chainsaw!
 становится доступным из программного кода. В указанном примере блок кода
 будет выведен на экран:
 \begin{lstlisting}[language={Perl}]
