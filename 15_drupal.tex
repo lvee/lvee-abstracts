@@ -1,11 +1,5 @@
 \documentclass[10pt, a5paper]{article}
-\usepackage{ucs}
-\usepackage[utf8]{inputenc}
-\usepackage[T2A]{fontenc}
-\usepackage[english, russian]{babel}
-\usepackage{hyperref}
-\usepackage{geometry}
-\frenchspacing
+\input{preamble.tex}
 
 \begin{document}
 
@@ -16,10 +10,8 @@
 \maketitle
 \renewcommand{\abstractname}{Abstract}
 \begin{abstract}
-Drupal is a popular CMS/CMF used to power the different types of web-projects worldwide. The desire of developers to make their system competitive in terms of functionality and flexibility sooner or later leads to increase of server load and reduced performance. Extensive functionality, flexibility in configuration and extensibility through third-party modules are undoubtedly a huge advantage, enabling to carry out projects of varying complexity and purpose, but the price often is a poor performance of high loaded Drupal-powered sites.
-In our review we are going to revise existing standard methods of Drupal performance optimization (both server- and client-side) and demonstrate custom solutions that can be applied to some of the critical areas of Drupal-powered high-loaded web-site. In our real-life example we are going to show how to build Google Map page, capable to show thousands of markers based on Drupal content nodes.*
-
-Насчет изменения предложения - "/Кэширование критично как для анонимов, так и для авторизованных пользователей. Используется Pressflow/Varnish/" - нет проблем. 
+Drupal is a popular CMS/CMF used to power the different types of web-projects worldwide. The desire of developers to make their system competitive in terms of functionality and flexibility sooner or later leads to increase of server load and reduced performance. Extensive functionality, flexibility in \linebreak configuration and extensibility through third"=party modules are undoubtedly a huge advantage, enabling to carry out projects of varying complexity and purpose, but the price often is a poor performance of high loaded Drupal-powered sites.
+In our review we are going to revise existing standard methods of Drupal \linebreak performance optimization (both server- and client-side) and \linebreak demonstrate custom solutions that can be applied to some of the critical areas of Drupal"=powered high"=loaded website. In our real"=life example we are going to show how to build Google Map page, capable to show thousands of markers based on Drupal content nodes.
 \end{abstract}
   
 Drupal (7-ая, текущая версия) является достаточно развитой системой управления контентом. Стремление разработчиков сделать свою систему универсальной и более функциональной, чем у конкурентов, рано или поздно приводит к тому, что возрастают нагрузки на сервер, снижается быстродействие. Обширный функционал, гибкость в конфигурировании и расширяемость посредством сторонних модулей несомненно являются огромным преимуществом, благодаря которому позволяет выполнять проекты различной сложности и назначения, но плата за него --- низкая производительность готового решения. 
@@ -38,10 +30,10 @@ Drupal (7-ая, текущая версия) является достаточн
 	\item использовать модуль Javascript Aggregator. Настройки Drupal позволяют объединить js-файлы, однако этот модуль позволяет еще и уменьшить конечный размер передаваемого файла;
 	\item заменить системный cron на более функциональный модуль Elysia Cron. В отличие от системного, Elysia Cron позволяет распределить задачи по времени одна за одной, а не все вместе, при этом снижая пиковую нагрузку на сервер;
 	\item перенести вызов javascript вниз станицы;
-	\item помещать сторонние библиотеки вне каталога модулей /sites/all/modules --- например, в /sites/all/libraries. В таком случае Drupal не будет просматривать ненужные ему файлы;
+	\item помещать сторонние библиотеки вне каталога модулей \linebreak /sites/all/modules "--- например, в /sites/all/libraries. В таком \linebreak случае Drupal не будет просматривать ненужные ему файлы;
 	\item конвертировать таблицы MySQL в UTF8 InnoDB;
 	\item создать индексы для медленных запросов Views. Желательно проанализировать такие запросы и увеличить производительность созданием индексов для полей;
-	\item использовать ImageMagick вместо стандартной GD image library, т.~к. он лучше использует ресурсы сервера и дает лучшее качество изображений;
+	\item использовать ImageMagick вместо стандартной GD image \linebreak library, т.~к. он лучше использует ресурсы сервера и дает лучшее качество изображений;
 	\item использовать модуль Content Delivery Network integration. Он позволяет распределить файлы на множество отделенных друг от друга серверов. При этом снижается динамическая нагрузка на сервер, но требуется дополнительная плата за каждый сервер;
 \end{itemize}
 
@@ -49,12 +41,12 @@ Drupal (7-ая, текущая версия) является достаточн
 
 {\bf Boost}. Одна из лучших систем кэширования для shared hosts. Cоздает копии html-станиц, которые генерирует Drupal, и хранит их в каталоге cache. Используя правила <<.htaccess>>, Boost проверяет, существует ли необходимый файл. Если да, то загружает статичный html, полностью избегая Drupal/PHP/MySQL. Если нет,  генерирует файл. Старые файлы удаляются по cron для того, чтобы выводимое содержимое сайта оставалось свежим (актуальным).
 
-{\bf Memcache}. Серверная система кэширования, сохраняющая страницы сайта в оперативной памяти сервера. Все что необходимо для эффективной работы в данном случае --- быстрое ОЗУ большого объема. Его можно успешно использовать как для кэширования анонимных пользователей, так и для зарегистрированных. Но возможен и вариант, когда Memcache кэширует зарегистрированных пользователей, а Boost используется для кэширования анонимов. К преимуществам варианта можно отнести возможность кэширования анонимов и зарегистрированных пользователей, а к недостаткам --- то, что нужен хотя бы VPS, c достаточной оперативной памятью и невозможность работы на shared hosting.
+{\bf Memcache}. Серверная система кэширования, сохраняющая \linebreak страницы сайта в оперативной памяти сервера. Все что необходимо для эффективной работы в данном случае --- быстрое ОЗУ большого объема. Его можно успешно использовать как для кэширования анонимных пользователей, так и для зарегистрированных. Но возможен и вариант, когда Memcache кэширует зарегистрированных пользователей, а Boost используется для кэширования анонимов. К преимуществам варианта можно отнести возможность кэширования анонимов и зарегистрированных пользователей, а к недостаткам --- то, что нужен хотя бы VPS, c достаточной оперативной памятью и невозможность работы на shared hosting.
 
 {\bf APC(Alternate PHP Cache)}. Система кэширования op-code для серверов Apache. Подход весьма эффективен при большом числе активных модулей на сайте. Суть системы заключается в кэшировании компилированного байт-кода PHP-скрипта для того, чтобы избежать расходов ресурсов сервера на разбор и компиляцию исходного кода при каждом запросе. Для дальнейшего повышения производительности кэшированный код хранится в общей памяти и непосредственно выполняется оттуда, тем самым сводя к минимуму количество медленных операций чтения файлов и копирования в памяти во время выполнения.
 К преимуществам относится ускорение компиляции скриптов Drupal и уменьшение использования ресурсов сервера, к недостаткам --- необходимость произвести специальное конфигурирование сервера.
 
-{\bf Varnish(reverse proxy http-accelerator)}. Данная система выступает на первом плане над сервером Apache, PHP и Drupal. Varnish сохраняет кэшированное содержимое в оперативной памяти, и таким образом экономит ресурсы на загрузке Apache и Drupal. В результате этого Varnish предоставляет высокую производительность для кэшированных страниц для анонимных пользователей и является предпочтительным вариантом для сложных ресурсоемких сайтов, требующих значительной  масштабируемости. Для работы с Drupal 6 необходима была отдельная <<оптимизированная>> сборка дистрибутива под названием PressFlow и установка модуля интеграции Varnish HTTP Accelerator Integration. Для текущей версии Drupal достаточно установки модуля.
+{\bf Varnish (reverse proxy http-accelerator)}. Данная система выступает на первом плане над сервером Apache, PHP и Drupal. \linebreak Varnish сохраняет кэшированное содержимое в оперативной памяти, и таким образом экономит ресурсы на загрузке Apache и Drupal. В результате этого Varnish предоставляет высокую производительность для кэшированных страниц для анонимных пользователей и является предпочтительным вариантом для сложных ресурсоемких сайтов, требующих значительной  масштабируемости. Для работы с Drupal 6 необходима была отдельная <<оптимизированная>> сборка дистрибутива под названием PressFlow и установка модуля интеграции Varnish HTTP Accelerator Integration. Для текущей версии Drupal достаточно установки модуля.
 
 \section*{Пример проекта с высокой нагрузкой --- 350.org (Drupal 6)}
 
