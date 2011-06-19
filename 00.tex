@@ -135,8 +135,12 @@
       \global\@topnum\z@   % Prevents figures from going at top of page.
       \stepcounter{articleno}%
       \def\footnote##1{}
-      \addcontentsline{toc}{section}{\numberline{\thearticleno} \@author: \@title}%
+      \ifx \@author \@empty
+          \addcontentsline{toc}{section}{\numberline{\thearticleno} \@title}%
+      \else
+          \addcontentsline{toc}{section}{\numberline{\thearticleno} \@author: \@title}%
       \@maketitle
+      \fi
 %     \fi
     \thispagestyle{twoside}\@thanks
   \endgroup
