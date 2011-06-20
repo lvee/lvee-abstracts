@@ -14,6 +14,7 @@
 \usepackage[labelsep=period,justification=centering]{caption}
 %\usepackage{ccaption}
 %\captiondelim{. }
+\usepackage{hyphenat}
 \usepackage{tweaklist}
 %\usepackage{trace}
 %\usepackage{tikz}
@@ -94,6 +95,23 @@
 \addtocounter{page}{2}%
 \pagestyle{twoside}
 
+\makeatletter
+\def\@starttoc#1{%
+  \begingroup
+    \raggedright
+    \sloppy
+    \makeatletter
+    \@input{\jobname.#1}%
+    \if@filesw
+      \expandafter\newwrite\csname tf@#1\endcsname
+      \immediate\openout \csname tf@#1\endcsname \jobname.#1\relax
+    \fi
+    \@nobreakfalse
+    \fussy
+  \endgroup}
+\makeatother
+
+
 \thispagestyle{empty}
 \newpage
 \tableofcontents
@@ -148,9 +166,9 @@
       \stepcounter{articleno}%
       \def\footnote##1{}
       \ifx \@author \@empty
-          \addcontentsline{toc}{section}{\@title}%
+          \addcontentsline{toc}{section}{\nohyphens{\@title}}%
       \else
-          \addcontentsline{toc}{section}{\@author: \@title}%
+          \addcontentsline{toc}{section}{\nohyphens{\@author: \@title}}%
       \fi
       \@maketitle
 %     \fi
