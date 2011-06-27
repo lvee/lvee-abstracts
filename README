@@ -1,0 +1,20 @@
+To get your PDF copy of the articles, type `make -B 00.pdf` at least three
+times. Repeating is required for TOC and hyperlinks to go in place as TeX
+can't fix them up in one run.
+
+Alternatively, you may want to make a PDF of a single article. Just substitute
+00.pdf with the name of article's file s/tex/pdf/.
+
+The 00.tex file contains a number of hacks and dark magic to make it possible
+to compile each article separately. Unfortunately, that magic isn't perfect
+and leads to some strange things like empty numbered pages at the very end of
+the book. The most important settings are found in preamble.tex --- it's
+included into every article's file. Please don't substitute the
+\input{preamble.tex} instruction with the actual preamble, as 00.tex redefines
+\input command to skip multiple preamble inclusion. If you have to add
+something to the preamble please append your commands to the preamble.tex file.
+
+Also please note that automatic hyphenation for languages other than Russian
+doesn't work. No portable solution found yet, and that can lead to overfull
+lines. Please fix them by specifying the correct hypenation either inline, or
+in preamble.tex (for recurring hyphenation problems).
