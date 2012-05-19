@@ -1,0 +1,131 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+
+\begin{document}
+
+\title{Heartbeat: построение отказоустойчивого кластера}
+
+\author{Юрий Волкович\footnote{Minsk, Belarus}}
+\maketitle
+
+\begin{abstract}
+Report presents an approach to build a cluster for web server, as well as author's personal experience and some interesting decisions in this matter.
+\end{abstract}
+
+В рамках данной темы под кластером понимается система повышенной готовности, т.е. построенная с расчетом того, что она продолжает работать безотказно, даже если какая-то ее часть выходит из строя.
+
+Heartbeat "--- продукт проекта Linux-HA \cite{Volkovich1}, позволяющий реализовать механизм безотказной работы отдельных частей кластера.
+
+\subsection*{Задача}
+
+Решаемая задача заключалась в построении отказоустойчивого кластера из двух web-серверов, которые могут моментально заменить друг друга в случае выхода из строя одного из них. Сервер предназначен для авторизации на таких сайтах, как irr.ru, job.ru и др., аудитория которых насчитывает несколько миллионов пользователей в сутки, поэтому его значимость для компании достаточно велика.
+
+\subsection*{Используемое ПО:}
+
+Законченное решение было построено на следующем наборе программных продуктов:
+
+\begin{itemize}
+  \item heartbeat (поднимает виртуальный ip и проверяет доступность соседнего сервера);
+  \item monit \cite{Volkovich2} (следит за правильной работой демонов, обслуживающих сайт);
+  \item web-сервер (связка nginx \cite{Volkovich3}, php-fpm \cite{Volkovich4}, mongodb \cite{Volkovich5}, memcache \cite{Volkovich6}).
+\end{itemize}
+
+\subsection*{Схема взаимодействия демонов}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=9cm]{01_2012_heartbeat}
+  \label{fig:Volkovich1}
+\end{figure}
+
+Для начала поднимаются два сервера NODE\_1 и NODE\_2, на которых запущена работающая версия сайта. Затем на оба сервера подключается heartbeat. Он должен <<держать>> виртуальный адрес ext\_ip\_3 и следить за доступностью соседнего сервера, а при сбое на текущем --- передавать ext\_ip\_3 heartbeat'у соседнего сервера. Однако, этого не достаточно для полного отслеживания того, работает ли сайт, поскольку heartbeat не обладает возможностью проверять работоспособность базы данных mongodb либо других используемых сервисов. Эти задачи можно делегировать демону monit, настроенному для проверки того, работают ли все необходимые демоны.
+
+На данном этапе конфигурация, в принципе, является завершенной, и если какой-то из демонов на мастер-сервере <<упадет>>, обслуживание сайта немедленно будет перенаправлено на второй сервер. Но, как показала практика, и этого оказывается недостаточно в случае, когда демон работает, но при этом выдает неверные данные, либо просто зависает, захватив все наличные ресурсы. Для решения данной проблемы нами было написано несколько небольших скриптов, которые запускаются по cron'у и проверяют такие параметры, как репликацию в memcached и mongodb, отдачу http-трафика через php-fpm и др. менее значительные нюансы. И в случае, если проверка не проходит, в скрипте (как и в monit) выполняется команда hb\_standby, которая заставляет heartbeat принудительно отдать ext\_ip\_3 на slave-сервер, если таковой имеется.
+
+\subsection*{Конфигурация демонов}
+
+Ниже приведены ключевые параметры, использованные нами при конфигурировании:
+
+\subsubsection*{heartbeat}
+
+\begin{itemize}
+  \item haresources
+%\end{itemize}
+\begin{verbatim}
+    passport1.pronto.ru IPaddr::194.87.222.180/27/eth0 nginx
+\end{verbatim}
+%\begin{itemize}
+  \item ha.cf
+%\end{itemize}
+\begin{verbatim}
+    debugfile /var/log/ha-debug
+    logfile /var/log/ha-log
+    logfacility local0
+    keepalive 2
+    deadtime 30
+    warntime 10
+    initdead 120
+    udpport 694
+    ucast eth1 192.168.0.2
+    auto_failback off
+    node passport1.pronto.ru passport2.pronto.ru
+    ping_group ping_nodes 8.8.8.8
+    respawn hacluster /usr/lib/heartbeat/ipfail
+    deadping 30
+    use_logd yes
+    debug 1
+\end{verbatim}
+\end{itemize}
+\subsubsection*{monit}
+
+\begin{itemize}
+  \item monitrc
+%\end{itemize}
+\begin{verbatim}
+    check process nginx
+    with pidfile "/var/run/nginx.pid"
+    start program = "/etc/init.d/nginx start"
+    stop program = "/etc/init.d/nginx stop"
+    group www
+\end{verbatim}
+\end{itemize}
+\subsection*{Тестирование}
+
+При проверке работоспособности системы мы использовали следующие способы нарушения работоспособности сайта:
+
+\begin{itemize}
+  \item моментальное отключение питания на мастер-ноде;
+  \item падение интерфейса на мастер-ноде;
+  \item падение любого из демонов, обслуживающего сайт;
+  \item нарушение репликации memcached и mongodb.
+\end{itemize}
+
+Результатом любого из перечисленных событий являлось
+
+\begin{itemize}
+  \item моментальное переключение ip-адреса сайта на соседний сервер;
+  \item отправка администраторам уведомлений обо всех событиях.
+\end{itemize}
+
+
+\begin{thebibliography}{9}
+
+\bibitem{Volkovich1} \url{http://www.linux-ha.org}
+
+\bibitem{Volkovich2} \url{http://mmonit.com/monit}
+
+\bibitem{Volkovich3} \url{http://sysoev.ru/nginx}
+
+\bibitem{Volkovich4} \url{http://php-fpm.org}
+
+\bibitem{Volkovich5} \url{http://www.mongodb.org}
+
+\bibitem{Volkovich6} \url{http://memcached.org}
+
+\end{thebibliography}
+
+\end{document}
+
+
+
+
