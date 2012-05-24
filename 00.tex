@@ -92,7 +92,7 @@
 \def\layersep{2.5cm}
 
 \begin{document}
-\def\refname{Литература}
+\switchlang{ru}
 \addtocounter{page}{2}%
 \pagestyle{twoside}
 
@@ -129,6 +129,8 @@
 
 \let\@lvee@input\input
 \def\enddocument{%
+\let\refname=\saverefname
+\let\figurename=\savefigurename
 \gdef\@title{}%
 \gdef\@author{}%
 }

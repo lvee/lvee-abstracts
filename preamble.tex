@@ -17,6 +17,24 @@
 \newcommand{\longpage}{\enlargethispage{\baselineskip}}
 \newcommand{\shortpage}{\enlargethispage{-\baselineskip}}
 
+\def\switchlang#1{\expandafter\csname switchlang#1\endcsname}
+\def\switchlangbe{
+\let\saverefname=\refname%
+\def\refname{Літаратура}%
+\def\figurename{Іл.}%
+}
+\def\switchlangen{
+\let\saverefname=\refname%
+\def\refname{References}%
+\def\figurename{Fig.}%
+}
+\def\switchlangru{
+\let\saverefname=\refname%
+\let\savefigurename=\figurename%
+\def\refname{Литература}%
+\def\figurename{Рис.}%
+}
+
 \hyphenation{admi-ni-stra-tive}
 \hyphenation{ex-pe-ri-ence}
 \hyphenation{fle-xi-bi-li-ty}
