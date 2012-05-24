@@ -25,7 +25,7 @@ The systemd journal is nice example of how it could be implemented.
 
 Пример отправки сообщения в лог:
 
-\begin{lstlisting}[language=C]
+\begin{verbatim}
 #include <stdlib.h>
 #include <systemd/sd-journal.h>
 int main() {
@@ -34,8 +34,7 @@ int main() {
         random()&1 ? ++i : ++j;
         sd_journal_send(
             "MESSAGE=(%d,%d)", i, j,
-            "MESSAGE_ID="
-            "51141ddad48f4924aef970b1eab2af42",
+            "MESSAGE_ID=51141ddad48f4924aef970b1eab2af42",
             "I=%d", i, 
             "J=%d", j,
             NULL
@@ -43,7 +42,8 @@ int main() {
     }
     return 0;
 }
-\end{lstlisting}
+\end{verbatim}
+
 В данном примере значения переменных i и j увеличиваются случайным образом. После каждой итерации значения I и J сохраняются в лог с помощью journal-протокола, функцией sd\_journal\_send библиотеки libsystemd-journal из пакета systemd.
 
 Сборка может осуществляться через:
@@ -72,7 +72,7 @@ systemd-journalctl поддерживает вывод информации в �
 
 Рассмотрим одно сообщение из примера:
 
-\begin{lstlisting}[language=C]
+\begin{verbatim}
 # systemd-journalctl -o json I=1 -n 1
 [
 {
@@ -89,8 +89,7 @@ systemd-journalctl поддерживает вывод информации в �
    "_UID" : "1001",
    "_GID" : "1001",
    "_COMM" : "ex1",
-   "_EXE" : "/home/max_posedon/Development/talks/"
-   "systemd-journald/example",
+   "_EXE" : "/home/max_posedon/systemd-journald/example",
    "_CMDLINE" : "./ex1 param1",
    "_SYSTEMD_CGROUP" : "/system/kdm@.service/tty7",
    "_SYSTEMD_UNIT" : "kdm@tty7.service",
@@ -100,7 +99,7 @@ systemd-journalctl поддерживает вывод информации в �
    "_HOSTNAME" : "m_melnikau-vaio"
 }
 ]
-\end{lstlisting}
+\end{verbatim}
 
 Здесь выполнен запрос одного сообщения (-n 1) в формате json и фильтрация сообщения по критерию I=1. Более подробную информацию можно получить, воспользовавшись командой man systemd-journalctl.
 
