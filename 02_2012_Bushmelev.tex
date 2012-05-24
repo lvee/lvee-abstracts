@@ -9,7 +9,7 @@
 \maketitle
 
 \begin{abstract}
-Kexecboot is Linux-as-a-Bootloader implementation. It's a C program able to scan the partitions on available devices, offering a graphical framebuffer menu and allowing user to select from which one to boot.
+The article describes Kexecboot, an implementation of Linux-as-a-Bootloader. It's a C program able to scan the partitions on available devices, offering a graphical framebuffer menu and allowing user to select from which one to boot.
 Typically kexecboot resides together with kexec in an initramfs, embedded in a custom-tailored kernel compiled with support for initramfs and kexec system call. Both binaries are built static, linked against klibc to optimize size. Kexecboot may be linked against other *libc (glibc, eglibc, uclibc) and may be used as standalone binary as well.
 \end{abstract}
 
