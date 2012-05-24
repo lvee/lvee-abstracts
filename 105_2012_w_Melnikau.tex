@@ -1,0 +1,48 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+
+\begin{document}
+
+\title{NoSQL и Async web фреймворки не нужны}%\footnote{Текст данных и последующих тезисов, кроме специально оговоренных случаев, доступен под лицензией Creative Commons Attribution-ShareAlike 3.0}
+
+\author{Максим Мельников\footnote{Минск, Беларусь}}
+\maketitle
+
+\begin{abstract}
+Its a complicated task to write a web-based highload project, and finding best instruments for it is even harder. NoSQL and different async web frameworks becomes widely used. There is a problem with them, as they are promoted as the solution with cost of higher entrance level, offering ability to do everything in one way, in one place. But, in fact, classic, old-fashion way still rocks. While using layering and with the best instruments for each level you can easily get maximum performance and scale-ability
+\end{abstract}
+
+Высокоронагруженный web-проект должен не только хорошо держать нагрузку, но и эффективно потреблять ресурсы. Разрабатывая такой проект, необходимо понимать какого рода проблемы и задачи на каком уровне должны решаться. Вот неполный список задач, которые необходимо решить:
+
+\begin{enumerate}
+  \item поддержка огромного количества http подключений одновременно
+  \item кэширование данных и генерации сложного контента
+  \item система должна простаивать когда нет нагрузки
+  \item при росте количества запросов, должно рости потребление ресурсов. а не время ответа
+  \item потребление ресурсов должно достигнуть 100\% при достижении некоторой максимальной нагрузки
+  \item время обработки запросов пользователей должно быть минимальным
+  \item время передачи ответа пользователю должно быть минимальным
+  \item система должна работать стабильно в случае отказа сторонних сервисов,  временный отказ должен проходить незаметно для пользователя.
+\end{enumerate}
+
+Различные Async(NodeJS, Tornado, Twisted) и NoSQL-решения (Redis, MongoDB, Cassandra) кажутся найлучшим выбором, пока вы делается ваше web как одно большое целое.  Если же немного подумать, большинство проектов разбиваются на кучу маленьких, каждый из которых легко и непренуждённо может быть реализован классическим подходом, оставаясь при этом маштабируеймым и высокопроизводительным. А HTTP-протокол, благодоря отсуствию состояний --- становится лучшим помошником. Что касается баз данных, ввод грамотно реализованных уровней кэширования невелирует проблему высокий нагрузок на базы данных до момента достижения каких-то фантастических нагрузок, с которыми почти никто на деле и не сталкивается.
+
+Для разработки worldoftanks.ru используется расширенный \linebreak LAMP (Linux Apache MySQL PHP) подход --- LNAMMRP (Linux nginx Apache memcached MySQL RabbitMQ Python).
+
+Основные компоненты используются следующим образом:
+\begin{itemize}
+  \item nginx: handling http-сессий от пользователя
+\item apache: управление подконтрольными рабочими процессами
+\item memcached: кэширование без проблем
+\item RabbitMQ: сервер очередей для асинхронной обработки медленных задач
+\item Python: реализация бизнесс требований (Django)
+\end{itemize}
+
+Это позволяет не тока держать высокие нагрузки, но и использовать накопленный всем миром опыт не оставаясь с проблемой один на один.
+
+
+\end{document}
+
+
+
+
