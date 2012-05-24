@@ -10,7 +10,7 @@
 
 \begin{abstract}
 An overview of GObject Introspection architecture and use cases are given.
-One of GObject Introspection main goals is to share binding infrastructure for making binding-friendly applications and libraries.
+One of GObject Introspection main goals is to share binding infrastructure for making binding"=friendly applications and libraries.
 The introspection project solves this task by putting all of the metadata
 inside the GObject library itself, using annotations in comments.
 This decreases duplicated work for binding authors.
@@ -18,10 +18,10 @@ This decreases duplicated work for binding authors.
 
 \subsection*{История и цели проекта}
 
-GObject Introspection --- это проект, который возник для решения проблем
+GObject Introspection "--- это проект, который возник для решения проблем
 с созданием высокоуровневых языковых привязок (bindings) для библиотек GNOME. Долгое время все языковые привязки поддерживались вручную, и зачастую значительно отставали от библиотек \cite{Antono1}.
 
-GObject Introspection --- это технология, позволяющая создавать
+GObject Introspection "--- это технология, позволяющая создавать
 автоматические языковые привязки для библиотек, использующих GLib и
 GObject.  Привязки могут создаваться как на этапе исполнения (через
 FFI) так и на этапе сборки (с использованием компилятора привязок для
@@ -94,29 +94,29 @@ puts instance.append_to_name("called from Ruby")
 Список существующих привязок для GObject Introspection выглядит следующим образом:
 
 \begin{itemize}
-  \item \url{https://live.gnome.org/Vala}{Vala} --- Родная поддержка GIR.
-  \item \url{https://live.gnome.org/Genie}{Genie} --- Родная подержка GIR.
-  \item \url{https://live.gnome.org/PyGObject}{PyGObject} --- привязки для Python
-  \item \url{https://live.gnome.org/Gjs}{Gjs} --- Javascript (spidermonkey)
-  \item \url{https://live.gnome.org/Seed}{Seed} --- Javascript (JSCore, WebKit JS engine)
-  \item \url{https://github.com/creationix/node-gir}{node-gir} --- Node.js (V8 Engine)
-  \item \url{https://github.com/mvz/ruby-gir-ffi/wiki}{ruby-gir-ffi} --- Ruby
-  \item \url{https://github.com/indeyets/gobject-for-php}{gobject-for-php} --- PHP
-  \item \url{http://oproj.tuxfamily.org/wiki/doku.php?id=lgob}{lgob} --- Lua (этап компиляции)
-  \item \url{https://github.com/pavouk/lgi}{lgi} --- Lua (этап исполнения)
-  \item \url{https://live.gnome.org/GTK2-Perl/Introspection}{GTK2-Perl/Introspection} --- привязки для Perl
-  \item \url{http://gitorious.org/guile-gir}{guile-gir} --- Scheme (guile)
-  \item \url{http://live.gnome.org/sbank}{sbank} --- Scheme (Ikarus, Ypsilon)
-  \item \url{https://live.gnome.org/JGIR}{JGIR} --- Java/JVM (этап компиляции, через typelib)
-  \item \url{https://live.gnome.org/GObjectIntrospection/GObjectConsume}{GObjectIntrospection/GObjectConsume} --- C++, Qt (этап компиляции)
-  \item \url{https://github.com/ex-rzr/factor-gir}{factor-gir} --- Factor
-  \item \url{https://github.com/indeyets/gobject-for-php}{gogobject} --- Go (этап компиляции)
-  \item \url{https://github.com/andy128k/cl-gobject-introspection}{cl-gobject-introspection} --- Common Lisp
-  \item \url{http://bazaar.launchpad.net/~scymtym/+junk/cl-gir/files}{cl-gir} --- GIR for Common Lisp (в процессе)
-  \item \url{http://www.haskell.org/haskellwiki/GObjectIntrospection}{haskel-gi} --- Haskell (в процессе)
-  \item \url{https://github.com/alanmcgovern/mono-introspect}{mono-introspect} --- Mono
-  \item \url{http://git.ocamlcore.org/cgi-bin/gitweb.cgi?p=ocaml-gir/ocaml-gir.git}{ocaml-gir} --- Ocaml (этап компиляции)
-  \item \url{http://wiki.freepascal.org/gir2pascal}{gir2pascal} --- Pascal
+  \item \url{https://live.gnome.org/Vala}{Vala} "--- Родная поддержка GIR.
+  \item \url{https://live.gnome.org/Genie}{Genie} "--- Родная подержка GIR.
+  \item \url{https://live.gnome.org/PyGObject}{PyGObject} "--- привязки для Python
+  \item \url{https://live.gnome.org/Gjs}{Gjs} "--- Javascript (spidermonkey)
+  \item \url{https://live.gnome.org/Seed}{Seed} "--- Javascript (JSCore, WebKit JS engine)
+  \item \url{https://github.com/creationix/node-gir}{node-gir} "--- Node.js (V8 Engine)
+  \item \url{https://github.com/mvz/ruby-gir-ffi/wiki}{ruby-gir-ffi} "--- Ruby
+  \item \url{https://github.com/indeyets/gobject-for-php}{gobject-for-php} "--- PHP
+  \item \url{http://oproj.tuxfamily.org/wiki/doku.php?id=lgob}{lgob} "--- Lua (этап компиляции)
+  \item \url{https://github.com/pavouk/lgi}{lgi} "--- Lua (этап исполнения)
+  \item \url{https://live.gnome.org/GTK2-Perl/Introspection}{GTK2-Perl/Introspection} "--- привязки для Perl
+  \item \url{http://gitorious.org/guile-gir}{guile-gir} "--- Scheme (guile)
+  \item \url{http://live.gnome.org/sbank}{sbank} "--- Scheme (Ikarus, Ypsilon)
+  \item \url{https://live.gnome.org/JGIR}{JGIR} "--- Java/JVM (этап компиляции, через typelib)
+  \item \url{https://live.gnome.org/GObjectIntrospection/GObjectConsume}{GObjectIntrospection/GObjectConsume} "--- C++, Qt (этап компиляции)
+  \item \url{https://github.com/ex-rzr/factor-gir}{factor-gir} "--- Factor
+  \item \url{https://github.com/indeyets/gobject-for-php}{gogobject} "--- Go (этап компиляции)
+  \item \url{https://github.com/andy128k/cl-gobject-introspection}{cl-gobject-introspection} "--- Common Lisp
+  \item \url{http://bazaar.launchpad.net/~scymtym/+junk/cl-gir/files}{cl-gir} "--- GIR for Common Lisp (в процессе)
+  \item \url{http://www.haskell.org/haskellwiki/GObjectIntrospection}{haskel-gi} "--- Haskell (в процессе)
+  \item \url{https://github.com/alanmcgovern/mono-introspect}{mono-introspect} "--- Mono
+  \item \url{http://git.ocamlcore.org/cgi-bin/gitweb.cgi?p=ocaml-gir/ocaml-gir.git}{ocaml-gir} "--- Ocaml (этап компиляции)
+  \item \url{http://wiki.freepascal.org/gir2pascal}{gir2pascal} "--- Pascal
 \end{itemize}
 
 
