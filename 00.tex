@@ -92,7 +92,7 @@
 \def\layersep{2.5cm}
 
 \begin{document}
-\switchlang{ru}
+\def\refname{Литература}
 \addtocounter{page}{2}%
 \pagestyle{twoside}
 
@@ -129,8 +129,6 @@
 
 \let\@lvee@input\input
 \def\enddocument{%
-\let\refname=\saverefname
-\let\figurename=\savefigurename
 \gdef\@title{}%
 \gdef\@author{}%
 }
@@ -258,6 +256,7 @@
 \input{107_2012_w_Lapa}
 \input{108_2012_w_Nikipelov}
 \input{108_2012_w_Baraka}
+\input{109_2012_w_Litvinenko}
 %\input{29_orel}
 \input{48_spons_sams}
 \input{50_spons_epam}
