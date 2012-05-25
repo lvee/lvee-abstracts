@@ -9,14 +9,14 @@
 \maketitle
 
 \begin{abstract}
-Korinf and Gitum are the instruments for developers initially created for the internal needs of Etersoft company. Korinf system enables the convertation of software packages for different Linux distributions and operating systems. Git Upstream Manager (Gitum) helps to create and maintain the branches of upstream repositories. At the moment both instruments are available for all comers under public licences.
+The article describes Korinf and Gitum, two instruments for software developers. Korinf and Gitum initially were created for the internal needs of Etersoft company. Korinf system enables the convertation of software packages for different Linux distributions and operating systems. Git Upstream Manager (Gitum) helps to create and maintain the branches of upstream repositories. At the moment both instruments are available for all comers under public licences.
 \end{abstract}
 
-В разработке программного обеспечения большое значение имеет инфраструктура, инструменты, средства для разработчиков, помогающие более эффективно использовать время. В компании \linebreak Etersoft осуществляется работа над разными проектами: начатыми с нуля, ответвления от upstream и др. Для обеспечения совместимости между существующими дистрибутивами разработана система Korinf, позволяющая собирать индивидуально подходящий для каждой ОС Linux свой пакет. Также разработан дополнительный инструмент для работы с системой контроля версий Git --- Git Upstream Manager (Gitum), позволяющий эффективно создавать и сопровождать ответвления от upstream-репозиториев.
+В разработке программного обеспечения большое значение имеет инфраструктура, инструменты, средства для разработчиков, помогающие более эффективно использовать время. В компании \linebreak Etersoft осуществляется работа над разными проектами: начатыми с нуля, ответвления от upstream и др. Для обеспечения совместимости между существующими дистрибутивами разработана система Korinf, позволяющая собирать индивидуально подходящий для каждой ОС Linux свой пакет. Также разработан дополнительный инструмент для работы с системой контроля версий Git "--- Git Upstream Manager (Gitum), позволяющий эффективно создавать и сопровождать ответвления от upstream-репозиториев.
 
 \subsection*{Korinf@Etersoft}
 
-Korinf --- система сборки пакетов под целевые операционные системы на основе единого src.rpm, выполненного согласно правилам ALT Linux (\url{http://www.altlinux.org/Policy}).
+Korinf "--- система сборки пакетов под целевые операционные системы на основе единого src.rpm, выполненного согласно правилам ALT Linux (\url{http://www.altlinux.org/Policy}).
 
 \textbf{Применение}
 
@@ -37,7 +37,7 @@ Korinf --- система сборки пакетов под целевые оп
 \subsection*{Git Upstream Manager}
 
 В 90\% случаев при разработке проекта,на основе свободного ПО берётся стабильный релиз и переделывается, добавляется новый функционал. При попытке смержиться с upstream-веткой происходят конфликты, после исправления которых все наработки размазываются по истории коммитов и уже невозможно легко найти «свои» патчи. При ведении быстроразвивающихся проектов, таких как WINE (\url{http://winehq.org}), частые мержи и невозможность отделить «свои» от upstream-коммитов делают актуальным вопрос о корректном управлении и разборе кода. В 2011 года была начата разработка проекта, который позволит более легко и быстро ориентироваться в коде.
-Git Upstream Manager --- дополнительный режим работы Git, позволяющий легко вести ветки разработки со своими патчами и обновлять их с upstream-веток, при этом ведя общую общую историю изменений и поддерживая патчи всегда в актуальном состоянии согласно состоянию upstream.
+Git Upstream Manager "--- дополнительный режим работы Git, позволяющий легко вести ветки разработки со своими патчами и обновлять их с upstream-веток, при этом ведя общую общую историю изменений и поддерживая патчи всегда в актуальном состоянии согласно состоянию upstream.
 
 На данный момент выпущена версия gitum-0.4.1 и доступная для свободного использования.
 
@@ -46,10 +46,10 @@ Git Upstream Manager --- дополнительный режим работы Gi
 Gitum имеет 5 рабочих веток:
 
 \begin{enumerate}
-  \item Ветка апстрим репозитория --- upstream.
-  \item Ветка с патчами наверху --- rebased.
-  \item Ветка с непрерывной историей изменений --- рабочая ветка --- mainline.
-  \item Ветка с патчами в виде отдельных файлов --- каждый коммит это состояние репозитория --- patches.
+  \item Ветка апстрим репозитория "--- upstream.
+  \item Ветка с патчами наверху "--- rebased.
+  \item Ветка с непрерывной историей изменений "--- рабочая ветка "--- mainline.
+  \item Ветка с патчами в виде отдельных файлов "--- каждый коммит это состояние репозитория "--- patches.
   \item Ветка с конфигурационным файлом, где содержатся имена 4-х предыдущих веток gitum-config.
   \end{enumerate}
 
