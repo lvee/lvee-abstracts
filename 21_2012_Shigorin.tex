@@ -1,0 +1,54 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+
+\begin{document}
+
+\title{Макраме из дистрибутивов: mkimage-profiles}%\footnote{Текст данных и последующих тезисов, кроме специально оговоренных случаев, доступен под лицензией Creative Commons Attribution-ShareAlike 3.0}
+
+\author{Михаил Шигорин\footnote{Киев, Украина}}
+\maketitle
+
+\begin{abstract}
+Once upon a time each distribution image was carefully crafted by hand thus becoming essentially unique.  Fast forward to 21th century and we're getting besieged by countless variations of essentially the same thing, some base distro being customized as a desktop, L\{A\{N,MP\},TSP\} server, and a myriad of physical and virtual appliances.
+There's actually no need for full blown configuration forks and we should be able to describe the subtle (or significant) differences while letting the common base to stay, well, common.  That's what mkimage-profiles was created for since day one.
+\end{abstract}
+
+
+Когда дистрибутивов было ещё меньше сотни, а создавались они вручную --- вопрос управления конфигурацией особенно не стоял: <<большие>> универсальные дистрибутивы создавались ровно в одном варианте.  Потом начались работы по локализации и поддержке различных архитектур, которые породили немало форков сами по себе.  Затем пошли производные <<под задачу>>.  А теперь широко доступна ещё и виртуализация, которая сильно подняла интерес к небольшим специализированным образам, сконструированным под конкретную задачу --- поскольку появилась возможность под каждую частность выделить отдельный контейнер или VM.
+
+Как мы  уже (\url{http://summer.lvee.org/ru/reports/LVEE_2011_13}) обсуждали ранее, раздвоение чего-либо (форк) может являться мощным средством как развития, так и уничтожения проектов --- в зависимости от того, насколько приветствуется и удобно сведение результатов опять воедино (мерж).
+
+На данный момент mkimage-profiles является моим очередным исследовательским проектом по части уменьшения излишнего дублирования общей части конфигурации и вспомогательного кода, необходимого для формирования образов дистрибутивов и виртуальных окружений.  Он создан на основе опыта расширения и рефакторинга альтовского mkimage-profiles-desktop и семейства схожих профилей плюс создания набора installer-feature-*, а также более ранних наработок (spt-profiles-*).
+
+Проект стартовал в августе 2010 года по мотивам очередного рефакторинга m-p-d; после первоначальных экспериментов по определению траектории тогда же осенью был опубликован черновик, а ещё через год состояние оформилось в достаточной степени для <<официального>> представления.  Работаю над ним по большей части в две руки (\url{https://www.ohloh.net/p/mkimage-profiles}), хотя уже появился второй коммитящий и патчи либо кусочки кода приходят от ещё нескольких человек.
+
+Поддерживается:
+
+\begin{itemize}
+  \item наследование конфигурации на всех уровнях --- от перечня пакетов до образа
+  \item сборка гибридных ISO с LiveCD, RescueCD, инсталятором или их комбинацией
+  \item сборка шаблонов виртуальных окружений OpenVZ
+  \item архитектура i586/x86\_64
+  \item пакетная база ALT Linux 6+ (возможно бэкпортирование для более ранних)
+\end{itemize}
+
+В планах:
+
+\begin{itemize}
+  \item сборка образов VM
+\end{itemize}
+
+Возможны:
+
+\begin{itemize}
+  \item архитектура ARM и при востребованности --- PowerPC
+  \item более ранняя пакетная база ALT Linux, как минимум до 5+
+  \item иные пакетные базы (проведены эксперименты с openSUSE 11.4 и CentOS 6)
+\end{itemize}
+
+
+\end{document}
+
+
+
+
