@@ -54,10 +54,12 @@
 \makeatletter
 \def\p@subfigure{\thefigure,~}
 \def\thesubfigure{\asbuk{subfigure}}
-\@newctr{figure}[section]
-\renewcommand \thefigure {\@arabic\c@figure}
-\@newctr{equation}[section]
-\renewcommand\theequation{\@arabic\c@equation}
+\newcounter{articleno}
+\setcounter{articleno}0
+\@newctr{figure}[articleno]
+\renewcommand \thefigure {\@arabic\c@articleno.\@arabic\c@figure}
+\@newctr{equation}[articleno]
+\renewcommand\theequation{\@arabic\c@articleno.\@arabic\c@equation}
 \newcommand\ps@twoside{%
  \makeatletter%
  \renewcommand\@oddfoot{~\hfill\thepage}%
@@ -133,8 +135,6 @@
 \gdef\@author{}%
 }
 
-\newcounter{articleno}
-\setcounter{articleno}0
 
 \def\@lbibitem[#1]#2{\setlength{\topsep}{0pt}%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt plus 1pt minus 1pt}\setlength{\parsep}{0pt}%
