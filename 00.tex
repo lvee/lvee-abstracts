@@ -54,12 +54,10 @@
 \makeatletter
 \def\p@subfigure{\thefigure,~}
 \def\thesubfigure{\asbuk{subfigure}}
-\newcounter{articleno}
-\setcounter{articleno}0
-\@newctr{figure}[articleno]
-\renewcommand \thefigure {\@arabic\c@articleno.\@arabic\c@figure}
-\@newctr{equation}[articleno]
-\renewcommand\theequation{\@arabic\c@articleno.\@arabic\c@equation}
+\@newctr{figure}[section]
+\renewcommand \thefigure {\@arabic\c@figure}
+\@newctr{equation}[section]
+\renewcommand\theequation{\@arabic\c@equation}
 \newcommand\ps@twoside{%
  \makeatletter%
  \renewcommand\@oddfoot{~\hfill\thepage}%
@@ -94,7 +92,7 @@
 \def\layersep{2.5cm}
 
 \begin{document}
-\switchlang{ru}
+\def\refname{Литература}
 \addtocounter{page}{2}%
 \pagestyle{twoside}
 
@@ -131,12 +129,12 @@
 
 \let\@lvee@input\input
 \def\enddocument{%
-\let\refname=\saverefname
-\let\figurename=\savefigurename
 \gdef\@title{}%
 \gdef\@author{}%
 }
 
+\newcounter{articleno}
+\setcounter{articleno}0
 
 \def\@lbibitem[#1]#2{\setlength{\topsep}{0pt}%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt plus 1pt minus 1pt}\setlength{\parsep}{0pt}%
@@ -238,7 +236,7 @@
 \input{17_2012_Gnom}
 \input{18_2012_l}
 \input{19_2012_vankevich}
-%\input{20_sereda}
+\input{20_2012_Pynkin}
 %\input{21_virt}
 %\input{22_shigorin}
 %\input{23_apunevich}
@@ -260,6 +258,7 @@
 \input{108_2012_w_Baraka}
 \input{109_2012_w_Litvinenko}
 \input{110_2012_w_Radiuk}
+\input{111_2012_w_Vankevich}
 %\input{29_orel}
 \input{48_spons_sams}
 \input{50_spons_epam}
