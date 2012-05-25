@@ -9,7 +9,7 @@
 \maketitle
 
 \begin{abstract}
-During the last years Linux have finally been recognized as an established embedded OS. The reasons of embed Linux into various devices are obvious: Linux is free, it has tremendous amount of free and useful applications, it supports decent hardware, it is POSIX compliant and it has both community and commercial support. However, not every user application can be easily moved from RTOS to Linux. The article discusses a possibility of using both RTOS and Linux concurrently within a multicore processor.
+During the last years Linux have finally been recognized as an established embedded OS. The reasons of embed Linux into various devices are obvious: Linux is free, it has tremendous amount of free and useful applications, supports decent hardware, is POSIX compliant, and has both community and commercial support. However, not every user application can be easily moved from RTOS to Linux. The article discusses a possibility of using both RTOS and Linux concurrently within a multicore processor.
 \end{abstract}
 
 
@@ -24,13 +24,13 @@ During the last years Linux have finally been recognized as an established embed
 
 Один из возможных способов удовлетворить всем этим требованиям, при этом не отказываясь от использования Linux --- использовать многоядерные процессоры для одновременного запуска ОСРВ и Linux. При этом критически важные пользовательские приложения будут работать под ОСРВ на основном ядре процессора, а второстепенные (такие, как пользовательский интерфейс или сетевой стек) --- под Linux на дополнительном ядре. Такая архитектура особенно примечательна при использовании гетерогенных мультипроцессорных систем, в которых процессорные ядра существенно отличаются по сложности, вычислительной мощности и энергопотреблению (например ARM Cortex-A9 и ARM Cortex-M4). Имея полный контроль над системным ПО, запускаемым на каждом ядре, можно добиться близкой к максимальной энергоэффективности для заданной аппаратной флатформы.
 
-При использовании ОСРВ и Linux на одном процессоре возникают две проблемы: разделение аппаратных ресурсов и межядерное взаимодействие.
+Совмещение ОСРВ и Linux на одном процессоре требует разделения аппаратных ресурсов и межядерного взаимодействия.
 
 Разграничивание устройств ввода-вывода между несколькими ОС является довольно сложной задачей, которая решается, например, введением в архитектуру гипервизора, виртуализирующего аппаратные ресурсы. Обычно в геторогенных системах аппаратные ресурсы жёстко закреплены за процессорными ядрами, поэтому как правило единственным разделяемым устройством является ОЗУ. Обе ОС необходимо сконфигурировать таким образом, чтобы они использовали разные регионы физической памяти.
 
 Проблема межядерного взаимодействия на низком уровне решается в зависимости от предоставляемых аппаратных средств. В общем случае для этого выделяется небольшой регион разделяемой памяти. Для оповещения ядер обычно существует возможность генерации программного прерывания.
 
-Multicore Assotiation (MCA) предлагает стандартизированный API для реализации интерфейсов высокого уровня: MCAPI. Его целью является унификация межпроцессорного взаимодействия между различными ОС, что позволяет максимально отвязать программную реализацию от аппаратуры и ОС-специфичных программных модулей.
+Multicore Assotiation (MCA) предлагает стандартизированный API реализации интерфейсов высокого уровня: MCAPI. Его цель --- унификация межпроцессорного взаимодействия между различными ОС, что позволяет максимально отвязать программную реализацию от аппаратуры и ОС-специфичных программных модулей.
 
 MCAPI не предъявляет жёстких требований к аппаратуре и ОС, и спроектирован так, чтобы портирование было максимально простым и понятным. В настоящий момент существует референсная реализация MCAPI от Mentor Graphics, которая называется OpenMCAPI. OpenMCAPI может работать под Linux и Nucleus. Портирование под другие ОС не должно составить больших трудов.
 
