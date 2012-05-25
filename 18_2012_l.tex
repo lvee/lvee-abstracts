@@ -16,16 +16,16 @@ The study presents the aspect of the quantum simulation of the Groover's algorit
 
 \subsection*{Introduction}
 
-Quantum algorithms are very difficult for simulation in contemporary computers because of their calculation complexity. Groover's quantum algorithm implemented on contemporary computer is characterized by exponential complexity which is shown in the Fig. \ref{fig:lf1}.
+Quantum algorithms are very difficult to simulate using contemporary computers because of their computational complexity. Groover's quantum algorithm implemented for contemporary computer is characterised by exponential complexity which is shown in the Fig. \ref{fig:lf1}.
 
 \begin{figure}
   \centering
   \includegraphics[width=10cm]{18_2012_1.png}
-  \caption{Increase of processing time of sequential algorithm on the Intel Xeon E7-4860  processor during the simulation of the quantum computer with deferent size of quantum register}
+  \caption{Increase of processing time of sequential algorithm on the Intel Xeon E7-4860  processor during the simulation of the quantum computer depending on size of a quantum register}
   \label{fig:lf1}
 \end{figure}
 
-During the analysis, the Olib library was used, which supports parallel computing. Its results in comparison with the Python programming language and NumPy module, which support only sequential operations, is shown in the Fig. \ref{fig:lf6}
+During the analysis, the Olib library was used, which supports parallel computing. Its results in comparison with the Python programming language and NumPy module, which support only sequential operations, are shown in the Fig. \ref{fig:lf6}
 
 \begin{figure}
   \centering
@@ -36,7 +36,7 @@ During the analysis, the Olib library was used, which supports parallel computin
 
 \subsection*{More on Olib}
 
-Olib (\url{http://www.goldbach.pl/olib/}) is written primarily for Linux OS. In other systems (eg. Windows, BSD, Solaris) minor compatibility issues with the code may occur. Library implements efficient methods, which can be divided into following groups:
+Olib (\url{http://www.goldbach.pl/olib/}) is written primarily for Linux. In other systems (eg. Windows, BSD, Solaris) minor compatibility issues with the code may occur. Library implements efficient methods, which can be divided into following groups:
 
 \begin{itemize}
   \item Linear algebra
@@ -46,7 +46,7 @@ Olib (\url{http://www.goldbach.pl/olib/}) is written primarily for Linux OS. In 
   \item Artificial intelligence
 \end{itemize}
 
-Olib was optimized for several computing architectures. In one program, the programmer can combine both functions using multi-core processors and those which support graphic accelerators. The project is rather new and may not have very large set of possibilities in comparison with some other software of this type, which was developed for many years. But in many cases very good results can be achieved with it --- especially when a programmable graphic accelerator is available, or a multi-core processor, as in our case. Olib is licensed under GPL v.2 license or higher.
+Olib was optimised for several computing architectures. Within one program, the programmer can combine both functions using multi-core processors and those which support graphic accelerators. The project is rather new and may not have very large set of possibilities in comparison with some other software of this kind, which has been developed for a long time already. However, in many cases very good results can be achieved with it, especially when a programmable graphic accelerator is available, or a multi-core processor, as in our case. Olib is licensed under GPL version 2 license or higher.
 
 \subsection*{Implementation and result}
 
@@ -59,7 +59,7 @@ Performance tests were carried out on four different equipment platforms based o
   \label{fig:lf2}
 \end{figure}
 
-The Fig. \ref{fig:lf2} presents the results of the simulation of the quantum register which consists of 13 qubits and Intel Core i5-2400 processor. The minimum of 1,5 GB of free random access memory (RAM) is necessary to perform this kind of simulation. There were noticeable changes in performance when the single channel memory was used in comparison to the dual-channel DDR3 memory. Memory in the dual-channel mode reaches 21,2 GB/s maximum throughput thanks to the frequency of 1333 MHz. In the single channel mode you can reach only 10,6 GB/s. Difference in the transfer of the random-access memory has an important impact on the minimum time execution of the algorithm, which for the dual-channel memory is 5,107 seconds and for the single channel memory is 8,916 seconds.
+The Fig. \ref{fig:lf2} presents the results of the simulation of the quantum register which consists of 13 qubits and Intel Core i5-2400 processor. The minimum of 1,5 GB of free random access memory (RAM) is necessary to perform this kind of simulation. There were noticeable changes in performance when the single"=channel memory was used in comparison to the dual"=channel DDR3 memory. Memory in the dual-channel mode reaches 21,2 GB/s maximum throughput thanks to the frequency of 1333 MHz. When single"=channel mode is used maximum reachable throughput is just 10,6 GB/s. Difference in the transfer of the random-access memory has an important impact on the minimum time execution of the algorithm, which for the dual-channel memory is 5,107 seconds and for the single channel memory is 8,916 seconds.
 
 No acceleration was noticed on older Intel Core 2 Quad Q8400 processor despite  parallel programming was used. Tested platform used single-channel memory with 10,6 GB/s capacity  but processor Core 2 Quad in comparison to the modern processors Core i5/i7 and Xeon doesn't have integrated DDR3 memory controller and that probably significantly slows down the communication process when the algorithm is processed. Results for Intel Core 2 Quad processor are shown in the Fig. \ref{fig:lf5}
 
@@ -70,7 +70,7 @@ No acceleration was noticed on older Intel Core 2 Quad Q8400 processor despite  
   \label{fig:lf5}
 \end{figure}
 
-Another tested platform is based on Intel Core i7 920 processor (fig. \ref{fig:lf4}). It uses tri-channel DDR3 1066 MHz memory with total capacity of 25,6 GB/s. In this case, a speedup is noticeable not only for four physical cores but also after using eight threads supported by Hyper-Threading Technology. By using four threads the execution time of the algorithm is 31,049 seconds and for eight threads, with support of HT Technology it decreases to 29,902 seconds. Some tests were also carried out for eight threads on Intel Core 2 Quad Q8400 (Fig. \ref{fig:lf5}) and Intel i5-2400 (Fig. \ref{fig:lf2}) processors despite they have only four cores without support of HT Technology. However, it can be noticed that increase of quantity of threads without HT technology has only negative influence on the capacity because system planner must allocate excess threads to less number of processors. Additional treads which exceed physical quantity of arithmetic and logical units and can be operated by HT Technology (if available) were indicated in the diagram as Virtual Threads.
+Another tested platform is based on Intel Core i7 920 processor (fig. \ref{fig:lf4}). It uses tri-channel DDR3 1066 MHz memory with total capacity of 25,6 GB/s. In this case, a speedup is noticeable not only for four physical cores, but also after using eight threads supported by Hyper-Threading Technology. By using four threads the execution time of the algorithm is 31,049 seconds, and for eight threads with HT Technology enable it decreases to 29,902 seconds. Some tests were also carried out for eight threads on Intel Core 2 Quad Q8400 (Fig. \ref{fig:lf5}) and Intel i5-2400 (Fig. \ref{fig:lf2}) processors despite they have only four cores without support of HT Technology. However, it can be noticed that increase of quantity of threads without HT technology has only negative influence on the capacity because system planner must allocate excess threads to less number of processors. Additional threads which exceed physical quantity of arithmetic and logical units and can be operated by HT Technology (if available) were indicated in the diagram as Virtual Threads.
 
 \begin{figure}
   \centering
@@ -90,7 +90,7 @@ The most advanced tested platform is based on four Intel Xeon E7-4860 processors
 
 \subsection*{Conclusion}
 
-The possibility of simulation of the Grover's algorithm is shown. An increase of performance is noticeable on the modern parallel architectures. Usage of graphic accelerators for simulation of quantum machines can be also a very promising idea. As graphic processors handle very well typical matrices and vectors operations, so this technology can be an interesting prospect.
+We've shown the possibility of simulation of the Grover's algorithm, and found out that performance inrease is quite noticeable on the modern parallel architectures. Usage of graphic accelerators for simulation of quantum machines can be also a very promising idea. As graphic processors handle very well typical matrices and vectors operations, this technology has an interesting future.
 
 \begin{thebibliography}{9}
   \bibitem {l1} B. W. Kernighan, D. M. Ritchie. The C Programming Language, Prentice Hall, Inc, 1988.
