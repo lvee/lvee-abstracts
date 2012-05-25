@@ -46,7 +46,7 @@ The paper introduces basic concepts and principles of GRID functioning illustrat
 
 Как и в кластерных системах, пользовательская команда запуска содержит имя скрипта, запрос ресурсов в котором специфицируется в виде строки XRSL.
 
-Команды управления заданиями имеют следующий вид: ngsub <job.jdl> -- команда отправки файла с описанием задания; ngstat <jobID> --- запрос статуса задания по его идентификационному номеру jobID (PREPARING --- подготовка к выполнению, INLRMS:Q --- Ожидание освобождения ресурса в очереди LRMS, INLRMS:R --- Выполнение задачи, FINISHING – Завершение задачи, FINISHED --- Задание завершено, PURGED --- Удалено, FAILED); ngkill <jobID> --- отмена задания.
+Команды управления заданиями имеют следующий вид: ngsub <job.jdl> -- команда отправки файла с описанием задания; ngstat <jobID> --- запрос статуса задания по его идентификационному номеру jobID (PREPARING --- подготовка к выполнению, INLRMS:Q --- Ожидание освобождения ресурса в очереди LRMS, INLRMS:R --- Выполнение задачи, FINISHING – Завершение задачи, FINISHED -- Задание завершено, PURGED -- Удалено, FAILED); ngkill <jobID> --- отмена задания.
 Файл с описанием задания создается с помощью языка описания заданий (Extended Resource Specification Language, XRSL) и содержит необходимые входные данные, требования к ресурсам и сведения о том, куда должны быть записаны результаты обработки задания. Типичный xrsl-файл имеет вид:
 
 \begin{verbatim}
@@ -66,7 +66,7 @@ The paper introduces basic concepts and principles of GRID functioning illustrat
 (middleware>="nordugrid-arc-0.3.24")
 \end{verbatim}
 
-Больше информации об Украинском национальном ГРИД, учебные материалы, а также анонсы мероприятий и конкурсов можно найти на таких сайтах: \url{http://ung.in.ua}, \url{http://infrastructure.kiev.ua}, \url{http://grid.nas.gov.ua/}, \url{http://grid.bitp.kiev.ua}, \linebreak \url{http://hpcandfosscenter.od.ua}.
+Больше информации об УНГ, учебные материалы и анонсы можно найти на сайтах \url{http://ung.in.ua},  \url{http://infrastructure.kiev.ua}, \url{http://grid.nas.gov.ua/}, \url{http://grid.bitp.kiev.ua}, \linebreak \url{http://hpcandfosscenter.od.ua}.
 
 
 \end{document}

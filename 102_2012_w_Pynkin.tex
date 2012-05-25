@@ -9,7 +9,7 @@
 \maketitle
 
 \begin{abstract}
-Open Build Service (OBS) is an open and complete distribution development platform. It provides an infrastructure to create and release open source software for openSUSE and other Linux distributions easily on different hardware architectures. The article describes the architecture and usage of private OBS instances.
+Open Build Service (OBS) is an open and complete distribution development platform. It provides an infrastructure to create and release open source software for openSUSE and other Linux distributions easily on different hardware architectures. The article describes architecture and usage of private OBS instances.
 \end{abstract}
 
 \section*{Введение}
@@ -87,17 +87,6 @@ OBS поддерживает сборку следующих целей:
   \item пакеты "--- исходный код и правила сборки программного обеспечения и/или дискового образа;
   \item сборочные цели "--- дистрибутивы, на базе которых OBS будет пытаться собрать пакеты,  входящие в проект.
 \end{itemize}
-
-\section*{Частный OBS-сервер}
-
-Для организации частной сборочной системы рекомендуется \cite{Pynkin2} использовать специально подготовленные образы, доступные по адресу \url{http://download.opensuse.org/repositories/openSUSE:/Tools/images/}.
-
-После установки, такой частный сборочный сервер можно использовать в одном из двух режимов: с подключением к оригинальному сервису и в изолированном режиме.
-
-При использовании подключения к оригинальному сервису, появляется возможность использовать любые проекты, представленные на \url{https://build.opensuse.org/} в качестве базы для cвоих разработок. Такой режим наилучшим образом подходит для организации открытых проектов.
-
-Для коммерческой разработки организация полностью автономной и независимой системы сборки программного обеспечения является обязательным требованием. Для таких проектов наилучшим образом подойдет изолированный режим работы. В отличие от предыдущей модели, здесь придется не только организовывать саму систему сборки, но и самостоятельно создавать 
-и <<базовую>> часть \cite{Pynkin3} "--- фактически организовывать полную либо частичную пересборку дистрибутива.
 
 
 \begin{thebibliography}{9}
