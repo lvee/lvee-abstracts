@@ -62,3 +62,11 @@
 \renewcommand{\arraystretch}{2} %Іначай формулы ў матрыцы зліпаюцца з лініямі
 \usepackage{array}
 
+\def\interview #1 (#2), #3, #4, #5\par{
+
+\section[#1, #3, #4]{#1, #5}
+\def\qname{LVEE}
+\def\aname{#1}
+\def\q ##1\par{{\noindent \bf \qname: ##1 }\par}
+\def\a{{\noindent \bf \aname: } \def\qname{L}\def\aname{#2}}
+}
