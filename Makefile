@@ -6,7 +6,7 @@ progress: .progress
 	@$(MAKE) all | ./.progress
 
 clean:
-	rm $(shell tail -n +3 .hgignore | grep -v pdf)
+	rm -f $(shell tail -n +3 .hgignore | grep -v pdf)
 
 .progress:
 	@[ -x .progress ] || ( echo '#!/usr/bin/awk -f$$ $$ BEGIN {$$ a[0] = "/"$$ a[1] = "-"$$ a[2] = "\\\\"$$ a[3] = "|"$$ }$$ $$ {$$ printf "\010" a[(FNR - 1) % 4]$$ }$$ $$ END {$$ print "\010Done."$$ }$$' | sed 's,\$$,\n,g' > .progress ; chmod +x .progress )
