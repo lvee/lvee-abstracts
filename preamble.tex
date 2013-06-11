@@ -1,0 +1,72 @@
+\usepackage[T2A]{fontenc}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[polish,english,russian]{babel}
+\usepackage{hyperref}
+\usepackage[inner=2cm,top=1.8cm,outer=2cm,bottom=2.3cm,nohead]{geometry}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{longtable}
+\usepackage{indentfirst}
+\frenchspacing
+\usepackage{fixltx2e} %text sub- and superscripts
+\usepackage{icomma} % коскі ў матэматычным рэжыме
+\PreloadUnicodePage{4}
+
+\newcommand{\longpage}{\enlargethispage{\baselineskip}}
+\newcommand{\shortpage}{\enlargethispage{-\baselineskip}}
+
+\def\switchlang#1{\expandafter\csname switchlang#1\endcsname}
+\def\switchlangbe{
+\let\saverefname=\refname%
+\def\refname{Літаратура}%
+\def\figurename{Іл.}%
+}
+\def\switchlangen{
+\let\saverefname=\refname%
+\def\refname{References}%
+\def\figurename{Fig.}%
+}
+\def\switchlangru{
+\let\saverefname=\refname%
+\let\savefigurename=\figurename%
+\def\refname{Литература}%
+\def\figurename{Рис.}%
+}
+
+\hyphenation{admi-ni-stra-tive}
+\hyphenation{ex-pe-ri-ence}
+\hyphenation{fle-xi-bi-li-ty}
+\hyphenation{Py-thon}
+\hyphenation{ma-the-ma-ti-cal}
+\hyphenation{re-ported}
+\hyphenation{imp-le-menta-tions}
+\hyphenation{pro-vides}
+\hyphenation{en-gi-neering}
+\hyphenation{com-pa-ti-bi-li-ty}
+\hyphenation{im-pos-sible}
+\hyphenation{desk-top}
+\hyphenation{elec-tro-nic}
+\hyphenation{com-pa-ny}
+\hyphenation{de-ve-lop-ment}
+\hyphenation{de-ve-loping}
+\hyphenation{de-ve-lop}
+\hyphenation{plat-forms}
+\hyphenation{or-ga-ni-za-tion}
+\hyphenation{pro-gramming}
+\hyphenation{in-stru-ments}
+\hyphenation{Li-nux}
+
+\def\progref!#1!{\texttt{#1}}
+\renewcommand{\arraystretch}{2} %Іначай формулы ў матрыцы зліпаюцца з лініямі
+\usepackage{array}
+
+\def\interview #1 (#2), #3, #4, #5\par{
+
+\section[#1, #3, #4]{#1, #5}
+\def\qname{LVEE}
+\def\aname{#1}
+\def\q ##1\par{{\noindent \bf \qname: ##1 }\par}
+\def\a{{\noindent \bf \aname: } \def\qname{L}\def\aname{#2}}
+}
