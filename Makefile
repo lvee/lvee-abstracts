@@ -14,5 +14,7 @@ clean:
 %.pdf: %.tex
 	@echo $@: $$(sed -n '/^\\input/s/.*{\([^.]*\).*}.*/\1.tex/p' $<) > .dep/$<.d
 	pdflatex $<
+	pdflatex $<
+	pdflatex $<
 
 .PHONY: all progress clean
