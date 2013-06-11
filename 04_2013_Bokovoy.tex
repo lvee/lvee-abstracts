@@ -5,11 +5,11 @@
 
 \title{FreeIPA: как распутать клубок безопасности?}%\footnote{Текст данных и последующих тезисов, кроме специально оговоренных случаев, доступен под лицензией Creative Commons Attribution-ShareAlike 3.0}
 
-\author{Александр Боковой\footnote{Эспоо, Финляндия}}
+\author{Александр Боковой\footnote{Эспоо, Финляндия; \url{ab@samba.org}}}
 \maketitle
 
 \begin{abstract}
-FreeIPA is an open source project that eases use of a secure and reliable GNU/Linux infrastructure. FreeIPA provides central management of Kerberos credentials, LDAP data store, DNS management, Certificate Authority, and resource use control through  convenient and easy Web-based and command line interfaces.
+FreeIPA is an open source project that eases use of a secure and reliable GNU/Linux infrastructure. FreeIPA provides central \linebreak management of Kerberos credentials, LDAP data store, DNS management, Certificate Authority, and resource use control with  convenient and easy Web-based and command line interfaces.
 \end{abstract}
 
 Проект FreeIPA (\url{http://freeipa.org}) позволяет развернуть и централизовано управлять защищенной инфраструктурой для предприятия на основе GNU/Linux. FreeIPA интегрирует Kerberos, \linebreak LDAP, DNS и собственный центр сертификации, что дает дает возможность  простым и наглядным способом через веб- и интерфейс командной строки управлять доступными ресурсами.
@@ -17,6 +17,25 @@ FreeIPA is an open source project that eases use of a secure and reliable GNU/Li
 В отличие от традиционных подходов, направленных на упрощение администрирования одного сервера, FreeIPA решает комплексную задачу. Репликация данных между серверами делает систему более устойчивой к повышенным нагрузкам и сложным конфигурациям. Интеграция на клиентской стороне позволяет обеспечить полный спектр возможностей "--- от оффлайновой авторизации до централизованного контроля ресурсов посредством гибких правил.
 
 В Fedora 19 проект FreeIPA расширил свои возможности,  добавив двух-факторную авторизацию пользователей и плотную интеграцию с существующими доменами Active Directory.
+
+Двухфакторная авторизация на основе протокола Kerberos стала доступной благодаря усовершенствованиям, вошедшим в MIT Kerberos 1.12
+после двух лет работы "--- вначале над протоколом, описанным в RFC 6560 (\url{http://tools.ietf.org/html/rfc6560}), а затем и непосредственно над инфраструктурой Kerberos FAST \linebreak (\url{http://k5wiki.kerberos.org/wiki/Projects/FAST}). FreeIPA представляет два вида двухфакторной авторизации:
+
+\begin{itemize}
+  \item внутренний OTP, реализованный средствами FreeIPA;
+  \item прокси к внешнему серверу RADIUS.
+\end{itemize}
+
+В обоих случаях введенные пользователем PIN и переменный код передаются по сети в зашифрованном и подписанном канале соединения Kerberos. FreeIPA является первой в мире системой, представляющей такую возможность. Взаимодействие с внешним сервером RADIUS позволяет прозрачно интегрироваться с любыми источниками авторизации "--- для пользователя все выглядит как стандартная двухфакторная схема.
+
+Для внутреннего OTP поддерживаются токены TOTP, совместимые, например, с Google Authenticator.
+
+Интеграция с доменами Active Directory позволяет прозрачным образом расширять используемые в организации ресурсы системами на основе
+GNU/Linux. Для Active Directory в этом случае FreeIPA выглядит как отдельный корневой домен, с которым могут быть установлены доверительные отношения. Контроллеры доменов Active Directory могут выдавать билеты Kerberos своим пользователям для доступа к ресурсам в домене FreeIPA, а на стороне FreeIPA корректно обрабатывается информация о членстве в группах пользователей из Active Directory.
+
+Для реализации этого проекта потребовалась активная интеграция между
+FreeIPA и Samba. Ведется также работа над расширением Samba AD DC с тем, чтобы получить полностью открытую инфраструктуру организации.
+
 
 \end{document}
 
