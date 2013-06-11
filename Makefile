@@ -6,4 +6,4 @@ all:
 	evince concatenative.pdf
 
 clean:
-	rm *.aux *.log *.toc
+	rm -f *.aux *.log *.toc *.bbl *.blg *.out
