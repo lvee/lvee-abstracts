@@ -9,7 +9,7 @@
 \maketitle
 
 \begin{abstract}
-Clojure is a modern dialect of Lisp intentionally designed for seamless integration with the JVM-platform. Due to its functional nature and Lisp flexibility, Clojure suits well for web-applications development. A lot of of libraries written in functional style make web-development with Clojure really simple.
+Clojure is a modern dialect of Lisp intentionally designed for seamless integration with  JVM-platform. Due to its functional nature and Lisp flexibility, Clojure suits well for web-applications development. A lot of of libraries written in functional style make web-development with Clojure really simple.
 \end{abstract}
 
 В 2007 году был представлен язык программирования Clojure \cite{Bushenko1}, быстро завоевавший популярность в кругах любителей Lisp"=а и функциональнй парадигмы. Автор языка, Рич Хикки, был недоволен существовавшими на то время реализациями Lisp"=а в основном из"=за того, что они плохо интегрировались с существующими платформами. Кроме того, в диалектах Lisp"=а, стандартизированных несколько десятков лет назад, содержится много устаревших технологий и синтаксиса.
@@ -24,21 +24,25 @@ Clojure is a modern dialect of Lisp intentionally designed for seamless integrat
 
 \begin{figure} [h!]
   \centering
-  \includegraphics[height=5.5cm]{119_2013_w_figure1}
+  \includegraphics[height=4cm]{119_2013_w_figure1}
 \end{figure}
 
 Рис. 1. Библиотеки Сlojure для различных модулей архитектуры веб"=приложения.
 
-Уровень маршрутизатора реализуют библиотеки Ring, Compojure и Moustache.
-
-Ring "--- это практически голый сервлет, каким он был бы, если бы его написали в функциональном стиле \cite{Bushenko3}. Центральная абстракция этой библиотеки "--- handler, который обрабатывает request и создает response (рис. 2). И request, и response "--- это обычные структуры данных Clojure "--- отображения. Композиция из функций"=middleware и handler"=ов задают бизнес"=логику обработки запроса. Как видите, это строгий функциональный подход.
-
 \begin{figure}[h!]
   \centering
-  \includegraphics[height=5.5cm]{119_2013_w_figure2}
+  \includegraphics[height=3cm]{119_2013_w_figure2}
 \end{figure}
 
 Рис. 2. Ring
+
+~
+
+Уровень маршрутизатора реализуют библиотеки Ring, \linebreak Compojure и Moustache.
+
+Ring "--- это практически голый сервлет, каким он был бы, если бы его написали в функциональном стиле \cite{Bushenko3}. Центральная абстракция этой библиотеки "--- handler, который обрабатывает request и создает response (рис. 2). И request, и response "--- это обычные структуры данных Clojure "--- отображения. Композиция из функций"=middleware и handler"=ов задают бизнес"=логику обработки запроса. Как видите, это строгий функциональный подход.
+
+
 
 Mustache и Compojure "--- это небольшие надстройки над Ring, каждый из которых по"=своему упрощает отображение маршрутов на функции, их обрабатывающие.
 
