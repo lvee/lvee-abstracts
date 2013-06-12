@@ -43,7 +43,7 @@ Speeding up Linux loading on ARM SOC is considered. Steps to speed up loading Li
 
 \textbf{X"=Load "--- предварительный загрузчик}
 
-В момент разработки проекта был актуален, сейчас x"=load интегрирован в U"=Boot и называется SPL\footnote{\url{http://omappedia.org/wiki/U-boot_Upstreaming_Project#X-loader_up-streaming.28SPL.29_-_OMAP4}}.
+В момент разработки проекта был актуален, сейчас x"=load интегрирован в U"=Boot и называется SPL.
 Из X"=Load было вырезано всё, что связано с отладочным UART. Это дало выигрыш в 150 миллисекунд.
 
 \textbf{U"=Boot "--- загрузчик ядра операционной системы}
@@ -64,7 +64,7 @@ Speeding up Linux loading on ARM SOC is considered. Steps to speed up loading Li
 Всё в сумме привело к времени загрузки в 3000 миллисекунд вместо 15050.
 \end{enumerate}
 
-\textbf{Оптимизация Linux.}
+\textbf{Оптимизация Linux}
 
 Были сделаны следующие оптимизации:
 
