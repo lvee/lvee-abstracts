@@ -1,7 +1,7 @@
 \documentclass[10pt, a5paper]{article}
 \input{preamble.tex}
 
-\def\v!#1!{\texttt{#1}}
+\def\vv!#1!{\texttt{#1}}
 \begin{document}
 
 \title{strace from upstream point of view}%\footnote{Текст данных и последующих тезисов, кроме специально оговоренных случаев, доступен под лицензией Creative Commons Attribution-ShareAlike 3.0}
@@ -31,19 +31,19 @@ Key strace developers nowadays are Denys Vlasenko, Dmitry Levin, and Mike Frysin
 strace is a powerful yet easy to use instrument for monitoring \linebreak interactions of processes with Linux kernel, including system calls, signal deliveries, and changes of process state.  There are many options to control various aspects of strace behaviour: what processes to follow, what kind of information to gather, what to decode and how to display.  Here is a list of most essential options:
 
 \begin{itemize}
-  \item tracing child processes: \v!-f!, \v!-ff!;
-  \item attaching to already existing processes: \v!-p!;
-  \item gathering of statistics: \v!-c!, \v!-C!, \v!-S!;
-  \item supplementary information: \v!-i!, \v!-r!, \v!-t!, \v!-tt!, \v!-ttt!, \v!-T!;
-  \item string output format: \v!-s!, \v!-x!, \v!-xx!;
-  \item tracing syscall subsets: \v!-e trace=set!;
-  \item how to decode syscalls: \v!-v!, \v!-e abbrev=set!, \v!-e verbose=set!, \v!-e raw=set!;
-  \item tracing signal subsets: \v!-e signal=set!;
-  \item I/O monitoring: \v!-e read=set!, \v!-e write=set!;
-  \item pipelining: \v!-o!.
+  \item tracing child processes: \vv!-f!, \vv!-ff!;
+  \item attaching to already existing processes: \vv!-p!;
+  \item gathering of statistics: \vv!-c!, \vv!-C!, \vv!-S!;
+  \item supplementary information: \vv!-i!, \vv!-r!, \vv!-t!, \vv!-tt!, \vv!-ttt!, \vv!-T!;
+  \item string output format: \vv!-s!, \vv!-x!, \vv!-xx!;
+  \item tracing syscall subsets: \vv!-e trace=set!;
+  \item how to decode syscalls: \vv!-v!, \vv!-e abbrev=set!, \vv!-e verbose=set!, \vv!-e raw=set!;
+  \item tracing signal subsets: \vv!-e signal=set!;
+  \item I/O monitoring: \vv!-e read=set!, \vv!-e write=set!;
+  \item pipelining: \vv!-o!.
 \end{itemize}
 
-These and other strace options are described in detail in \v!strace(1)! manual page.
+These and other strace options are described in detail in \vv!strace(1)! manual page.
 
 As of version 4.8, strace supports the following Linux architectures: AArch64 (biarch), ARM, AVR32, Alpha, Blackfin, CRISv10, CRISv32, HPPA, MIPS (o32, n32, n64), Meta, MicroBlaze, OpenRISC 1000, PowerPC, PowerPC (biarch), S390, S390x, SH, SH64, SPARC, \linebreak SPARC64 (biarch), Tile (biarch), Xtensa, m68k, x32 (biarch), x86, x86-64 (multiarch).
 
@@ -52,23 +52,22 @@ As of version 4.8, strace supports the following Linux architectures: AArch64 (b
 Almost every strace release contains such traditional enhancements as  more elaborate syscall decoders, updates for new syscalls, ioctls and kernel constants, and support for new architectures.  Other \linebreak enhancements include:
 
 \begin{itemize}
-  \item [4.5.20:] new \v!-C! option that combines regular and statistics output;
-  \item [4.6:] new method of following \v!clone!, \v!fork!, and \v!vfork! syscalls using new kernel's explicit facilities for tracing creation of threads and child processes (\v!PTRACE\_O\_TRACECLONE! etc.);
+  \item [4.5.20:] new \vv!-C! option that combines regular and statistics output;
+  \item [4.6:] new method of following \vv!clone!, \vv!fork!, and \vv!vfork! syscalls using new kernel's explicit facilities for tracing creation of threads and child processes (\vv!PTRACE\_O\_TRACECLONE! etc.);
   \item [4.6:] test suite;
-  \item [4.7:] new \v!-y! and \v!-P! options to print file descriptor paths and filter by those paths;
-  \item [4.7:] new \v!-I! option to control strace interactivity;
-  \item [4.8:] new tracing method using new kernel \v!PTRACE\_SEIZE! API;
-  \item [4.8:] new \v!-e trace=memory! option for tracing memory mapping related syscalls.
+  \item [4.7:] new \vv!-y! and \vv!-P! options to print file descriptor paths and filter by those paths;
+  \item [4.7:] new \vv!-I! option to control strace interactivity;
+  \item [4.8:] new tracing method using new kernel \vv!PTRACE\_SEIZE! API;
+  \item [4.8:] new \vv!-e trace=memory! option for tracing memory mapping related syscalls.
 \end{itemize}
 
 \subsection*{Implementation overview}
 
-Tracing features of strace are implemented using Linux ptrace API, which consists of \v!ptrace(2)! syscall for controlling other processes and \v!waitpid(2)! syscall for receiving notifications from the kernel.  Processes to be traced (tracees) are first attached to the strace process (tracer).  Attachment and subsequent commands are per thread.  In a multi"=threaded process, every thread can be individually attached to a tracer, or left not attached and thus not traced.  The traditional way to trace a program is to call \v!fork(2)! and have the resulting child to a \v!PTRACE\_TRACEME! followed by \v!execve(2)!.  To attach to  already existing processes (\v!-p! option), strace employs \v!PTRACE\_ATTACH! (traditional API) or \v!PTRACE\_SEIZE! (new API).  While being traced by strace, the tracee will stop each time a signal is delivered, at each entry to or exit  from a syscall.  strace waits for these events using \v!waitpid(2)!.  Depending on specified options, strace does various ptrace requests (e.~g. \v!PTRACE\_GET\-SIGINFO!, \v!PTRACE\_GETREGSET!, \v!PTRACE\_GETREGS!, \v!PTRACE\_PEEKTEXT!,\linebreak \v!PTRACE\_PEEKDATA!) to inspect the stopped tracee, and causes the tracee to continue using \v!PTRACE\_SYSCALL!  (traditional API) or \v!PTRACE\_LISTEN! (new API, in case of group stop).  When strace is finished tracing (e.g. interrupted by a signal), it lets its tracees to continue normal untraced execution, detaching them using \v!PTRACE\_DETACH!.
+Tracing features of strace are implemented using Linux ptrace API, which consists of \vv!ptrace(2)! syscall for controlling other processes and \vv!waitpid(2)! syscall for receiving notifications from the kernel.  Processes to be traced (tracees) are first attached to the strace process (tracer).  Attachment and subsequent commands are per thread.  In a multi"=threaded process, every thread can be individually attached to a tracer, or left not attached and thus not traced.  The traditional way to trace a program is to call \vv!fork(2)! and have the resulting child to a \vv!PTRACE\_TRACEME! followed by \vv!execve(2)!.  To attach to  already existing processes (\vv!-p! option), strace employs \vv!PTRACE\_ATTACH! (traditional API) or \vv!PTRACE\_SEIZE! (new API).  While being traced by strace, the tracee will stop each time a signal is delivered, at each entry to or exit  from a syscall.  strace waits for these events using \vv!waitpid(2)!.  Depending on specified options, strace does various ptrace requests (e.~g. \vv!PTRACE\_GET\-SIGINFO!, \vv!PTRACE\_GETREGSET!, \vv!PTRACE\_GETREGS!, \vv!PTRACE\_PEEKTEXT!,\linebreak \vv!PTRACE\_PEEKDATA!) to inspect the stopped tracee, and causes the tracee to continue using \vv!PTRACE\_SYSCALL!  (traditional API) or \vv!PTRACE\_LISTEN! (new API, in case of group stop).  When strace is finished tracing (e.g. interrupted by a signal), it lets its tracees to continue normal untraced execution, detaching them using \vv!PTRACE\_DETACH!.
 
 \subsection*{Plans for the future}
 
 strace is a mature project, so the main objective of strace development is perpetual catching up with Linux kernel: adding support for new ptrace extensions and new architectures, adding decoders for new syscalls and enhancing already existing decoders, updating kernel constants etc.  Besides that, we work on strace test suite to cover more use cases.
-
 
 
 \end{document}
