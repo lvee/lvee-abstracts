@@ -18,19 +18,19 @@ EPM — универсальный пакетный менеджер, работ
 \begin{table}
   \centering
   \begin{tabular}{ l l l l }
-    Операция & Нативная команда  & Команда epm & Сокращение \\
-    Установка  & apt"=get install
-urpmi
-pacman -S
-yum install & epm install & epmi \\
-    Удаление  & apt"=get remove
-urpme
-pacman -R
-yum remove & epm remove & epme \\
-    Поиск  & apt"=cache search
-urpmq -y
-pacman -Ss
-yum search & epm search & epms \\
+    Операция   & Нативная команда  & Команда epm & Сокращение \\
+    Установка  & apt"=get install  & epm install & epmi \\
+    ~          & urpmi\\
+    ~          & pacman -S\\
+    ~          & yum install \\
+    Удаление   & apt"=get remove   & epm remove  & epme \\
+    ~          & urpme \\
+    ~          & pacman -R \\
+    ~          & yum remove \\
+    Поиск      & apt"=cache search & epm search  & epms \\
+    ~          & urpmq -y\\
+    ~          & pacman -Ss \\
+    ~          & yum search 
   \end{tabular}
 \end{table}
 Управление пакетами тесно связано с управлением репозиториями пакетов (добавление, удаление, просмотр списка) и включением/выключением системных сервисов (так же устанавливаемых из пакетов). Эти действия так же унифицированы. Несколько команд для управления репозиториями на примере Mandriva:
