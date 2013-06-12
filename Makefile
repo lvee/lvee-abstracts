@@ -21,7 +21,7 @@ clean:
 
 %.pdf: %.tex
 	pdflatex $<
-	pdflatex $<
-	pdflatex $<
+	# pdflatex $<
+	# pdflatex $<
 
 .PHONY: all progress clean
