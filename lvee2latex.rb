@@ -35,10 +35,10 @@ puts '\end{abstract}'
 
 sh = Shell.new
 sed_cmd = <<'EOF'
-sed -E '
-s/\\section\{/\\section*\{/;
-s/\\subsection\{/\\subsection*\{/;
-s/\\subsubsection\{/\\subsubsection*\{/;
+sed -e '
+s/\\section{/\\section*{/;
+s/\\subsection{/\\subsection*{/;
+s/\\subsubsection{/\\subsubsection*{/;
 '
 EOF
 
