@@ -12,8 +12,6 @@
 Because of the lack of support for TDM bus in the Linux kernel we decided to implement such driver and commit it the mainline. This thesis describes the TDM technology, its scope, and some of the nuances of implementation. Also it describes the possible prospects of its development, and development of the VoIP on Linux in general.
 \end{abstract}
 
-\subsection*{Telepathy}
-
 Поводом для написания данного тезиса послужила наша работа по реализации
 поддержки стандарта TDM в ядре Linux. Мы хотим рассказать вам об этом
 стандарте, о том, почему мы решили реализовать его поддержку и какие это
@@ -21,10 +19,10 @@ Because of the lack of support for TDM bus in the Linux kernel we decided to imp
 ядра Linux.
 
 Вообще говоря, TDM "--- это не совсем стандарт, это скорее принцип,
-подразумевающий временное разделение информационного пространства канала.
+подразумевающий временное разделение информационного \linebreak пространства канала.
 TDM расшифровывается как Time Division \linebreak Multiplexing, что следует понимать
-примерно как мультиплексирование посредством разделения во времени. Все
-просто: ряд устройств висят на одной шине и каждое из них ждет своей
+примерно как мультиплексирование посредством разделения во времени. 
+Просто ряд устройств висят на одной шине, и каждое из них ждет своей
 очереди для отправки данных. В отличие от некоторых других реализаций
 общей шины, эти устройства никогда не пытаются и в принципе не могут
 пытаться передать свои данные одновременно, потому что у каждого
