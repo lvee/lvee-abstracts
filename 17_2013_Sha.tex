@@ -1,0 +1,76 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+
+\begin{document}
+
+\title{Обзор реализаций поддержки мультиархитектур в дистрибутивах Linux и их сборочных системах}%\footnote{Текст данных и последующих тезисов, кроме специально оговоренных случаев, доступен под лицензией Creative Commons Attribution"=ShareAlike 3.0}
+
+\author{Константин Шевцов\footnote{Минск, Беларусь; EPAM Systems; \url{int3g3r@gmail.com}}}
+\maketitle
+
+\begin{abstract}
+The world is not ideal that's why some packages can't built under certain architecture (i.e. grub, wine) or some vendors doesn't produce packages (skype, steam). In future it will allow run ancient packages.
+For this cases all distributives has multiarch support "--- installing of packages from more then one architecture in one system.
+This article is an overview of multiarch realizations in modern GNU/Linux distributives: OpenSUSE, Fedora, Debian/Ubuntu, Gentoo, ArchLinux and describes differences in package lifecycle.
+\end{abstract}
+
+\begin{center}\end{center}
+
+По мере появления новых архитектур компьютеров стали появляться дистрибутивы собранные под эти архитектуры. По ряду причин не все программы под GNU/Linux существуют и могут работать под родной архитектурой системы: так например wine и grub не могут быть собраны под архитектуру x86\_64, а некоторые закрытые программы, например skype и steam, поставляются собранные только под x86. Поэтому дистрибутивы начали приспосабливать свои пакетные менеджеры и сборочные системы. Способ совмещения пакетов двух разных архитектур в одной установке называется как multiarch или bi"=arch.
+
+Рассмотрим как эта ситуация решается в ряде наиболее распространенных дистрибутивов. В качестве ярко выраженного примера рассмотрим сборку и установку gcc с поддержкой multilib (-m32 \& -m64 build flags) для x86\_64.
+
+\subsubsection*{OpenSUSE}
+
+Используемая в дистрибутиве сборочная система OBS \cite{Sha1} не позволяет устанавливать пакеты сторонних архитектур в сборочное окружение. Чтобы решить данную проблему создан механизм baselibs \cite{Sha2} --- перепакетировка содержимого пакета одной архитектуры в другую. Например, x86"=пакет с именем foo после сборки дублируется в foo"=32bit с архитектурой x86\_64 (модификация имени и архитектуры в метаинформации пакета). Далее такой пакет копируется в x86\_64"=репозиторий, и этот репозиторий целиком паблишится для пользования конечным пользователем. Пути размещения библиотек "--- /lib32 и /lib64. Дистрибутив использует пакетный менеджер rpm/zypper, а для расчета зависимостей применяется libsolv \cite{Sha3}.
+
+\subsubsection*{Fedora}
+
+Сборочная система Koji \cite{Sha4} также не позволяет смешивать архитектуры в buildroot'e. Для удовлетворения сборки x86\_64 multilib gcc, grub применяется спрятанный пакет"=заглушка glibc32 \cite{Sha5}, который содержит 32"=битные библиотеки. Файлы сборки (.spec) написаны так, чтобы при установке rpm"=пакеты библиотек и заголовочных файлов двух архитектур не конфликтовали в одной системе. Пакетный менеджер Yum понимает архитектуры <<pkgname.arch>>. Для конечного пользователя предоставляется один репозиторий, содержащий выборку пакетов из двух архитектур  (для паблишинга используется утилита mash \cite{Sha6}). Пути укладки библиотек "---  /lib32 и /lib64. Используется пакетный менеджер rpm/yum, а расчет зависимостей выполняется yum <<compare\_providers>> \cite{Sha7}. Существует также экспериментальный проект rpm/Hawkey/DNF с использованием libsolv.
+
+\subsubsection*{Debian / Ubuntu}
+
+В Debian до версии 7 и в Ubuntu до версии 11.04 картина выглядит следующим образом. Большие пакеты ia32-* \cite{Sha8} содержат x86"=библиотеки и имеют архитектуру x86\_64. Их неудобно поддерживать, типичен очень большой размер (порядка 33 МБ), а версия пакета обычно представляет собой дату сборки.
+
+Начиная с версии 7 в Debian и версии 11.04 в Ubuntu добавлена поддержка различия архитектур установки <<pkgname:arch>> для dpkg/apt"=get. Сборка происходит в buildd, добавлено новое поле в сборочных файлах Multi"=arch. Но для сборки по"=прежнему используются  пакеты lib32*. Пути установки имеют вид prefix/lib/triplet (т.е. происходит игнорирование FHS). Пакетный менеджер по"=прежнему dpkg/apt"=get (или aptitude).
+
+\subsubsection*{Gentoo}
+
+В связи с тем, что это source"=based дистрибутив, в нем существует три различных способа решения рассматриваемой задачи\cite{Sha9}:
+
+\begin{enumerate}
+  \item Изначальный способ -- это большие пакеты emul-linux-* x86\_64 \cite{Sha10} содержащие файлы с архитектурой x86.
+  \item Существует также проект gx86-multilib \cite{Sha11}c eclass'ами, которые добавляют архитектурные USE"=флаги (abi\_x86\_32, abi\_x86\_64), управляющие зависимостями. Использование этого подхода требует изменения текущих ebuild'ов, например wine \cite{Sha12}.
+  \item Форк multilib"=portage позволяет собирать пакеты сразу под нужные архитектуры без модификации ebuild'ов.
+\end{enumerate}
+
+Во всех случаях используется пакетный менеджер portage.
+
+\subsubsection*{ArchLinux}
+
+Данный дистрибутив имеет отдельный репозиторий multilib \cite{Sha13}, в котором собираются пакеты с архитектурой x86\_64, именем пакета lib32-* и x86"=содержимым. Пакетный менеджер "--- pacman.
+
+\subsubsection*{Выводы}
+
+Таким образом видно, что у большинства дистрибутивов первым этапом поддержки мультиархитектур было простое добавление x86\_64"=пакетов с x86"=содержимым. Однако, наиболее правильным способом на данный момент видится вариант, когда содержимое пакета соответствует метаинформации пакета, а зависимости строятся с учетом архитектур, исключая конфликты путей. В дальнейшем такие улучшения должны помимо более корректного построения пакетной базы позволить миграцию между архитектурами без переустановки и возможность запуска <<древних>> программ старых архитектур в новых версиях дистрибутивов, что на текущий момент является актуальной и нерешенной проблемой.
+
+\begin{thebibliography}{9}
+\bibitem{Sha1} \url{https://build.opensuse.org/}
+\bibitem{Sha2} \url{https://en.opensuse.org/openSUSE:Build\_Service\_baselibs.conf}
+\bibitem{Sha3} \url{https://github.com/openSUSE/libsolv}
+\bibitem{Sha4} \url{http://koji.fedoraproject.org/koji/}
+\bibitem{Sha5} \url{https://lists.fedoraproject.org/pipermail/buildsys/2011-January/003496.html}
+\bibitem{Sha6} \url{https://admin.fedoraproject.org/pkgdb/acls/name/mash}
+\bibitem{Sha7} \url{http://yum.baseurl.org/wiki/CompareProviders}
+\bibitem{Sha8} \url{http://packages.debian.org/squeeze/ia32-libs}
+\bibitem{Sha9} \url{http://wiki.gentoo.org/wiki/Multilib}
+\bibitem{Sha10} \url{http://www.gentoo.org/proj/en/base/amd64/emul/emul-linux-x86-20130224.xml}
+\bibitem{Sha11} \url{http://wiki.gentoo.org/wiki/Gx86-multilib}
+\bibitem{Sha12} \url{http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/app-emulation/wine/wine-1.5.31.ebuild?view=markup\#33}
+\bibitem{Sha13} \url{https://wiki.archlinux.org/index.php/Arch64\_FAQ\#Multilib\_Repository\_-\_Multilib\_Project}
+\end{thebibliography}
+\end{document}
+
+
+
+
