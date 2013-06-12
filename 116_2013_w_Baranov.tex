@@ -18,7 +18,7 @@ EPM — универсальный пакетный менеджер, работ
 \begin{table}[h!]
   \centering
   \small
-  \begin{tabular}{l|p{1.8cm}|l|l}
+  \begin{tabular}{l|p{3cm}|l|l}
     \hline
     Операция   & Нативная команда  & Команда epm & Сокращение \\
     \hline
@@ -33,35 +33,6 @@ EPM — универсальный пакетный менеджер, работ
 \end{table}
 
 Управление пакетами тесно связано с управлением репозиториями пакетов (добавление, удаление, просмотр списка) и включением/выключением системных сервисов (так же устанавливаемых из пакетов). Эти действия так же унифицированы.
-
-\begin{table}
-  \centering
-  \small
-  \begin{tabular}{l|l|l}
-    \hline
-    Операция & Команда Mandriva & Команда epm \\
-    \hline
-    Список репозиториев & \vv!urpmq --list-url! & \vv!epm repolist! \\
-    Добавить репозиторий & \vv!urpmi.addmedia! & \vv!epm addrepo! \\
-    \hline
-  \end{tabular}
-  \caption{Команды для управления репозиториями на примере Mandriva}
-\end{table}
-
-\begin{table}[h]
-  \centering
-  \small
-  \begin{tabular}{l|l|l}
-    \hline
-    Операция & Команда Mandriva & Команда epm \\
-    \hline
-    Статус сервиса & \vv!service status! & \vv!cerv status! \\
-    Старт сервиса & \vv!service start! & \vv!cerv addrepo! \\
-    Автостарт & \vv!chkconfig on! & \vv!cerv on! \\
-    \hline
-  \end{tabular}
-  \caption{Команды управления сервисами}
-\end{table}
 
 EPM может использоваться при повседневном администрировании различных машин, в скриптах и средствах работы с пакетами. Скрипт, написанный с использованием epm, будет более гибким, сможет использоваться на разных системах производя установку пакетов и настройку сервисов.
 
