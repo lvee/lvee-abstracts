@@ -9,16 +9,21 @@
 \maketitle
 
 \begin{abstract}
-The world is not ideal that's why some packages can't built under certain architecture (i.e. grub, wine) or some vendors doesn't produce packages (skype, steam). In future it will allow run ancient packages.
+The world is not ideal that's why some packages can't built under certain architecture (i.e. grub, wine) or some vendors does not produce packages (skype, steam). In future it will allow run ancient packages.
 For this cases all distributives has multiarch support "--- installing of packages from more then one architecture in one system.
-This article is an overview of multiarch realizations in modern GNU/Linux distributives: OpenSUSE, Fedora, Debian/Ubuntu, Gentoo, ArchLinux and describes differences in package lifecycle.
+This article is an overview of multiarch realizations in modern GNU/Linux distributives: OpenSUSE, Fedora, Debian, Ubuntu, Gentoo, ArchLinux and describes differences in package lifecycle.
 \end{abstract}
 
-\begin{center}\end{center}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=3cm]{17_multiarch_logo}
+\end{figure}
 
 По мере появления новых архитектур компьютеров стали появляться дистрибутивы собранные под эти архитектуры. По ряду причин не все программы под GNU/Linux существуют и могут работать под родной архитектурой системы: так например wine и grub не могут быть собраны под архитектуру x86\_64, а некоторые закрытые программы, например skype и steam, поставляются собранные только под x86. Поэтому дистрибутивы начали приспосабливать свои пакетные менеджеры и сборочные системы. Способ совмещения пакетов двух разных архитектур в одной установке называется как multiarch или bi"=arch.
 
 Рассмотрим как эта ситуация решается в ряде наиболее распространенных дистрибутивов. В качестве ярко выраженного примера рассмотрим сборку и установку gcc с поддержкой multilib (-m32 \& -m64 build flags) для x86\_64.
+
+
 
 \subsubsection*{OpenSUSE}
 
@@ -39,8 +44,8 @@ This article is an overview of multiarch realizations in modern GNU/Linux distri
 В связи с тем, что это source"=based дистрибутив, в нем существует три различных способа решения рассматриваемой задачи\cite{Sha9}:
 
 \begin{enumerate}
-  \item Изначальный способ -- это большие пакеты emul-linux-* x86\_64 \cite{Sha10} содержащие файлы с архитектурой x86.
-  \item Существует также проект gx86-multilib \cite{Sha11}c eclass'ами, которые добавляют архитектурные USE"=флаги (abi\_x86\_32, abi\_x86\_64), управляющие зависимостями. Использование этого подхода требует изменения текущих ebuild'ов, например wine \cite{Sha12}.
+  \item Изначальный способ -- это большие пакеты emul-linux-* \linebreak x86\_64 \cite{Sha10} содержащие файлы с архитектурой x86.
+  \item Существует также проект gx86-multilib \cite{Sha11}c eclass'ами, которые добавляют архитектурные USE"=флаги (abi\_x86\_32,\linebreak abi\_x86\_64), управляющие зависимостями. Использование \linebreak этого подхода требует изменения текущих ebuild'ов, например wine \cite{Sha12}.
   \item Форк multilib"=portage позволяет собирать пакеты сразу под нужные архитектуры без модификации ebuild'ов.
 \end{enumerate}
 
