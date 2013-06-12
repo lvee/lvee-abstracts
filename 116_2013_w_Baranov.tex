@@ -1,0 +1,70 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+
+\begin{document}
+
+\title{Etersoft Epm — универсальная оболочка управления пакетами}%\footnote{Текст данных и последующих тезисов, кроме специально оговоренных случаев, доступен под лицензией Creative Commons Attribution-ShareAlike 3.0}
+
+\author{Даниил Михайлов, Виталий Липатов\footnote{Санкт-Петербург, Россия; \url{baraka@etersoft.ru}, url{lav@etersoft.ru}}}
+\maketitle
+
+\begin{abstract}
+Epm is universal package manager for different Linux distributions and operating systems. Application and implementation details, which at the interface, similar to the rpm and apt at the same time, allows to perform necessary operations in a similar way on any platform.
+\end{abstract}
+
+EPM — универсальный пакетный менеджер, работающий на любых Linux"=платформах. Он позволяет решать основные задачи управления пакетами (установка, удаление, поиск) с помощью унифицированных команд. Для выполнения реальных действий выполняет команды пакетного менеджера, присущего конкретной системе.
+Пример наиболее используемых команд:
+
+\begin{table}
+  \centering
+  \begin{tabular}{ l l l l }
+    Операция & Нативная команда  & Команда epm & Сокращение \\
+    Установка  & apt"=get install
+urpmi
+pacman -S
+yum install & epm install & epmi \\
+    Удаление  & apt"=get remove
+urpme
+pacman -R
+yum remove & epm remove & epme \\
+    Поиск  & apt"=cache search
+urpmq -y
+pacman -Ss
+yum search & epm search & epms \\
+  \end{tabular}
+\end{table}
+Управление пакетами тесно связано с управлением репозиториями пакетов (добавление, удаление, просмотр списка) и включением/выключением системных сервисов (так же устанавливаемых из пакетов). Эти действия так же унифицированы. Несколько команд для управления репозиториями на примере Mandriva:
+
+\begin{table}
+  \centering
+  \begin{tabular}{ l l l }
+    Операция & Команда Mandriva & Команда epm \\
+    Список репозиториев & urpmq ---list-url & epm repolist \\
+    Добавить репозиторий & urpmi.addmedia & epm addrepo \\
+  \end{tabular}
+\end{table}
+Примеры управления сервисами:
+
+\begin{table}
+  \centering
+  \begin{tabular}{ l l l }
+    Операция & Команда Mandriva & Команда epm \\
+    Статус сервиса & service status & cerv status \\
+    Старт сервиса & service start & cerv addrepo \\
+    Автостарт & chkconfig on & cerv on \\
+  \end{tabular}
+\end{table}
+EPM может использоваться при повседневном администрировании различных машин, в скриптах и средствах работы с пакетами. Скрипт, написанный с использованием epm, будет более гибким, сможет использоваться на разных системах производя установку пакетов и настройку сервисов.
+
+EPM заменяет собой длинные справочники по командам различных пакетных менеджеров, обеспечивая администратору весь необходимый функционал управления пакетами даже для незнакомой системы, используя там команды с привычным синтаксисом: как apt в Debian, как rpm в Fedora, как urpm в Mandriva.
+
+EPM уже сейчас поддерживает большое количество дистрибутивов: ALT Linux, Debian, Ubuntu, Mandriva, FreeBSD, Gentoo, ArchLinux, Fedora, SUSE, Slackware. Большим преимуществом epm является простота расширения функционала и добавления поддерживаемых  дистрибутивов, с этой задачей справится любой желающий, знакомый с shell. Для добавления новой команды придется лишь найти файл, отвечающий за неё и дописать несколько строк на шелле.
+Разумеется, возможность задания команд epm в синтаксисе любого из поддерживаемых дистрибутивов ограничена пересечениями (иногда две различные по смыслу команды из разных дистрибутивов имеют одинаковый синтаксис); в настоящий момент наиболее востребованные команды добавляются в epm по запросам пользователей в случае синтаксической совместимости с уже имеющимся функционалом.
+
+
+
+\end{document}
+
+
+
+
