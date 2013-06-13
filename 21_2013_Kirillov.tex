@@ -17,22 +17,22 @@ This means that given the limited set of tools and techniques the engineer shoul
 
 Modern application workloads, namely concurrent queue processing and long-living connections enforce a specific set of constraints on the runtime environment that are transitively applied to the development environment (VM, app design, libraries, language).
 
-Logging, which is a common practice of leaving bread crumbs through the system, doesn't always help because they usually tend to represent sequences of ongoing events at the specific point of time (aka immediate state) shadowing the waiting queue of events, events that are stuck in the middle of a processing pipeline, simply saying, the big picture (aka entity). As a bonus, logging is often scattered throughout the distributed system which brings challenges like restoring the correct sequence of events (out-of-sync clocks) and simply correctly gathering the log data which is actually relevant to the problem (solutions to this challenge are left out of scope of this article).
+Logging, which is  common practice of leaving bread crumbs through the system, doesn't always help because they usually tend to represent sequences of ongoing events at the specific point of time (aka immediate state) shadowing the waiting queue of events, events that are stuck in the middle of a processing pipeline, simply saying, the big picture (aka entity). As a bonus, logging is often scattered throughout the distributed system which brings challenges like restoring the correct sequence of events (out-of-sync clocks) and simply correctly gathering the log data which is actually relevant to the problem (solutions to this challenge are left out of scope of this article).
 
 So the problem effectively comes down to a problem of having a software platform that lets you effectively observe its state at run time (obviously, the latter excludes the possibility of using a traditional stop-the-world debugger).
 
-A common example of such a software platform is an operating system and its kernel. For example, a Linux kernel exposes multiple interfaces (namely {\tt proc(5)}, {\tt netlink(7)}, {\tt sysfs}) to inspect its internal data structures and sample its runtime (see \href{http://joyent.com/blog/linux-performance-analysis-and-tools-brendan-gregg-s-talk-at-scale-11x}{linuxperf} for more).
+A common example of such a software platform is an operating system and its kernel. For example, a Linux kernel exposes multiple interfaces (namely {\tt proc(5)}, {\tt netlink(7)}, {\tt sysfs}) to inspect its internal data structures and sample its runtime (\url{http://tinyurl.com/awzosnw}).
 
-However it becomes tempting to the operations engineer to use the system-wide introspection tools instead of the application-specific because many of those are available thus imposing the \href{http://queue.acm.org/detail.cfm?id=2413037}{streetlight anti-method} of debugging.
+However it becomes tempting to the operations engineer to use the system-wide introspection tools instead of the application-specific because many of those are available thus imposing the \url{http://queue.acm.org/detail.cfm?id=2413037}{streetlight anti-method} of debugging.
 
 This brings us to the necessity of an application operating systems that possesses control over the application resources and keeps track of internal processing queues effectively giving introspection abilities.
 
-However rolling such a system on a programmer's own usually demonstrates suffering from \href{http://en.wikipedia.org/wiki/Not_invented_here}{NIH} syndrome. Moreover, this exhibits the effectiveness of \href{http://en.wikipedia.org/wiki/Greenspun's_tenth_rule}{Greenspun}'s tenth rule of programming (substitute any technology for your in the LHS of the statement):
+However rolling such a system on a programmer's own usually\linebreak demonstrates suffering from {NIH}  syndrome (\url{http://en.wikipedia.org/wiki/Not_invented_here}). Moreover, this shows the effectiveness of {Greenspun}'s tenth rule of programming (substitute any technology for your in the LHS of the statement, \url{http://en.wikipedia.org/wiki/Greenspun's_tenth_rule}):
 
 \begin{quote}%
 Any sufficiently complicated C or Fortran program contains an ad hoc, informally-specified, bug-ridden, slow implementation of half of Common Lisp.
 \end{quote}
-Or, applying the rule to modern web-like workloads with high concurrency we end up with \href{http://rvirding.blogspot.com/2008/01/virdings-first-rule-of-programming.html}{Virding}'{}s first rule of programming:
+Or, applying the rule to modern web-like workloads with high \linebreak concurrency we end up with {Virding}'{}s first rule of programming (\url{http://tinyurl.com/kfw3gph}):
 
 \begin{quote}%
 Any sufficiently complicated concurrent program in another language contains an ad hoc informally-specified bug-ridden slow implementation of half of Erlang.
@@ -40,7 +40,7 @@ Any sufficiently complicated concurrent program in another language contains an 
 \end{quote}
 In practice, it's best to rely on the features that are built-in to the runtime platform, such as Haskell's {\tt GHC RTS} and Erlang's {\tt beam}. Both platforms employ a programming model with lightweight (or green) threads, also commonly known as $ M:N $ model, where $ N < M $ due to the housekeeping cost of OS threads.
 
-It's also worth noting that it's practically inefficient to implement $ M:N $ model in non-functional languages with shared mutable data and complexities of implementing blocking system calls as non-blocking (tracking of this problem can be started from \href{http://www.kegel.com/c10k.html#1:1}{c10kthreading}).
+It's also worth noting that it's practically inefficient to implement $ M:N $ model in non-functional languages with shared mutable data and complexities of implementing blocking system calls as non-blocking (tracking of this problem can be started from \url{http://www.kegel.com/c10k.html#1:1}).
 
 On the contrary, bytecode interpreters that are the default implementations of dynamic languages like Python, Ruby, PHP and runtimes like NodeJS and JVM are inconvenient due to employed programming model of asynchronous callbacks and thread pools that significantly harden debugging because a single processing pipeline is scattered across multiple threads of control with different operation semantics.
 
