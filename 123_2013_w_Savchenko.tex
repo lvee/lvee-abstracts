@@ -5,7 +5,7 @@
 \author{Andrew Savchenko\footnote{Moscow, Russia; NRNU MEPhI; \url{bircoph@gmail.com}}
 \maketitle
 \begin{abstract}
-An introduction to the world of distributed file systems is presented with a humble attempt to categorize them. A problem of choice is
+An introduction to the world of distributed file systems is presen\-ted with a humble attempt to categorize them. A problem of choice is
 considered from the workload profile point of view, and some common issues and pitfalls are discussed. A practical OrangeFS experience is
 given with tips and tricks for better performance.
 \end{abstract}
@@ -35,8 +35,13 @@ Every non-local file system (except for few exotic cases) may be roughly related
   \item distributed file systems.
 \end{itemize}
 
-Of course, there is a large intersection between these sets. See fig.1 for details.
-\includegraphics[width=10cm]{123_genesis.png}
+Of course, there is a large intersection between these sets. See fig. \ref{fig:Sav1} for details.
+
+\begin{figure}[h]
+  \centering
+\includegraphics[height=4cm]{123_genesis.png}
+\caption{Distributed flesystems}\label{fig:Sav1}
+\end{figure}
 
 \subsection*{Network file systems}
 
