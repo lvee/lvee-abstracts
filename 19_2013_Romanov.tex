@@ -2,12 +2,12 @@
 \input{preamble.tex}
 \begin{document}
 \title{Сравнение Redis и MySQL на задаче построения игровых рейтингов}
-\author{Алексей Романов \footnote{Minsk, Belarus; \url{drednout.by@gmail.com}}}
+\author{Алексей Романов \footnote{Минск, Беларусь; \url{drednout.by@gmail.com}}}
 \maketitle
 \begin{abstract}
-During development of games often exists the problem of choosing the right tool for storing and processing data. In this paper MySQL and Redis are compared. The main technique of comparison is implementing the part of functionality using each of tool and analysing of obtained solution. The analysis includes both static code and data verification, and also real experiments with measuring all interesting parameters. Then experiment's data are processed and given results are  objectively compared.
+During games development  often exists a problem of choosing the right tool for storing and processing data. In this paper MySQL and Redis are compared. The main technique is to \linebreak implement the part of functionality using each  tool and to analyse the obtained solution. The analysis includes both static code and data verification, and also real experiments with all interesting parameters measured. Then experiments' data are processed and given results are  objectively compared.
 \end{abstract}
-В процессе разработки игр часто возникает задача построения рейтингов игроков. Особенно актуальна эта задача при разработке MMO-игр(MMO=massively multiplayer online) и игр в социальных сетях, так как игроков в таких играх довольно большое количество, и задача построения и отображения рейтинга становится не такой и простой.
+В процессе разработки игр часто возникает задача построения рейтингов игроков. Особенно актуальна эта задача при разработке MMO-игр(англ. massively multiplayer online) и игр в социальных сетях, так как игроков в таких играх довольно большое количество, и задача построения и отображения рейтинга становится не такой и простой.
 
 Ключевыми аспектами при разработке подсистемы построения игровых рейтингов являются:
 

@@ -4,7 +4,7 @@
 \def\fakeparagraph#1{\textbf{#1}}
 \begin{document}
 \title{Алгарытмы паляпшэння выяваў у ВПЗ: падаўленне шумоў}
-\author{Антон Літвіненка \footnote{Кіеў, Ukraine}}
+\author{Антон Літвіненка \footnote{Кіеў, Украіна; \url{tenebrosus.scriptor@gmail.com}. Пашыраная версія артыкула з прыкладамі апрацоўкі: \url{http://lvee.org/be/abstracts/41}}}
 \maketitle
 \begin{abstract}
 A review of image denoising enhancement algorithms devilered by FLOSS projects is provided together with discussion of their end-user characteristics and some theoretical aspects.
@@ -40,8 +40,8 @@ A review of image denoising enhancement algorithms devilered by FLOSS projects i
 Гаўсава размыццё + памяншэнне памеру. Вельмі просты, але губляецца шмат інфармацыі. Можа быць карысны пры нестандартных узорах шумоў, калі падабраць больш прасунуты спосаб падаўлення не атрымліваецца. Даступны ў любым рэдактары.
 
 Прыклад для {ImageMagick}:\\
-\texttt{newsize=`convert src.tif -format "\%[fx:w/4]x\%[fx:h/4]" info:`}
-\texttt{convert src.tif -blur 4x4 -resize \$newsize dst.tif}
+\texttt{newsize=`convert src.tif -format "\%[fx:w/4]x\%[fx:h/4]" info:}
+\texttt{`convert src.tif -blur 4x4 -resize \$newsize dst.tif}
 
 \fakeparagraph{Dechroma.}
 Гаўсава размыццё каляровых каналаў A і B у схеме LAB з вялікім радыюсам (15--100). Робіць шум монахраматычным. Змяшчае каляровую гаму выявы (як правіла, пасля апрацоўкі даводзіцца дадаць чырвані). Можа быць карысны як адзін з пунктаў апрацоўкі пры моцнай зашумленасці выявы альбо як адзіны пры невялікім каляровым шуме (калі з нейкіх прычынаў непажадана кранаць канал яркасці). Даступны ў любым рэдактары, здольным працаваць са схемай LAB (у {GIMP} рэалізаваны як асобны плагін {dechroma}).
