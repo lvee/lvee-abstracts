@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{pestov2010}
+Sviatoslav Pestov, Daniel Ehrenberg, and Joe Groff.
+\newblock Factor: a dynamic stack-based programming language.
+\newblock {\em SIGPLAN Not.}, 45(12):43--58, October 2010.
+
+\bibitem{HerzbergR09}
+Dominikus Herzberg and Tim Reichert.
+\newblock Concatenative programming - an overlooked paradigm in functional
+  programming.
+\newblock In Boris Shishkov, José Cordeiro, and Alpesh Ranchordas, editors,
+  {\em ICSOFT (1)}, pages 257--263. INSTICC Press, 2009.
+
+\end{thebibliography}
