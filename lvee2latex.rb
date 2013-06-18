@@ -1,6 +1,12 @@
 #!/usr/bin/env ruby
+# Copyright (c) 2013, Ales Guzik
+# This software is provided as-is under terms
+# of Modified BSD License
 #
-# Usage lvee2latex.rb id > out.tex
+# Usage for article without bibliography:
+#   lvee2latex.rb id > out.tex
+# Usage for article with bibliography(as footnotes):
+#   lvee2latex.rb id 1 > out.tex
 
 require "rubygems"
 require "open-uri"
