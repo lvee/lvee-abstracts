@@ -1,4 +1,6 @@
 
+.progress
+.dep/*
 *.swp
 *.orig
 *.aux
