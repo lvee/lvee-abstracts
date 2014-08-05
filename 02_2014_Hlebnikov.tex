@@ -106,19 +106,21 @@ Squashing "--- это слияние нескольких коммитов в о
 
 \begin{table}
   \centering
-  \begin{tabular}{|p{2.5cm}|p{3.5cm}|p{3.5cm}| } \hline
-   ~  & \textbf{Git}                     & \textbf{Mercurial}          \\ \hline
-    \textbf{Ответвление от mainline} & git checkout –b case4         & hg book case4            \\ \hline
-    \textbf{Работа над кейсом}   & git commit -m ``Commit 1''
-                         git commit -m ``Commit 2''
-                         \ldots{}                           & hg commit -m ``Commit 1''
-                                                       hg commit -m ``Commit 2''
-                                                       \ldots{}                    \\ \hline
-    \textbf{Rebase и squash}     & git checkout --b \emph{case4-2}
-                         git rebase --interactive main & (нужны расширения Rebase и Histedit)
-                                                       hg rebase --keep --dest main
-                                                       hg histedit main
-                                                       hg book \emph{case4-2}      \\ \hline
+  \begin{tabular}{P{2.5cm}|P{3.5cm}|P{3.5cm}}
+    \hline
+                                  ~  & \textbf{Git}                 & \textbf{Mercurial}          \\ \hline
+    \textbf{Ответвление от mainline} & git checkout -{}-b case4       & hg book case4              \\
+    \textbf{Работа над кейсом}   & git commit -m ``Commit 1'' \newline
+                                   git commit -m ``Commit 2'' \ldots{}
+                                                                    & hg commit -m "Commit 1" \newline
+                                                                      hg commit -m "Commit 2" \ldots{} \\
+    \textbf{Rebase и squash}     & git checkout -{}-b \emph{case4-2} \newline
+                                   git rebase -{}-interactive main
+                                                     & (нужны расширения rebase и histedit) \newline
+                                                       hg rebase -{}-keep -{}-dest main \newline
+                                                       hg histedit main \newline
+                                                       hg book \emph{case4-2}      \\
+    \hline
   \end{tabular}
 \end{table}
 Отдельно коснёмся ``табу на rebase после push''. Существует довольно распространённый миф, что если ветка запушена (push) на сервер "--- все возможности ребэйса (rebase) для неё потеряны, потому что если ветку проребэйсить и запушить на сервер опять (что возможно только с ключом --force), то это создаст несоответствие между репозиторием на сервере и репозиториями других разработчиков. В результате эти разработчики при попытке подтянуть эту ветку с сервера получат сломанную ветку.
