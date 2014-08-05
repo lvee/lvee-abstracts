@@ -7,7 +7,7 @@
 \begin{abstract}
 The work includes implementation and extraction algorithms capabilities test, without any additional data (starting position, the number of bits used, gap between the amount of data encoded) information from encoded files (mostly images). The software is written using OpenMP standard [1], which allowed them to run on parallel computers. Performance tests were carried out on computers, Blue Gene/P [2], Blue Gene/Q [3] and the system consisting of four AMD Opteron 6272 [4]. Source code is available under GNU GPL v3 license and are available in a repository OLib [5].
 \end{abstract}
-\subsection*{I. Introduction}
+\section{Introduction}
 
 Steganography is the science of determining how to conduct communication so that the presence of the message could not be detected by third parties. It differs from cryptography in a way that in cryptography existence of the message is not negated but its content remains implicit. Steganography hides the fact that any communication has been conducted.
 
@@ -30,11 +30,11 @@ The amount of information transmitted to the encrypted information          &  C
 Table 1. Differences between steganography and cryptography.
 \end{center}
 
-\subsection*{II. Traditional Steganography}
+\section{Traditional Steganography}
 
 The use of steganography dates back to the time of Herodotus, the fifth century BC. Examples of traditional steganography can be tattooing the scalp (after the hair grew back information remains invisible). One of the best solutions of this kind applied by the Germans during World War II -- microdots technique. It was based on minimazing  pictures to such scale so that you can paste them into the text as a dot.
 
-\subsection*{III. Digital Steganography}
+\section{Digital Steganography}
 
 With the development of digital technology, steganography has found a new use also in the field of science. Digital steganography bases on making subtle changes to the original medium, and therefore gives a much more possibilities than traditional steganography.
 
@@ -54,136 +54,128 @@ Digital steganography depending on the type of operation can be divided into the
 
 Another field of use for steganography is to communicate using VoIP technology. The Polish jargon adopted using in this case the word „steganphony”. The first such solution had been proposed by two Polish scientists Wojciech Mazurczyk and Krzysztof Szczypiorski in 2008 at a conference in Mexico \footnotemark[11]. It was based on in transferring the hidden content in the delayed packets, which according to a standard communication protocol (operating in real time) are omitted.
 
-\subsection*{IV. LSB -- Least Significant Bit -- one of the methods of substitution}
+\section{LSB "--- Least Significant Bit "--- one of the methods of substitution}
 
-The article will summarize often used method of substitution -- LSB. Mostly it uses the least significant bits to record information. These bits often carry only noise and are insignificant from the point of view images for example. The principle of LSB operation for one and two least significant bits are shown in Figure 1 and Figure 2.
-
-
-<center>Figure 1. Applying the LSB using one least significant bit.</center>
+The article will summarize often used method of substitution "--- LSB. Mostly it uses the least significant bits to record information. These bits often carry only noise and are insignificant from the point of view images for example. The principle of LSB operation for one and two least significant bits are shown in Figure 1 and Figure 2.
 
 
-<center>Figure 2. Application of the LSB method using the two least significant bits.</center>
+Figure 1. Applying the LSB using one least significant bit.
 
-\subsection*{V. Implementation}
+Figure 2. Application of the LSB method using the two least significant bits.
+
+\section{Implementation}
 
 Source code had been implemented in pure ANSI C. Sample code for function encrypting text using least significant bits of the image you can see in Listing 1.
 
 \begin{verbatim}
-int crypt\_space\_1bit(char * buffer, char *open\_text, long int start\_position, long int open\_text\_size, long int space\_size)
-\{
+int crypt_space_1bit(char * buffer, char *open_text,
+  long int start_position, long int open_text_size,
+  long int space_size)
+{
   long int i;
-  for(i=0; i \textless{} (open\_text\_size * 8); i++)
-  \{
-    if( check\_bit(open\_text[i/8], i\%8) )
-    \{
-      set\_bit(buffer[start\_position+i}space\_size], 0);
-    \}
+  for (i = 0; i < (open_text_size * 8); i++)
+  {
+    if (check_bit(open_text[i / 8], i % 8))
+    {
+      set_bit(buffer[start_position + i * space_size], 0);
+    }
     else
-    \{
-      clear\_bit(buffer[start\_position+i*space\_size], 0);
-    \}
-  \}
-\}
+    {
+      clear_bit(buffer[start_position + i * space_size], 0);
+    }
+  }
+}
 \end{verbatim}
 
 Listing 1 The function encrypting the data in the image using one least significant bit.
 
 We are passing pointers to two array to the function -- the buffer array (image data) and open\_text array (array of information to be encoded). In addition, the code uses macros check\_bit, set\_bit and clear\_bit. Their definition is shown in Listing 2.
 
-<CODE>
-\# define check\_bit(var,pos) ((var) \& (1LL\textless{}\textless{}(pos)))
-\# define set\_bit(var,pos) ((var) |= (1LL\textless{}\textless{}(pos)))
-\# define clear\_bit(var,pos) ((var) \&= \~{}(1LL\textless{}\textless{}(pos)))
-
-</PRE>
+\begin{verbatim}
+# define check_bit(var,pos) ((var) & (1LL<<(pos)))
+# define set_bit(var,pos) ((var) |= (1LL<<(pos)))
+# define clear_bit(var,pos) ((var) &= ~{}(1LL<<(pos)))
+\end{verbatim}
 
 Listing 2. Macros defining operations on bits.
 
 The most important, in the case of this article, however, is a function used to extract encrypted text without knowledge of the initial starting value, or even the length of ciphertext. It has been shown in Listing 3.
 
-<CODE>
-long int breaker\_standard\_1bit\_unknown\_size\_openmp(char *buffer, long int buffer\_size, long int size\_down, long int size\_upper, result\_structure *result, int number\_of\_threads)
-\{
-	char *open\_text;
-	
-	long int start\_position;
-	
-	long int index\_result;
-	index\_result = 0;
-	
-	long int i;
-	long int j;
-	j = size\_down;
-	
-	\#pragma omp parallel for shared(buffer, buffer\_size, size\_down, size\_upper, result, index\_result) private(i, j, start\_position, open\_text) num\_threads(number\_of\_threads)
-	for(i=0; i \textless{} (buffer\_size -- j); i++)
-	\{
-		open\_text = (char*) malloc( (size\_upper+1) * sizeof(char));
+\begin{verbatim}
+long int breaker_standard_1bit_unknown_size_openmp(
+  char *buffer, long int buffer_size, long int size_down,
+  long int size_upper, result_structure *result,
+  int number_of_threads)
+{
+  char *open_text;
+  long int start_position;
+  long int index_result;
+  index_result = 0;
+  long int i;
+  long int j;
+  j = size_down;
 
-		start\_position = i;
-	
-		for(j=size\_down; j \textless{}= size\_upper; j++)
-		\{
-			encrypt\_standard\_1bit(buffer, open\_text, start\_position, j);
-			
-			if ( ascii\_veryfi(open\_text, j) == 1 )
-			\{
-				open\_text[j] = `\textbackslash{}0';
-				
-				\#pragma omp critical
-				\{
-					result[index\_result].start\_position = i;
-					strcpy(result[index\_result].text, open\_text);
-					index\_result++;
-				\}
-			\}
-		\}
-		
-		free(open\_text);
-	\}
-		
-	return index\_result;
-\}
-
-</PRE>
+  #pragma omp parallel for shared(buffer, buffer_size, \
+      size_down, size_upper, result, index_result)     \
+      private(i, j, start_position, open_text)         \
+      num_threads(number_of_threads)
+  for(i=0; i < (buffer_size -- j); i++)
+  {
+    open_text = (char *)malloc((size_upper + 1) * sizeof(char));
+    start_position = i;
+    for (j = size_down; j <= size_upper; j++)
+    {
+      encrypt_standard_1bit(buffer, open_text, start_position, j);
+      if (ascii_veryfi(open_text, j) == 1)
+      {
+        open_text[j] = '\0';
+        #pragma omp critical
+        {
+          result[index_result].start_position = i;
+          strcpy(result[index_result].text, open_text);
+          index_result++;
+        }
+      }
+    }
+    free(open_text);
+  }
+  return index_result;
+}
+\end{verbatim}
 
 Listing 3 Function to extract information from the least significant bits without the initial information.
 
 This function searches the least significant bits in the buffer array of size of buffer\_size and searches all the possible encrypted patterns of lengths from size\_down to size\_upper. The result is inserted into the result array. The code uses so-called pragma derived from the OpenMP standard. This pragma aims to parallelize the main loop. Also worth mentioning is separate critical section -- it takes care of the correct addition of blocks to the results array. Only one thread can access the critical section at a time. Also a function has been used:
 
-<CODE>int ascii\_verify(pointer, size);
-
-</PRE>
+\verb!int ascii_verify(pointer, size);!
 
 which verifies whether the starting substring at the pointer of length size is the correct text stored using ASCII code.
 
-\subsection*{VI. Results}
+\section{Results}
 
 Performance results obtained when searching for encoded text inside graphic file with a resolution of $1600\times1200$ is shown in Table 2. A similar table for resolution $4096\times4096$ is presented in Table 3. Additionally, obtained through parallel programming (OpenMP), speedup on IBM Blue Gene/Q and AMD Opteron 6272 is shown in Figure 3.
 
 
-<center>Table 2. Performance results obtained during scan of the image with a resolution of $1600\times1200$ (searching one least significant bit using length of the search phrase in the range of 10 to 25).</center>
+Table 2. Performance results obtained during scan of the image with a resolution of $1600\times1200$ (searching one least significant bit using length of the search phrase in the range of 10 to 25).
 
+Figure 3. The speedup obtained on platforms AMD Opteron 6272 and IBM Blue Gene/Q while searching an image with a resolution of $1600\times1200$ (search only one least significant bit of the length of the text to search in the range from 10 to 25).
 
-<center>Figure 3. The speedup obtained on platforms AMD Opteron 6272 and IBM Blue Gene/Q while searching an image with a resolution of $1600\times1200$ (search only one least significant bit of the length of the text to search in the range from 10 to 25).</center>
-
-
-<center>Table 3. Performance results obtained during scan of the image with a resolution of $4096\times4096$ (searching one least significant bit using length of the search phrase in the range of 10 to 25).</center>
+Table 3. Performance results obtained during scan of the image with a resolution of $4096\times4096$ (searching one least significant bit using length of the search phrase in the range of 10 to 25).
 
 In the case of a platform consisting of four AMD Opteron 6272 maximum speedup is achieved by using 64 CPU and it reached 36.00. Using computational units used in Blue Gene/Q the speedup reached to 31.915. But it was not obtained, as might be expected, with a maximum (64) number of processors, but only 48. This may be due to the fact that one Blue Gene/Q CPU has only 16 physical cores that implement the execution of 64 threads.
 It can also be noted that increasing the resolution of the analyzed image from $1600\times1200$ to $4096\times4096$ did not increase the runtime of the algorithm even tenfold -- for applications executed sequentially on the Blue Gene/Q time increased from 193.11 seconds to 1309.42 seconds (about 6.78 times) and for the Blue Gene/P changed from 560.47 seconds to 4769.00 (about 8.50 times). Analysis has been performed for the speedup depending on the size of the hidden string searched. The results are shown in Table 3 (for AMD Opteron 6272) and in Table 4 (for Blue Gene/Q). Presentation of speedup obtained is presented in Figure 4. Additionally, Figure 5 shows the difference in the runtime of the sequential program execution between two platforms (AMD Opteron 6272 -- IBM Blue Gene/Q).
 
 
-<center>Table 4. The results of the analysis of performance for different sizes of searched hidden string [Down\_Size; Upper\_Size] (the ranges of [10, 15] to [10,60]) and platform based on AMD Opteron 6272.</center>
+Table 4. The results of the analysis of performance for different sizes of searched hidden string [Down\_Size; Upper\_Size] (the ranges of [10, 15] to [10,60]) and platform based on AMD Opteron 6272.
 
 
-<center>Table 5. The results of the analysis of performance for different sizes of searched hidden string [Down\_Size; Upper\_Size] (the ranges of [10, 15] to [10,60]) and platform based on processors installed in the Blue Gene/Q.</center>
+Table 5. The results of the analysis of performance for different sizes of searched hidden string [Down\_Size; Upper\_Size] (the ranges of [10, 15] to [10,60]) and platform based on processors installed in the Blue Gene/Q.
 
 
-<center>Figure 4. Graph showing the resulting speedup on AMD Opteron 6272 and IBM Blue Gene/Q in the analysis of performance for different sizes of searched hidden string.</center>
+Figure 4. Graph showing the resulting speedup on AMD Opteron 6272 and IBM Blue Gene/Q in the analysis of performance for different sizes of searched hidden string.
 
 
-<center>Figure 5. Graph showing the time difference obtained on a platform consisting of the AMD Opteron 6272 and obtained on the Blue Gene/Q in the analysis of performance for different sizes of searched hidden string.</center>
+Figure 5. Graph showing the time difference obtained on a platform consisting of the AMD Opteron 6272 and obtained on the Blue Gene/Q in the analysis of performance for different sizes of searched hidden string.
 
 The strangest fact can be seen in the analysis of speedup presented in Table 5 According to the measurements on 64 processors for searching string of a length of 10 to 60 characters, maximum achieved speedup of 70.319, which is impossible and must be the result of the time measurment error. Problematic data in the table indicated in red. This anomaly is no longer present on the computer with four AMD Opteron 6272. However, in this case, the maximum speedup was only 42.303 and was obtained while searching a string with the length in the range [10, 60].
 
@@ -198,7 +190,7 @@ The work can be treated as a base for discussion, because it is very difficult t
 The presented work results concern the simplest variant in which the string is interpreted as ASCII code. Of course you can come up with your own, much more complicated system for the representation of characters.
 
 !\{width:590px\}href="http://lvee.org/uploads/abstract\_file/file/120/11.png!
-Figure 6. Logo of the conference LVEE with hidden text „LVEE – the best conference”.</center>
+Figure 6. Logo of the conference LVEE with hidden text „LVEE – the best conference”.
 
 \subsection*{Acknowledgment}
 
