@@ -108,13 +108,13 @@ Squashing "--- это слияние нескольких коммитов в о
   \centering
   \begin{tabular}{P{2.5cm}|P{3.5cm}|P{3.5cm}}
     \hline
-                                  ~  & \textbf{Git}                 & \textbf{Mercurial}          \\ \hline
-    \textbf{Ответвление от mainline} & git checkout -{}-b case4       & hg book case4              \\
-    \textbf{Работа над кейсом}   & git commit -m ``Commit 1'' \newline
-                                   git commit -m ``Commit 2'' \ldots{}
+                                  ~  & \textbf{Git}                   & \textbf{Mercurial}          \\ \hline
+    Ответвление от mainline          & git checkout -{}-b case4       & hg book case4              \\
+    Работа над кейсом                & git commit -m ``Commit 1'' \newline
+                                       git commit -m ``Commit 2'' \ldots{}
                                                                     & hg commit -m "Commit 1" \newline
                                                                       hg commit -m "Commit 2" \ldots{} \\
-    \textbf{Rebase и squash}     & git checkout -{}-b \emph{case4-2} \newline
+    Rebase и squash              & git checkout -{}-b \emph{case4-2} \newline
                                    git rebase -{}-interactive main
                                                      & (нужны расширения rebase и histedit) \newline
                                                        hg rebase -{}-keep -{}-dest main \newline
@@ -143,7 +143,7 @@ Squashing "--- это слияние нескольких коммитов в о
 
 \begin{table}
   \centering
-  \begin{tabular}{|p{3.5cm}|p{6cm}|} \hline
+  \begin{tabular}{P{3.5cm}|P{6cm}} \hline
     \textbf{Git}                       & \textbf{Mercurial}            \\ \hline
      git push . case4-2:main      & (hg update case4-2) \linebreak
                                hg book main \linebreak  \# ``book'' does fast-forward \linebreak
