@@ -1,0 +1,37 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{ROOT. A data analysis framework}
+\author{Andrew Savchenko "--- NRNU MEPhI, Moscow, Russia\footnote{\url{bircoph@gmail.com}, \url{http://lvee.org/en/abstracts/128}}}
+\maketitle
+\begin{abstract}
+Modern high energy physics (HEP) demands a high perfor\-mance large scale data mining toolkit. An introduction to such tool "--- a ROOT data analysis framework is presented. A brief overview of its ample features is provided. Some performance and architecture details are discussed.
+\end{abstract}
+High energy physics (HEP) is well"=known not only for fundamental research, but for being an incentive for technology bleeding edge as a byproduct of its challenging demands. WWW was born at CERN \cite{Savchenko1}, Grid technology is nursed in scientific environment, and petabyte scale data processing free tools are bred there.
+
+Today HEP experiments produce petabytes of data and are in de\-mand of a tool to process and physically analyze these data. Such tool is available since 1995 and is known as ROOT \cite{Savchenko2}. It is licensed by LGPL and is developed by worldwide recognized scientific centers (CERN, FermiLab, BNL, etc). ROOT is an object"=oriented C++ framework, designed for large scale data analysis, mining and storing and analyzing petabytes of data in an efficient way \cite{Savchenko3}.
+
+Any instance of a C++ class can be stored into a ROOT file in a machine"=independent compressed binary format. In ROOT the TTree object container is optimized for statistical data analysis over very large data sets by using vertical data storage techniques \cite{Savchenko4}. This container uses buckets for each tree branch, where each bucket is a continuous space in file, allowing to effectively extract data subsets (e.~g. if only several values from each event are needed for current analysis) \cite{Savchenko5}. These containers can span a large number of files on local disks, the web, or a number of different shared file systems.
+
+In order to analyze this data, user can chose from a wide set of mathematical and statistical functions, including linear algebra classes, numerical algorithms such as integration and minimization, and various methods for performing regression analysis (fitting). In particular, the RooFit package \cite{Savchenko6} allows user to perform complex data modeling and fitting while the RooStats library provides abstractions and implementations for advanced statistical tools. Multivariate classification methods based on machine learning techniques and neural networks are available via the TMVA package \cite{Savchenko7}.
+
+A central part of these analysis tools are the histogram classes which provide binning of one- and multi"=dimensional data. Results can be saved in vector formats like Postscript, PDF or LaTeX with Metafont, or in bitmap formats like JPG, PNG or GIF \cite{Savchenko4}.
+
+Users typically create their analysis macros step by step, making use of the interactive C++ interpreter Cling (which is based on Clang and have superseded older CINT project), while running on small data samples. Once the development is finished, they can run these macros at full compiled speed over large data sets, using on"=the"=fly compilation, or by creating a standalone C++ program using ROOT libraries. Bindings for Python, Ruby as well as integration with R and Mathematica are available.
+
+Finally, if HPC clusters are present, the user can reduce the execution time of intrinsically parallel tasks "--- e.~g. data mining in HEP "--- by using PROOF, which will take care of optimally distributing the work over all available resources in a transparent way \cite{Savchenko4}. Grid and AFS \cite{Savchenko8} support is also available.
+
+Besides High Energy Physics ROOT is also widely used in many other scientific fields like astronomy and biology, and also in finance and medicine \cite{Savchenko9}, so it may be used in any other field requiring spectral analysis or advanced hiincenvestogram facilities.
+
+\begin{thebibliography}{9}
+\bibitem{Savchenko1} \url{http://home.web.cern.ch/topics/birth-web}
+\bibitem{Savchenko2} \url{http://root.cern.ch}
+\bibitem{Savchenko3} ROOT: An Object-Oriented Data Analysis Framework // Linux Journal, Issue 51, July 1998. \url{ftp://root.cern.ch/root/lj.ps.gz}
+\bibitem{Savchenko4} ROOT "--- A C++ framework for petabyte data storage, statistical analysis and visualization // Computer Physics Communications; Anniversary Issue; Volume 180, Issue 12, December 2009, Pages 2499-2512. \url{http://dx.doi.org/10.1016/j.cpc.2009.08.005} 
+\bibitem{Savchenko5} ROOT Users Guide. I/O chapter. \url{http://root.cern.ch/root/htmldoc/guides/users-guide/ROOTUsersGuideChapters/InputOutput.pdf} 
+\bibitem{Savchenko6} Roofit quickstart guide. \url{http://root.cern.ch/drupal/sites/default/files/roofit_quickstart_3.00.pdf} 
+\bibitem{Savchenko7} TMVA User's Guide. \url{http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf}
+\bibitem{Savchenko8} Andrew File System. \url{http://www.openafs.org/}
+\bibitem{Savchenko9} \url{http://root.cern.ch/drupal/content/about}
+\end{thebibliography}
+\end{document}
