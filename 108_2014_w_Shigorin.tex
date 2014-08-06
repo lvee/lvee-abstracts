@@ -2,10 +2,10 @@
 \input{preamble.tex}
 \begin{document}
 \title{Реализация UEFI SecureBoot в ALT Linux}
-\author{Michael Shigorin, Kiev, Ukraine}
+\author{Михаил Шигорин, Киев, Украина}
 \maketitle
 \begin{abstract}
-There are many misunderstandings and myths related to UEFI in general and SecureBoot extension in particular; I've implemented both within ALT Linux distributions and would like to help sort things out.
+There are many misunderstandings and myths related to UEFI in general and SecureBoot extension in particular; I've implemented both within ALT Linux distribution and would like to help sort things out.
 \end{abstract}
 \subsection*{Вводная}
 
@@ -17,11 +17,11 @@ There are many misunderstandings and myths related to UEFI in general and Secure
 
 \subsection*{Одноразовая морока}
 
-Как и описывал Matthew Garrett, для авторизации на sysdev.microsoft.com пришлось обеспечить наличие IE/Windows, сертификата Symantec и логина live.com.
+Как и описывал Matthew Garrett, для авторизации на sysdev.mi\-cro\-soft.com пришлось обеспечить наличие IE/Windows, сертификата Symantec и логина live.com.
 
-Сертификат Verisign/Symantec понадобится единственный раз, чтобы аутентифицировать компанию при регистрации на портале UEFI CA, а затем каждый раз, когда вы готовитесь загрузить очередной объект на рассмотрение и подпись. Это сертификат Authenticode class 3; его можно получить с одноразовой скидкой через Windows Dev Center. Для получения сертификата понадобится IE7+ с нестандартными настройками ActiveX — чтобы сначала его сгенерировать и импортировать, а затем экспортировать в файл.
+Сертификат Verisign/Symantec понадобится единственный раз, чтобы аутентифицировать компанию при регистрации на портале UEFI CA, а затем каждый раз, когда вы готовитесь загрузить очередной объект на рассмотрение и подпись. Это сертификат Au\-then\-ti\-code class 3; его можно получить с одноразовой скидкой через Windows Dev Center. Для получения сертификата понадобится IE7+ с нестандартными настройками ActiveX "--- чтобы сначала его сгенерировать и импортировать, а затем экспортировать в файл.
 
-Та же Windows-система (реальная или виртуальная) пригодится для заведения акаунта на  sysdev.microsoft.com. Предлагаемые шаги:
+Та же Windows-система (реальная или виртуальная) пригодится для заведения акаунта на  sysdev.mi\-cro\-soft.com. Предлагаемые шаги:
 
 \begin{enumerate}
   \item завести акаунт live.com (sysdev.microsoft.com требует его для работы);
@@ -33,7 +33,7 @@ There are many misunderstandings and myths related to UEFI in general and Secure
 
 \subsection*{Многократная морока}
 
-Получение подписанного бинарника shim — последующая многократная процедура, которая выполняется каждый раз, когда вы собираете новую версию оного в пакет для выпуска. В процессе будет задействован все тот же Windows-хост или виртуалка с установленным Silverlight, подготовленный shim.efi с публичной частью вашего  cacert, сертификат Symantec (чтобы подписать заявку), а также акаунт sysdev с правами подписи UEFI.  Процедура занимает от нескольких дней до нескольких недель.
+Получение подписанного бинарника shim "--- последующая многократная процедура, которая выполняется каждый раз, когда вы собираете новую версию оного в пакет для выпуска. В процессе будет задействован все тот же Windows-хост или виртуалка с установленным Silverlight, подготовленный shim.efi с публичной частью вашего  cacert, сертификат Symantec (чтобы подписать заявку), а также акаунт sysdev с правами подписи UEFI.  Процедура занимает от нескольких дней до нескольких недель.
 
 Процесс включает следующие шаги:
 
@@ -67,13 +67,14 @@ There are many misunderstandings and myths related to UEFI in general and Secure
   \item последующие загрузчики могут обмениваться информацией с shim чтобы использовать информацию о вашем сертификате, встроенном в него, и MOK, добавленных пользователем конкретной машины.
 \end{enumerate}
 
+\newpage
 \subsection*{ALT way}
 
-Ваша  реализация может сильно отличаться; ALT Linux сейчас использует следующую: 
+Ваша  реализация может сильно отличаться; ALT Linux сейчас использует следующую:
 
-shim -> refind -> elilo -> vmlinuz для install/live/rescue media 
+shim $\rightarrow$ refind $\rightarrow$ elilo $\rightarrow$ vmlinuz для install/live/rescue media 
 
-shim -> grub2 -> vmlinuz для установленной системы
+shim $\rightarrow$ grub2 $\rightarrow$ vmlinuz для установленной системы
 
 Мы используем refind в качестве бут-менеджера, поскольку некоторые реализации UEFI поставляются с кривыми реализациями выбора цели загрузки или не имеют таковой вовсе; elilo работает в качестве фильтра, позволяющего загрузить ядро Linux --- нам это необходимо, т.к. мы хотим дать пользователям возможность загрузки неподписанных ядер и при этом не оставлять дыру, позволяющую загрузить что попало.
 
