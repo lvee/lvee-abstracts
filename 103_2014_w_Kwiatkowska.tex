@@ -2,17 +2,21 @@
 \input{preamble.tex}
 \begin{document}
 \title{Steganography "--- coding and intercepting the information from encoded pictures in the absence of any initial information}
-\author{Monika Kwiatkowska, Lublin, Poland\\ \L{}ukasz \'S{}wierczewski, \L{}om\.z{}a, Poland}
+\author{Monika Kwiatkowska, Lublin, Poland\\[-2ex] \L{}ukasz \'S{}wierczewski, \L{}om\.z{}a, Poland}
 \maketitle
 \begin{abstract}
 The work includes implementation and extraction algorithms capabilities test, without any additional data (starting position, the number of bits used, gap between the amount of data encoded) information from encoded files (mostly images). The software is written using OpenMP standard [1], which allowed them to run on parallel computers. Performance tests were carried out on computers, Blue Gene/P [2], Blue Gene/Q [3] and the system consisting of four AMD Opteron 6272 [4]. Source code is available under GNU GPL v3 license and are available in a repository OLib [5].
 \end{abstract}
 \section{Introduction}
 
-Steganography is the science of determining how to conduct communication so that the presence of the message could not be detected by third parties. It differs from cryptography in a way that in cryptography existence of the message is not negated but its content remains implicit. Steganography hides the fact that any communication has been conducted.
+Steganography is the science of determining how to conduct commu\-ni\-ca\-tion so that the presence of the message could not be detected by third parties. It differs from cryptography in a way that in cryptography existence of the message is not negated but its content remains implicit. Steganography hides the fact that any communication has been con\-duct\-ed.
 
 Differences between steganography and cryptography is shown in Table 1.
 
+\section{Traditional Steganography}
+The use of steganography dates back to the time of Herodotus, the fifth century BC. Examples of traditional steganography can be tattooing the scalp (after the hair grew back information remains in\-vi\-sible). One of the best solutions of this kind applied by the Germans during World War II "--- microdots technique. It was based on minimazing  pictures to such scale so that you can paste them into the text as a dot.
+
+\begin{table}[t!]
 \begin{center}
 \begin{tabular}{P{13em}|c|c}
 \hline
@@ -29,16 +33,13 @@ The amount of information transmitted to the encrypted information          &  C
 
 Table 1. Differences between steganography and cryptography.
 \end{center}
-
-\section{Traditional Steganography}
-
-The use of steganography dates back to the time of Herodotus, the fifth century BC. Examples of traditional steganography can be tattooing the scalp (after the hair grew back information remains invisible). One of the best solutions of this kind applied by the Germans during World War II -- microdots technique. It was based on minimazing  pictures to such scale so that you can paste them into the text as a dot.
+\end{table}
 
 \section{Digital Steganography}
 
 With the development of digital technology, steganography has found a new use also in the field of science. Digital steganography bases on making subtle changes to the original medium, and therefore gives a much more possibilities than traditional steganography.
 
-The carrier of concealed information can be virtually any file (one that can be modified without having to worry about damage to its internal structures). However, the most commonly used are multimedia files -- these are relatively large in size and difficult to capture the modification of original file.
+The carrier of concealed information can be virtually any file (one that can be modified without having to worry about damage to its internal structures). However, the most commonly used are multimedia files "--- these are relatively large in size and difficult to capture the modification of original file.
 
 Digital steganography depending on the type of operation can be divided into the following categories:
 
@@ -52,16 +53,23 @@ Digital steganography depending on the type of operation can be divided into the
   \item Carrier generation
 \end{itemize}
 
-Another field of use for steganography is to communicate using VoIP technology. The Polish jargon adopted using in this case the word „steganphony”. The first such solution had been proposed by two Polish scientists Wojciech Mazurczyk and Krzysztof Szczypiorski in 2008 at a conference in Mexico \footnotemark[11]. It was based on in transferring the hidden content in the delayed packets, which according to a standard communication protocol (operating in real time) are omitted.
+Another field of use for steganography is to communicate using VoIP technology. The Polish jargon adopted using in this case the word ‘steganphony’. The first such solution had been proposed by two Polish scientists Wojciech Mazurczyk and Krzysztof Szczypiorski in 2008 at a conference in Mexico \footnotemark[11]. It was based on in transferring the hidden content in the delayed packets, which according to a standard communication protocol (operating in real time) are omitted.
 
 \section{LSB "--- Least Significant Bit "--- one of the methods of substitution}
 
 The article will summarize often used method of substitution "--- LSB. Mostly it uses the least significant bits to record information. These bits often carry only noise and are insignificant from the point of view images for example. The principle of LSB operation for one and two least significant bits are shown in Figure 1 and Figure 2.
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_lsb1.png}
+  Figure 1. Applying the LSB using one least significant bit.
+\end{figure}
 
-Figure 1. Applying the LSB using one least significant bit.
-
-Figure 2. Application of the LSB method using the two least significant bits.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_lsb2.png}
+  Figure 2. Application of the LSB method using the two least significant bits.
+\end{figure}
 
 \section{Implementation}
 
@@ -86,18 +94,16 @@ int crypt_space_1bit(char * buffer, char *open_text,
   }
 }
 \end{verbatim}
+Listing 1. The function encrypting the data in the image using one least significant bit.\\~
 
-Listing 1 The function encrypting the data in the image using one least significant bit.
-
-We are passing pointers to two array to the function -- the buffer array (image data) and open\_text array (array of information to be encoded). In addition, the code uses macros check\_bit, set\_bit and clear\_bit. Their definition is shown in Listing 2.
+We are passing pointers to two array to the function "--- the buffer array (image data) and open\_text array (array of information to be encoded). In addition, the code uses macros check\_bit, set\_bit and clear\_bit. Their definition is shown in Listing 2.
 
 \begin{verbatim}
 # define check_bit(var,pos) ((var) & (1LL<<(pos)))
 # define set_bit(var,pos) ((var) |= (1LL<<(pos)))
 # define clear_bit(var,pos) ((var) &= ~{}(1LL<<(pos)))
 \end{verbatim}
-
-Listing 2. Macros defining operations on bits.
+Listing 2. Macros defining operations on bits.\\~
 
 The most important, in the case of this article, however, is a function used to extract encrypted text without knowledge of the initial starting value, or even the length of ciphertext. It has been shown in Listing 3.
 
@@ -119,7 +125,7 @@ long int breaker_standard_1bit_unknown_size_openmp(
       size_down, size_upper, result, index_result)     \
       private(i, j, start_position, open_text)         \
       num_threads(number_of_threads)
-  for(i=0; i < (buffer_size -- j); i++)
+  for(i=0; i < (buffer_size - j); i++)
   {
     open_text = (char *)malloc((size_upper + 1) * sizeof(char));
     start_position = i;
@@ -142,10 +148,9 @@ long int breaker_standard_1bit_unknown_size_openmp(
   return index_result;
 }
 \end{verbatim}
+Listing 3. Function to extract information from the least significant bits without the initial information.\\~
 
-Listing 3 Function to extract information from the least significant bits without the initial information.
-
-This function searches the least significant bits in the buffer array of size of buffer\_size and searches all the possible encrypted patterns of lengths from size\_down to size\_upper. The result is inserted into the result array. The code uses so-called pragma derived from the OpenMP standard. This pragma aims to parallelize the main loop. Also worth mentioning is separate critical section -- it takes care of the correct addition of blocks to the results array. Only one thread can access the critical section at a time. Also a function has been used:
+This function searches the least significant bits in the buffer array of size of buffer\_size and searches all the possible encrypted patterns of lengths from size\_down to size\_upper. The result is inserted into the result array. The code uses so"=called pragma derived from the OpenMP standard. This pragma aims to parallelize the main loop. Also worth mentioning is separate critical section "--- it takes care of the correct addition of blocks to the results array. Only one thread can access the critical section at a time. Also a function has been used:
 
 \verb!int ascii_verify(pointer, size);!
 
@@ -156,62 +161,81 @@ which verifies whether the starting substring at the pointer of length size is t
 Performance results obtained when searching for encoded text inside graphic file with a resolution of $1600\times1200$ is shown in Table 2. A similar table for resolution $4096\times4096$ is presented in Table 3. Additionally, obtained through parallel programming (OpenMP), speedup on IBM Blue Gene/Q and AMD Opteron 6272 is shown in Figure 3.
 
 
-Table 2. Performance results obtained during scan of the image with a resolution of $1600\times1200$ (searching one least significant bit using length of the search phrase in the range of 10 to 25).
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_time2.png}
+  Table 2. Performance results obtained during scan of the image with a resolution of $1600\times1200$ (searching one least significant bit using length of the search phrase in the range of 10 to 25).
+\end{figure}
 
-\begin{center}
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_speedup.png}
+  Figure 3. The speedup obtained on platforms AMD Opteron 6272 and IBM Blue Gene/Q while searching an image with a resolution of $1600\times1200$ (search only one least significant bit of the length of the text to search in the range from 10 to 25).
 \end{figure}
-Figure 3. The speedup obtained on platforms AMD Opteron 6272 and IBM Blue Gene/Q while searching an image with a resolution of $1600\times1200$ (search only one least significant bit of the length of the text to search in the range from 10 to 25).
-\end{center}
-
-Table 3. Performance results obtained during scan of the image with a resolution of $4096\times4096$ (searching one least significant bit using length of the search phrase in the range of 10 to 25).
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_time2.png}
+  Table 3. Performance results obtained during scan of the image with a resolution of $4096\times4096$ (searching one least significant bit using length of the search phrase in the range of 10 to 25).
+\end{figure}
 
 In the case of a platform consisting of four AMD Opteron 6272 maximum speedup is achieved by using 64 CPU and it reached 36.00. Using computational units used in Blue Gene/Q the speedup reached to 31.915. But it was not obtained, as might be expected, with a maximum (64) number of processors, but only 48. This may be due to the fact that one Blue Gene/Q CPU has only 16 physical cores that implement the execution of 64 threads.
-It can also be noted that increasing the resolution of the analyzed image from $1600\times1200$ to $4096\times4096$ did not increase the runtime of the algorithm even tenfold -- for applications executed sequentially on the Blue Gene/Q time increased from 193.11 seconds to 1309.42 seconds (about 6.78 times) and for the Blue Gene/P changed from 560.47 seconds to 4769.00 (about 8.50 times). Analysis has been performed for the speedup depending on the size of the hidden string searched. The results are shown in Table 3 (for AMD Opteron 6272) and in Table 4 (for Blue Gene/Q). Presentation of speedup obtained is presented in Figure 4. Additionally, Figure 5 shows the difference in the runtime of the sequential program execution between two platforms (AMD Opteron 6272 -- IBM Blue Gene/Q).
+It can also be noted that increasing the resolution of the analyzed image from $1600\times1200$ to $4096\times4096$ did not increase the runtime of the algorithm even tenfold "--- for applications executed sequentially on the Blue Gene/Q time increased from 193.11 seconds to 1309.42 seconds (about 6.78 times) and for the Blue Gene/P changed from 560.47 seconds to 4769.00 (about 8.50 times). Analysis has been performed for the speedup depending on the size of the hidden string searched. The results are shown in Table 3 (for AMD Opteron 6272) and in Table 4 (for Blue Gene/Q). Presentation of speedup obtained is presented in Figure 4. Additionally, Figure 5 shows the difference in the runtime of the sequential program execution between two platforms (AMD Opteron 6272 "--- IBM Blue Gene/Q).
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_perf1.png}
+  Table 4. The results of the analysis of performance for different sizes of searched hidden string [Down\_Size; Upper\_Size] (the ranges of [10, 15] to [10,60]) and platform based on AMD Opteron 6272.
+\end{figure}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_perf2.png}
+  Table 5. The results of the analysis of performance for different sizes of searched hidden string [Down\_Size; Upper\_Size] (the ranges of [10, 15] to [10,60]) and platform based on processors installed in the Blue Gene/Q.
+\end{figure}
 
-Table 4. The results of the analysis of performance for different sizes of searched hidden string [Down\_Size; Upper\_Size] (the ranges of [10, 15] to [10,60]) and platform based on AMD Opteron 6272.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_speedup.png}
+  Figure 4. Graph showing the resulting speedup on AMD Opteron 6272 and IBM Blue Gene/Q in the analysis of performance for different sizes of searched hidden string.
+\end{figure}
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{103_2014_w_Kwiatkowska_speedup.png}
+  Figure 5. Graph showing the time difference obtained on a platform consisting of the AMD Opteron 6272 and obtained on the Blue Gene/Q in the analysis of performance for different sizes of searched hidden string.
+\end{figure}
 
-Table 5. The results of the analysis of performance for different sizes of searched hidden string [Down\_Size; Upper\_Size] (the ranges of [10, 15] to [10,60]) and platform based on processors installed in the Blue Gene/Q.
+The strangest fact can be seen in the analysis of speedup presented in Table 5. According to the measurements on 64 processors for searching string of a length of 10 to 60 characters, maximum achieved speedup of 70.319, which is impossible and must be the result of the time measurment error. Problematic data in the table indicated in red. This anomaly is no longer present on the computer with four AMD Opteron 6272. However, in this case, the maximum speedup was only 42.303 and was obtained while searching a string with the length in the range [10, 60].
 
+While in terms of speedup, the platform for the Blue Gene/Q is better but the lower sequential execution runtime of the program is always achieved on a computational node with AMD Opteron 6272 "--- it is confirmed in Figure 5. Differences in the runtime between these two systems, however, are relatively small and do not exceed 2\%.
 
-Figure 4. Graph showing the resulting speedup on AMD Opteron 6272 and IBM Blue Gene/Q in the analysis of performance for different sizes of searched hidden string.
-
-
-Figure 5. Graph showing the time difference obtained on a platform consisting of the AMD Opteron 6272 and obtained on the Blue Gene/Q in the analysis of performance for different sizes of searched hidden string.
-
-The strangest fact can be seen in the analysis of speedup presented in Table 5 According to the measurements on 64 processors for searching string of a length of 10 to 60 characters, maximum achieved speedup of 70.319, which is impossible and must be the result of the time measurment error. Problematic data in the table indicated in red. This anomaly is no longer present on the computer with four AMD Opteron 6272. However, in this case, the maximum speedup was only 42.303 and was obtained while searching a string with the length in the range [10, 60].
-
-While in terms of speedup, the platform for the Blue Gene/Q is better but the lower sequential execution runtime of the program is always achieved on a computational node with AMD Opteron 6272 -- it is confirmed in Figure 5. Differences in the runtime between these two systems, however, are relatively small and do not exceed 2\%.
-
-\subsection*{VII. Conclusions and capabilities of work development}
+\section{Conclusions and capabilities of work development}
 
 Using the abilities of parallel programming, one  can very effectively deal with data processing in the field of steganography. LSB technique is used in most commercial software.
 
-The work can be treated as a base for discussion, because it is very difficult to find a practical application of implemented steganography methods in the modern world. In the so-called „pure steganography” strenght of encryption is mainly based on lack of knowledge about the techniques used by the individual encrypting the information \footnotemark[7]. So you can not publish this type of algorithms as Open Source. Such an approach, however, does not meet Kerckhoffs principle \footnotemark[10] stating, that a cryptographic system should be secured even if all the details about how it works (except the key) are known, and it is not recommended .
+The work can be treated as a base for discussion, because it is very difficult to find a practical application of implemented steganography methods in the modern world. In the so-called ‘pure steganography’ strenght of encryption is mainly based on lack of knowledge about the techniques used by the individual encrypting the information \footnotemark[7]. So you can not publish this type of algorithms as Open Source. Such an approach, however, does not meet Kerckhoffs principle \footnotemark[10] stating, that a cryptographic system should be secured even if all the details about how it works (except the key) are known, and it is not recommended.
 
 The presented work results concern the simplest variant in which the string is interpreted as ASCII code. Of course you can come up with your own, much more complicated system for the representation of characters.
 
-!\{width:590px\}href="http://lvee.org/uploads/abstract\_file/file/120/11.png!
-Figure 6. Logo of the conference LVEE with hidden text „LVEE – the best conference”.
+\begin{figure}[h!]
+  \centering
+    \includegraphics{103_2014_w_Kwiatkowska_lvee.png}\\
+Figure 6. Logo of the LVEE conference with hidden text ‘LVEE – the best conference’.
+\end{figure}
 
-\subsection*{Acknowledgment}
+\section*{Acknowledgment}
 
 Interdisciplinary Centre for Mathematical and Computational Modeling (ICM), Warsaw University, Poland is acknowledged for providing the computer facilities under the Grant No. G55-11.
 
-\subsection*{Note}
+\section*{Note}
 
 The thesis presented on Winter LVEE 2014 Conference in Minsk (Belarus).
 
-\subsection*{References}
+\section*{References}
 
 \begin{enumerate}
   \item Dagum, Leonardo, and Ramesh Menon. ``OpenMP: an industry standard API for shared-memory programming.'' Computational Science \& Engineering, IEEE 5.1 (1998): 46-55.
   \item Lin, Heshan, et al. ``Massively parallel genomic sequence search on the Blue Gene/P architecture.'' High Performance Computing, Networking, Storage and Analysis, 2008. SC 2008. International Conference for. IEEE, 2008.
-  \item Haring, Ruud A., et al. ``The ibm blue gene/q compute chip.'' Micro, IEEE 32.2 (2012): 48-60.
+  \item Haring, Ruud A., et al. ``The IBM Blue Gene/Q compute chip.'' Micro, IEEE 32.2 (2012): 48-60.
   \item Keltcher, Chetana N., et al. ``The AMD Opteron processor for multiprocessor servers.'' Micro, IEEE 23.2 (2003): 66-76.
   \item OLib Library; http://lib.oproject.info
   \item Katzenbeisser S.: Information Hiding Techniques for Steganography and Digital Watermarking, s. 65 -- 105, 1999, Artech House
