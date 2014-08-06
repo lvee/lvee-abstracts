@@ -21,7 +21,9 @@ clean:
 
 %.pdf: %.tex
 	pdflatex $<
+ifneq ($(QUICK),yes)
 	pdflatex $<
 	pdflatex $<
+endif
 
 .PHONY: all progress clean
