@@ -1,0 +1,43 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{Bootloader and Linux kernel debugging on ARM board with OpenOCD}
+\author{Vladimir Zapolskiy "--- Espoo, Finland\footnote{\url{vz@mleia.com}, \url{http://lvee.org/en/abstracts/126}}}
+\maketitle
+\begin{abstract}
+The system software development in area of embedded systems is complicated by proximity to the physical world, incomplete knowledge of hardware errors and sophisticated existing software. Fortunately it is possible to reuse advantages of a debugger in development of operating systems and bootloaders with the aid of a bridge from hardware and running system software to the GDB session on a developer's workstation, which is provided by JTAG interface, a cheap JTAG-USB adapter and connective software from open source OpenOCD project.
+\end{abstract}
+Consider a task of a new device development from system programmer's point of view, and to immerse in the details let the device has any purpose but it complies with the following requirements:
+
+\begin{itemize}
+  \item the device is powered by ARMv4 or higher application processor, possibly multicore one,
+  \item the ARM application processor executes bootloader, hypervisor or operating system kernel, and the developer has access to its source code, for instance U-boot bootloader and Linux kernel.
+\end{itemize}
+
+A system programmer of ARM powered embedded systems unavoidably meets a number of tasks and problems during the low-level development stage:
+
+\begin{itemize}
+  \item port a bootloader or Linux kernel to a new ARM SoC,
+  \item port a bootloader or Linux kernel to a new device governed by some ARM SoC,
+  \item add new features of arbitrary nature into a bootloader or Linux kernel,
+  \item fix a bug in a bootloader or Linux kernel code,
+  \item thoroughly perceive the work of a subcomponent in a bootloader or Linux kernel during runtime.
+\end{itemize}
+
+Arguably not all aforementioned tasks are related to debugging, but for simplicity let's call them debugging tasks, and let's find a handy debugger, which helps to resolve the problems listed above. One well-known by developers, favourable and powerful debugger is GNU Debugger or GDB \cite{Zapolskiy1}, and fortunately there is a way to utilize the same debugger for the introduced new challenges in the domain of low-level system programming, so GDB helps to debug not only applications, but bootloaders and operating systems.
+
+One of the most popular methods of system code debugging is the control of application processor cores in runtime by means of boundary scan checking of integrated circuits according to JTAG specification (IEEE Std. 1149.1)\cite{Zapolskiy2}, and the considered ARM SoCs and most of development PCBs have such interface. There are commercial brand JTAG adapters from Lauterbach and Abatron, but due to many benefits (convenience and flexibility in use, price, advantages of open source software etc.) it is reasonable to use simple cheap JTAG-USB adaptors and the attendant supplementary managing code from the open source, constantly developing Open On-Chip Debugger project or OpenOCD\cite{Zapolskiy3}.
+
+Functionally OpenOCD software paired with e.g. FT2232 powered JTAG-USB adapter successfully compete with notably more expensive brand alternatives. OpenOCD allows to write sophisticated Tcl scripts operating with the target CPU and board (for example, automated firmware upload, writing to a flash drive on board reset, etc.), scripts handling and post-processing events from cores, reading and modifying board RAM content and core registers, setting execution breakpoints and data read/write watchpoints, and also OpenOCD presents two user interaction interfaces, among which one is for low-level and manual operations via telnet protocol and another one serves as a GDB server. The latter familiar GDB server interface is conveniently utilized by a developer, who applies her/his ready practical knowledge of debugging with GDB and uses GDB open documentation, as well as add-ons -- for example, user's own GDB scripts or GDB frontends and IDEs like DDD, Emacs or Eclipse.
+
+One of the powerful functions of GDB server from OpenOCD is the ability to debug in runtime the code execution on multiple CPU cores simultaneously by means of a GDB protocol extension. From the user's point of view it looks similarly to debugging a multithread application, but the role of an application is performed here by e.g. the Linux kernel.
+
+For embedded software developers OpenOCD facilitates essentially the execution of any tasks mentioned in the beginning, and debugging a complex source code beneath the application level becomes easy and comprehensible, making OpenOCD a helpful tool and adding it to the system developer's must-have toolbox.
+
+
+\begin{thebibliography}{9}
+\bibitem{Zapolskiy1} The GNU Project Debugger, \url{https://www.gnu.org/software/gdb/}
+\bibitem{Zapolskiy2} IEEE 1149.1-2013, \url{http://standards.ieee.org/findstds/standard/1149.1-2013.html}
+\bibitem{Zapolskiy3} Open On-Chip Debugger, \url{http://openocd.sourceforge.net/doc/html/index.html}
+\end{thebibliography}
+\end{document}
