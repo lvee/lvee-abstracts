@@ -1,0 +1,55 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{SDN сегодня.}
+\author{Дмитрий Орехов, Минск, Беларусь}
+\maketitle
+\begin{abstract}
+Today Software-Defined Networking is still a cutting-edge rather than a common production technology. In spite of this, SDN technologies are evolving actively, as well as it's enthusiasts com\-mu\-ni\-ty and engineer's culture. It holds out hope that common usage of SDN in world-wide networks is a matter of the closest future. And you're able to be a part of this!
+We made a review of current SDN state and most valuable solutions which are available right now to build and manage SDN, it's platforms and technology stacks. Wherein we paid a special attention on Open Source software which enables SDN, so everyone can contribute in the future of networking.
+\end{abstract}
+\subsection*{Программно-управляемые сети}
+
+Концепция SDN (Software-defined networking) основана на идее разделения уровня передачи данных и уровня управления правилами, по которым данные передаются. Обычно говорят, что на уровне управления действует Контроллер, а на уровне передачи данных "--- Свич. Контроллер при этом не только устанавливает правила для Свича, но и принимает от него сообщения о событиях, происходящих в сети, обеспечивая обратную связь.
+
+\subsection*{OpenFlow}
+
+Ясно, что одним из ключевых элементов SDN является протокол взаимодействия между Свичом и Контроллером. В настоящий момент таким протоколом в основном является OpenFlow. Ключевое понятие этого протокола "--- Flow или правило, по которому обрабатываются пактеы внутри Свича. Flows объединены в таблицу Flow Table, которые, в свою очередь, объединены в конвейер.
+
+Фактически, Flows представляют собой микрокоманды для программирования сети. Как средство управления сетью, OpenFlow прошел большой путь от примитивной концепции, включающей в себя одну Flow Table и весьма ограниченный набор критериев, в версии 1.0, до версии 1.3 (готовится к выпуску версия 1.4), с конвейером таблиц, улучшенной обратной связью между Свичом и Контроллером, поддержкой множества критериев сравнения как то MPLS, IPv6 и т.\,д., и возможностью писать весьма сложные «программы» для управления сетью.
+
+\subsection*{Открытые лицензии для открытого стандарта}
+
+Уже сейчас наиболее интересные и полные решения, позволяющие строить OpenFlow топологии, опубликованы под различными Open Source лицензиями. Интересно то, что большая часть из них поддерживается крупными корпорациями "--- поставщиками сетевого обурудования и программного обеспечения. Решения эти используют очень разнообразные стеки технологий. Ниже представлен краткий список наиболее интересных, на мой взгляд, сообществ и их решений.
+
+\begin{itemize}
+  \item Project Floodlight (бывший OpenFlowHub.org)
+Представляют контроллер OpenFlow Floodlight, базирующиеся на нём решения для управления сетью, Java API, REST API, а также средства для тестирования OpenFlow устройств. Основные языки программирования "--- Java, Python, C
+  \item CPqD
+Представляют OpenFlow свич и контроллер, OpenFlow драйвер с API для создания кастомных контроллеров, поддерживают дистрибутив OpenWRT с поддержкой OpenFlow. Основные языки "--- С/С++ и Python
+  \item Ryu SDN framework
+Очень функциональный фреймворк для создания контроллеров, написанный на Питоне. Оттестирован с большим числом свичей, поддерживается OpenStack'ом
+  \item FlowForwarding.org
+Представляет решения с использованием двух различных стеков:\begin{itemize}
+  \item Erlang VM: LINC Switch, Loom controller, Tapestry "--- анализатор сети
+  \item Java VM: Warp OpenFlow драйвер с API для создания кастомных контроллеров и Warp Controller на базе фреймворка Akka
+\end{itemize}
+
+
+\end{itemize}
+
+\subsection*{Высокоуровневое программирование}
+
+И все же OpenFlow остается низкоуровневым «языком программирования»; энтузаистами SDN был запущен проект Frenetiс, ставящий своей целью создание и развитие высокоуровневого языка программирования для сетей. С запуском же проекта Pyretic (Python + Frenetic) эта инициатива приобрела черты вполне реального domain"=specific language.
+
+\subsection*{Прогулки с монстрами}
+
+Усилиями SDN-сообщества, The Linux Foundation и корпораций-доноров был запущен весьма амбициозный проект OpenDaylight, представляющий собой SDN-стек и фреймворк для создания SDN-сетей.
+
+Поскольку технологии SDN прекрасно подходят для создания виртуальных сетей, они широко используются в проекте OpenStack
+
+\subsection*{Оптимизм}
+
+Будущее SDN, еще недавно весьма туманное, теперь вызывает сдержанный оптимизм. Множество решений опубликованных под свободными лицензиями позволяют привлечь энтузиастов и стимулируют активное развитие области.
+
+\end{document}
