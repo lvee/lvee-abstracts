@@ -20,6 +20,7 @@ clean:
 	@echo $@: $< >> $@
 
 %.pdf: %.tex
+	@echo $(<:.tex=.pdf): $< $$(sed -n '/^\\input/s/.*{\([^.]*\).*}.*/\1.tex/p' $<) > .dep/$<.d
 	pdflatex $<
 ifneq ($(QUICK),yes)
 	pdflatex $<
