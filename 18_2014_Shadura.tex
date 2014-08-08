@@ -5,7 +5,7 @@
 \author{Андрей Шадура, Братислава, Словакия\footnote{\url{andrew@shadura.me}, \url{http://lvee.org/ru/abstracts/145}}}
 \maketitle
 \begin{abstract}
-Free software business models are difficult to design and not as lucrative as proprietary ones. Sometimes, companies make a difficult                choice to proprietarise the work of a Free Software community in an effort to produce more revenue. While proprietary models do often produce more revenue, they bear a cost on the community. Fortunately enough, the very idea behind free software, coupled with specifics of some of the free licenses, makes it possible to prevent such things from happening, and to liberate the project when it's at danger of becoming non-free.
+Free software business models are difficult to design and not as lucrative as proprietary ones. Sometimes, companies make a difficult                choice to proprietarise the work of a Free Software community in an effort to produce more revenue. While proprietary models do often produce more revenue, they bear a cost on the community. Fortunately enough, the very idea behind free software, coupled with specifics of some of the free licenses, makes it possible to liberate the project when it's at danger of becoming non-free.
 \end{abstract}
 Зачастую авторы успешных свободных программных проектов задумываются над тем, как превратить хобби в способ зарабатывания денег на жизнь. Самым действенным способом зарабатывания денег на свободном коде, оставляя его свободным, является платная поддержка его или продуктов на его основе, либо продажа сервисов, в которых этот продукт используется. Помимо крупных компаний, таких как RedHat и Ubuntu, подобным образом зарабатывают авторы меньших проектов. Одним из известных примеров таких продуктов является веб-сервер nginx: основанная автором компания осуществляет платную поддержку и обновления безопасности, а также предоставляет услуги по настройке специальных конфигураций и внедрению дополнительных возможностей. Менее известный белорусский проект "--- Ajenti, инструмент веб-администрирования наподобие Webmin, но основанный на современных технологиях. Проект распространяется под лицензией AGPLv3, но предлагает и схему коммерческого лицензирования для компаний, предоставляющих услуги хостинга, или производителей серверного оборудования.
 
@@ -42,7 +42,7 @@ Free software business models are difficult to design and not as lucrative as pr
 
 По мнению Брэдли Куна, президента фонда Software Freedom Conservancy, подобная схема лицензирования, возможно, представляет собой нарушение GPL, и вносит неясность насчёт того, какими же правами обладает пользователь (leaves the redistributor feeling unclear about their rights).
 
-К сожалению, проблемы с RhodeCode неясностью лицензии не ограничились. Американский разработчик, Travis Burtrum, опубликовал на GitHub четырёхстрочный патч, устраняющий ограничение по количеству пользователей в RhodeCode\ldots{} после чего с ним связался CEO упомянутого GmbH с угрозами судебного преследования за нарушение условий использования торговой марки. Подобные угрозы получил James Rhodes, который месяцами ранее поднял вопрос о легальности смены лицензии. Несмотря на это, RhodeCode продолжал рекламироваться как opensource-решение, а сотрудник фирмы, занимающийся PR-деятельностью, старательно удалял правки из статьи на Википедии, говорящие о спорном лицензионном статусе продукта.
+К сожалению, проблемы с RhodeCode неясностью лицензии не ограничились. Американский разработчик, Travis Burtrum, опубликовал на GitHub четырёхстрочный патч, устраняющий ограничение по количеству пользователей в RhodeCode\ldots{} после чего с ним связался CEO упомянутого GmbH с угрозами судебного преследования за нарушение условий использования торговой марки. Подобные угрозы получил James Rhodes, который месяцами ранее поднял вопрос о легальности смены лицензии. Несмотря на это, RhodeCode продолжал рекламироваться как opensource-решение, таковым по сути являясь весьма условно.
 
 \paragraph{Форк.}
 
@@ -52,6 +52,13 @@ Free software business models are difficult to design and not as lucrative as pr
 
 Таким образом, Kallithea получила большую часть кода \linebreak RhodeCode на Python, но оказалась лишена нового графического интерфейса, который в версии 2.0 был переписан практически с нуля. Адаптация старого интерфейса на новую кодовую базу, ребрендинг, включение в поставку полных исходных кодов JavaScript-зависимостей "--- всё это потребовало ещё немало времени, но в конце концов проект был выпущен в свет 4 июля 2014 года, в день независимости США. Код Kallithea гарантированно 100\% GPLv3, и таковым и останется: поддержание данного статуса является одной из задач Software Freedom Conservancy. Поддержку проекту выразил и автор и главный разработчик Mercurial "--- Matt Mackall.
 
+Надо сказать, несмотря лицензионную ситуацию, которая привела к форку, Conservancy и группа разработчиков Kallithea приглашают исходных авторов проекта к сотрудничеству, например, по устранению неоднозначностей в лицензии. Тем не менее, реакции от них пока что не последовало вообще никакой.
+
 Как видно, «закрыть» открытый проект "--- довольно непростое дело в силу специфики свободных лицензий, предоставляющих \linebreak определённый иммунитет к такого рода атакам. С учётом эффекта Стрейзанд "--- уже опубликованные версии общедоступны, а сменить лицензию постфактум нельзя "--- такой разработчик не имеет гарантий успешности своей затеи.
+
+\subsection*{Литература}
+\begin{enumerate}
+\item Why Conservancy's Kallithea Project Exists, by Bradley M. Kuhn, Software Freedom Conservancy. \url{http://sfconservancy.org/blog/2014/jul/15/why-kallithea/}
+\end{enumerate}
 
 \end{document}
