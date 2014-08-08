@@ -3,15 +3,15 @@
 \switchlang{en}
 \begin{document}
 \title{Text parsing with python and PLY}
-\author{Даниил Батурин "--- Томск, РФ\footnote{\url{daniil@baturin.org}, \url{http://lvee.org/en/abstracts/122}}}
+\author{Даниил Батурин, Томск, РФ\footnote{\url{daniil@baturin.org}, \url{http://lvee.org/en/abstracts/122}}}
 \maketitle
 \begin{abstract}
-Language parsing is a common software development problem. Python is widely used in both production software development and rapid prototyping, and a number of lexer and parser generators were written for it.
+Language parsing is a common software development problem. Python is widely used in both production software development and rapid prototyping; a number of lexer and parser generators were written for it.
 In this talk we discuss using one of them, PLY, which is a pure python implementation of classic lex and YACC tools, for parsing a made-up configuration file grammar.
 \end{abstract}
 Formal language parsing is a common problem in software development. Standardized formats with already available parsing libraries, such as XML and JSON, have simplified the problem, but did not completely remove it. Python is widely used as a general purpose programming language as well as one for rapid prototyping, so Python programmers face this task as well.
 
-There is a number of parser generators for Python, which use different algorithms and APIs. In this talk we discuss PLY that is a pure Python implementation of classic UNIX tools: lex scanner generator, and YACC parser generator. It is maintained by David Beazley and distributed under thee-clause BSD license.
+There is a number of parser generators for Python, using different algorithms and APIs. In this talk we discuss PLY that is a pure Python implementation of classic UNIX tools: lex scanner generator, and YACC parser generator. It is maintained by David Beazley and distributed under thee-clause BSD license.
 
 Lex and YACC are there for decades and have been reimplemented not once. This makes PLY easy to learn for UNIX programmers and relatively easy to convert the Python code into C/C++ if needed.
 
@@ -33,7 +33,7 @@ The most common algorithm used by parser generators is LALR (1) that reads token
 
 \subsection*{Using PLY}
 
-PLY consists of two modules, \verb!ply.lex! and \verb!ply.yacc!. Actions for tokens and grammar rules are defined as functions, while token regular expressions and grammar rules are defined in function docstrings. Tokens that need no actions can be defined as variables.
+PLY consists of two modules, \verb!ply.lex! and \verb!ply.yacc!. Actions for tokens and grammar rules are defined as functions, while token regular expressions and grammar rules are defined in function docstrings. \linebreak Tokens that need no actions can be defined as variables.
 
 A simple parser for breaking into parts a line consisting of letters and digits groups separated by semicolon will look like:
 

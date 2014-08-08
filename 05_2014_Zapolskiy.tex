@@ -3,7 +3,7 @@
 \switchlang{en}
 \begin{document}
 \title{Bootloader and Linux kernel debugging on ARM board with OpenOCD}
-\author{Vladimir Zapolskiy "--- Espoo, Finland\footnote{\url{vz@mleia.com}, \url{http://lvee.org/en/abstracts/126}}}
+\author{Vladimir Zapolskiy, Espoo, Finland\footnote{\url{vz@mleia.com}, \url{http://lvee.org/en/abstracts/126}}}
 \maketitle
 \begin{abstract}
 The system software development in area of embedded systems is complicated by proximity to the physical world, incomplete knowledge of hardware errors and sophisticated existing software. Fortunately it is possible to reuse advantages of a debugger in development of operating systems and bootloaders with the aid of a bridge from hardware and running system software to the GDB session on a developer's workstation, which is provided by JTAG interface, a cheap JTAG-USB adapter and connective software from open source OpenOCD project.
@@ -15,7 +15,7 @@ Consider a task of a new device development from system programmer's point of vi
   \item the ARM application processor executes bootloader, hypervisor or operating system kernel, and the developer has access to its source code, for instance U-boot bootloader and Linux kernel.
 \end{itemize}
 
-A system programmer of ARM powered embedded systems unavoidably meets a number of tasks and problems during the low-level development stage:
+A system programmer of ARM powered embedded systems unavoid\-ably meets a number of tasks and problems during the low-level development stage:
 
 \begin{itemize}
   \item port a bootloader or Linux kernel to a new ARM SoC,
