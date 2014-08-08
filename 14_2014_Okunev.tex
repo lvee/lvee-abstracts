@@ -2,7 +2,7 @@
 \input{preamble.tex}
 \begin{document}
 \title{clsync progess: security and porting to FreeBSD}
-\author{Дмитрий Окунев, Москва, РФ\footnote{\url{xaionaro@gmail.com}, \url{http://lvee.org/ru/abstracts/138}}}
+\author{Дмитрий Окунев, НИЯУ МИФИ, Москва, РФ\footnote{\url{xaionaro@gmail.com}, \url{http://lvee.org/ru/abstracts/138}}}
 \maketitle
 \begin{abstract}
 The report focuses on methods to increase a level of security of "clsync" (free live sync utility). Multiple approaches to reduce risks of attack were used, and practical experience of applying these approaches is given. Used methods include unsharing un\-necessary resources, splitting the process to privileged and non"=privileged threads and using Linux"=specific security"=related API. Also problems of porting Linux"=based clsync to FreeBSD are described, including variants and problems of FS monitoring in FreeBSD.
