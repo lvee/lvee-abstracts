@@ -67,7 +67,8 @@ Raspbian "--- это операционная система, основанна
 \begin{verbatim}
 // инициализация
 GpioController gpio = GpioFactory.getInstance();
-GpioPinDigitalOutput light = gpio.provisionDigitalOutputPin(
+GpioPinDigitalOutput light = 
+	gpio.provisionDigitalOutputPin(
 	RaspiPin.GPIO_07, "Light", PinState.LOW); 
 	// подключились к пину 7
 	

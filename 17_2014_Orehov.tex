@@ -10,7 +10,7 @@ These questions make a subject of the presentation.
 \end{abstract}
 \subsection*{Introduction: be ready for the Real World}
 
-Today Software-defining is a real factor in the Industry. Network Function Virtualization, Service insertion in datacenters and clouds; Dynamic WAN rerouting and interconnecting, Bandwidth on Demand for providers "--- that's only a short list of SDN use cases. The most well-known usage of SDN is OpenStack "--- Open Source cloud computing platform, created and supported by free developers in tight collaboration with enterprise vendors.
+Today Software-defining is a real factor in the Industry. Network Function Virtualization, Service insertion in datacenters and clouds; Dynamic WAN rerouting and interconnecting, Bandwidth on Demand for providers "--- that's only a short list of SDN use cases. The most well-known usage of SDN is OpenStack "--- Open Source cloud computing platform, created and supported by free developers in tight collabora\-tion with enterprise vendors.
 
 At considering SDN as an Enterprise technology, new non-functional requirements become actual: stable work under high-load (hundreds and thousands of controllers and switches) and scalability.
 
@@ -36,7 +36,7 @@ When you use Avro, the workflow is:
 
 \subsection*{Akka}
 
-Akka library was developed to simplify development of distributed and concurrent software on JVM. It was inspired with Erlang and implements high-performing Actors model. Millions messages per second, very small footprint and distributability by design make Akka very good for distributed software on JVM.
+Akka library was developed to simplify development of distributed and concurrent software on JVM. It was inspired with Erlang and implements high-performing Actors model. Millions messages per se\-cond, very small footprint and distributability by design make Akka very good for distributed software on JVM.
 
 We have chosen Akka because Actors model fits ideally into the SDN controller architecture. SDN Controller must run multiple independent and stateless sessions, one per connected Switch. No session can harm the other one. Further, according to SDN Controller ideology, it is stateless, and therefore shouldn't store any information about the Switch state. So, we don't need any failover. Eventually, if any Controller session want to crash "--- we should let it crashing. And it matches ideally Actors model implemented by Akka (and by Erlang before).
 
@@ -47,7 +47,7 @@ Also, Scala is scalable by design. One Scala feature we don't use now is very po
 
 \section*{Assemble everything together}
 
-Using Akka we have built a pool of Actors, communicating via sending messages. Every Switch is handled by separate Switch Connector. Switch Connectors define only basic functionality, and developer may customize behavior, implementing Event handlers and registering his Actor for specific Event. Currently, we have some custom actors imple\-menting REST API for Warp controller.
+Using Akka we have built a pool of Actors, communicating via sending messages. Every Switch is handled by separate Switch Connec\-tor. Switch Connectors define only basic functionality, and developer may customize behavior, implementing Event handlers and registering his Actor for specific Event. Currently, we have some custom actors imple\-menting REST API for Warp controller.
 
 Protocol drivers are totally separated from Controller part. Via simple API every Controller actor may build, customize and serialize messages. Moreover, it's possible to use Protocol drivers with any other JVM applications. We made proof of a concept, using Warp OpenFlow driver in Floodlight controller, by the way.
 Currently, only OpenFlow protocol is implemented as the most widely used protocol in SDN.

@@ -15,7 +15,7 @@ Steganography is the science of determining how to conduct commu\-ni\-ca\-tion s
 Differences between steganography and cryptography is shown in Table 1.
 
 \subsection*{Traditional Steganography}
-The use of steganography dates back to the time of Herodotus, the fifth century BC. Examples of traditional steganography can be tattooing the scalp (after the hair grew back information remains in\-vi\-sible). One of the best solutions of this kind applied by the Germans during World War II "--- microdots technique. It was based on minimazing  pictures to such scale so that you can paste them into the text as a dot.
+The use of steganography dates back to the time of Herodotus, the fifth century BC. Examples of traditional steganography can be tattooing the scalp (after the hair grew back information remains in\-vi\-sible). One of the best solutions of this kind applied by the Germans during World War II "--- microdots technique. It is based on minimazing  pictures to such scale so that you can paste them into the text as a dot.
 
 \begin{table}[t!]
 \begin{center}
@@ -38,7 +38,7 @@ Table 1. Differences between steganography and cryptography.
 
 \subsection*{Digital Steganography}
 
-With the development of digital technology, steganography has found a new use also in the field of science. Digital steganography bases on making subtle changes to the original medium, and therefore gives a much more possibilities than traditional steganography.
+With development of digital technology, steganography has found a new use also in the field of science. Digital steganography bases on making subtle changes to the original medium, and therefore gives a much more possibilities than traditional steganography.
 
 The carrier of concealed information can be virtually any file (one that can be modified without having to worry about damage to its internal structures). However, the most commonly used are multimedia files "--- these are relatively large in size and difficult to capture the modification of original file.
 
@@ -90,7 +90,7 @@ int crypt_space_1bit(char * buffer, char *open_text,
     }
     else
     {
-      clear_bit(buffer[start_position + i * space_size], 0);
+     clear_bit(buffer[start_position + i * space_size], 0);
     }
   }
 }
@@ -128,11 +128,13 @@ long int breaker_standard_1bit_unknown_size_openmp(
       num_threads(number_of_threads)
   for(i=0; i < (buffer_size - j); i++)
   {
-    open_text = (char *)malloc((size_upper + 1) * sizeof(char));
+    open_text = (char *)malloc((size_upper + 1) * 
+    sizeof(char));
     start_position = i;
     for (j = size_down; j <= size_upper; j++)
     {
-      encrypt_standard_1bit(buffer, open_text, start_position, j);
+      encrypt_standard_1bit(buffer, open_text, 
+      start_position, j);
       if (ascii_veryfi(open_text, j) == 1)
       {
         open_text[j] = '\0';
@@ -159,7 +161,7 @@ which verifies whether the starting substring at the pointer of length size is t
 
 \subsection*{Results}
 
-Performance results obtained when searching for encoded text inside graphic file with a resolution of $1600\times1200$ is shown in Table 2. A similar table for resolution $4096\times4096$ is presented in Table 3. Additionally, obtained through parallel programming (OpenMP), speedup on IBM Blue Gene/Q and AMD Opteron 6272 is shown in Figure 3.
+Performance results obtained when searching for encoded text inside graphic file with a resolution of $1600\times1200$ is shown in Table 2. A similar table for resolution $4096\times4096$ is presented in Table 3. Also, obtained through parallel programming (OpenMP), speedup on IBM Blue Gene/Q and AMD Opteron 6272 is shown in Figure 3.
 
 
 \begin{figure}[h!]
@@ -224,7 +226,7 @@ Figure 6. Logo of the LVEE conference with hidden text ‘LVEE – the best conf
 \end{figure}
 
 \section*{Acknowledgment}
-Interdisciplinary Centre for Mathematical and Computational Modeling (ICM), Warsaw University, Poland is acknowledged for providing the computer facilities under the Grant No. G55-11.
+Interdisciplinary Centre for Mathematical and Computational Mo\-deling (ICM), Warsaw University, Poland is acknowledged for providing the computer facilities under the Grant No. G55-11.
 \section*{Note}
 The thesis presented on Winter LVEE 2014 Conference in Minsk (Belarus).
 \section*{References}
@@ -235,12 +237,12 @@ The thesis presented on Winter LVEE 2014 Conference in Minsk (Belarus).
   \item Haring, Ruud A., et al. ``The IBM Blue Gene/Q compute chip.'' Micro, IEEE 32.2 (2012): 48-60.
   \item Keltcher, Chetana N., et al. ``The AMD Opteron processor for multiprocessor servers.'' Micro, IEEE 23.2 (2003): 66-76.
   \item OLib Library; http://lib.oproject.info
-  \item Katzenbeisser S.: Information Hiding Techniques for Steganography and Digital Watermarking, s. 65 -- 105, 1999, Artech House
-  \item Katzenbeisser S.: Information Hiding Techniques for Steganography and Digital Watermarking, s. 20 -- 23, 1999, Artech House
+  \item Katzenbeisser S.: Information Hiding Techniques for Steganogra\-phy and Digital Watermarking, s. 65 -- 105, 1999, Artech House
+  \item Katzenbeisser S.: Information Hiding Techniques for Steganogra\-phy and Digital Watermarking, s. 20 -- 23, 1999, Artech House
   \item Katzenbeisser, Stefan, and Fabien AP Petitcolas. Information hiding techniques for steganography and digital watermarking. Vol. 316. Norwood: Artech house, 2000.
   \item Kozieł, G. ``Przezroczystość danych ukrytych w sygnale audio.'' Pomiary, Automatyka, Kontrola 58 (2012): 972-974.
-  \item Auguste Kerckhoffs, ``La cryptographie militaire'' Journal des sciences militaires, vol. IX, pp. 5–83, January 1883, pp. 161–191, February 1883.
-  \item Mazurczyk, Wojciech, and Krzysztof Szczypiorski. ``Steganography of VoIP streams.'' On the Move to Meaningful Internet Systems: OTM 2008. Springer Berlin Heidelberg, 2008. 1001-1018.
+  \item Auguste Kerckhoffs, ``La cryptographie militaire'' Journal des sci\-ences militaires, vol. IX, pp. 5–83, January 1883, pp. 161–191, February 1883.
+  \item Mazurczyk, Wojciech, and Krzysztof Szczypiorski. ``Steganogra\-phy of VoIP streams.'' On the Move to Meaningful Internet Sys\-tems: OTM 2008. Springer Berlin Heidelberg, 2008. 1001-1018.
 \end{enumerate}
 
 \end{document}

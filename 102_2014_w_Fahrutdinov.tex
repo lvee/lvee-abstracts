@@ -5,7 +5,7 @@
 \author{Александр Фахрутдинов, Сызрань, РФ\footnote{\url{ar.fahrutdinov@gmail.com}, \url{http://lvee.org/en/abstracts/105}}}
 \maketitle
 \begin{abstract}
-Report describes some Linux kernel subsystems which can be used to create a high-performance data storage. Well-known instruments of storage management (RAID and LVM) are explained as far as cutting-edge technologies for multi-level caching and data tiering. Also, kernel-mode virtual target device  for remote access to data storage from other hosts is reviewed.
+Report describes some Linux kernel subsystems which can be used to create a high-performance data storage. Well-known instruments of storage management (RAID, LVM) are explained as far as cutting-edge technologies for multi-level caching and data tiering. Also, kernel-mode virtual target device  for remote access to data storage from other hosts is reviewed.
 \end{abstract}
 Системы хранения данных (СХД) "--- это одна из основ современного мира компьютерных технологий. С возникновением облачных сред и повсеместном внедрением виртуализации возникла необходимость в сверхскоростных хранилищах большого объема и повышенной  отказоустойчивости. Кроме того, потребовались «умные» системы, которые хранят вместо несколько копий одних и тех же данных только одну, выделяют под данные именно столько реально имеющегося дискового пространства, сколько требуется, а не сколько запросит пользователь, умеют копировать массивы данных внутри устройства без отправки их на сервер и так далее.
 
