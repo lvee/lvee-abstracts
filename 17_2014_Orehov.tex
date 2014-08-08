@@ -2,7 +2,7 @@
 \input{preamble.tex}
 \begin{document}
 \title{FlowForwarding Warp: how is JVM running the SDN controller}
-\author{Dmitry Orekhov --- Minsk, Belarus\footnote{\url{Dmitry_Orekhov@epam.com}, \url{http://lvee.org/ru/abstracts/135}}}
+\author{Dmitry Orekhov, Minsk, Belarus\footnote{\url{Dmitry_Orekhov@epam.com}, \url{http://lvee.org/ru/abstracts/135}}}
 \maketitle
 \begin{abstract}
 How to build a fast, scalable and portable SDN controller? Is JVM an appropriate platform for this? What solutions may Java world suggest for distribute systems and data serialization? And how fast would it be, eventually?
@@ -10,7 +10,7 @@ These questions make a subject of the presentation.
 \end{abstract}
 \subsection*{Introduction: be ready for the Real World}
 
-Today Software-defining is a real factor in the Industry. Network Function Virtualization, Service insertion in datacenters and clouds; Dynamic WAN rerouting and interconnecting, Bandwidth on Demand for providers --- that's only a short list of SDN use cases. The most well-known usage of SDN is OpenStack --- Open Source cloud computing platform, created and supported by free developers in tight collaboration with enterprise vendors.
+Today Software-defining is a real factor in the Industry. Network Function Virtualization, Service insertion in datacenters and clouds; Dynamic WAN rerouting and interconnecting, Bandwidth on Demand for providers "--- that's only a short list of SDN use cases. The most well-known usage of SDN is OpenStack "--- Open Source cloud computing platform, created and supported by free developers in tight collaboration with enterprise vendors.
 
 At considering SDN as an Enterprise technology, new non-functional requirements become actual: stable work under high-load (hundreds and thousands of controllers and switches) and scalability.
 
@@ -38,7 +38,7 @@ When you use Avro, the workflow is:
 
 Akka library was developed to simplify development of distributed and concurrent software on JVM. It was inspired with Erlang and implements high-performing Actors model. Millions messages per second, very small footprint and distributability by design make Akka very good for distributed software on JVM.
 
-We have chosen Akka because Actors model fits ideally into the SDN controller architecture. SDN Controller must run multiple independent and stateless sessions, one per connected Switch. No session can harm the other one. Further, according to SDN Controller ideology, it is stateless, and therefore shouldn't store any information about the Switch state. So, we don't need any failover. Eventually, if any Controller session want to crash --- we should let it crashing. And it matches ideally Actors model implemented by Akka (and by Erlang before).
+We have chosen Akka because Actors model fits ideally into the SDN controller architecture. SDN Controller must run multiple independent and stateless sessions, one per connected Switch. No session can harm the other one. Further, according to SDN Controller ideology, it is stateless, and therefore shouldn't store any information about the Switch state. So, we don't need any failover. Eventually, if any Controller session want to crash "--- we should let it crashing. And it matches ideally Actors model implemented by Akka (and by Erlang before).
 
 \subsection*{Scala}
 
