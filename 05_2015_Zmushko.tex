@@ -1,0 +1,49 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{Рекурсивное наблюдение за файловой системой на примере librnotify}
+\author{Андрей Змушко, Минск, Беларусь\footnote{\url{andrey.zmushko@gmail.com}, \url{http://lvee.org/en/abstracts/152}}}
+\maketitle
+\begin{abstract}
+One of base questions that appear in data synchronisation, is getting file notifications from the directory. Common solution for this is using a Linux kernel subsystem such as inotify or fanotify. Since fanotify doesn't notify file deletions, file renames or file moves, it is difficult to use fanotify for such applications. But of course fanotify gives as pid of process which have caused the event to happen. This can be very useful for some special cases, for example we should ignore events created by themselves. But in synchronisation it is very important to provide good support of move folders, in fact it is common problem for most synchronisation apps. In this subject we will review inotify just deeper. Known problems of inotify are that it provides no way of recursive monitoring and no map between watch descriptor and real path. Both thess questions have been solved in librnotify. 
+\end{abstract}
+Предположим, стоит задача синхронизировать данные, хранящиеся в некоторых директориях, доступ к которым не ограничен. Очевидно, что мы будем вынуждены периодически рекурсивно просматривать директорию, чтобы находить различия или подписаться на файловые нотификации, которые поставляются такими подсистемами ядра Linux, как inotify и fanotify.
+
+fanotify имеет серьезный недостаток: не поддерживаются нотификации удаления и перемещения. 
+Поэтому применение его в синхронизации данных усложняется. 
+
+Рассмотрим inotify. Основных недостатков в нем, пожалуй, три: первый "--- это то, что нотификация сопровождается только лишь  
+дескриптором, и ничего не известно о пути сработавшего элемента ФС, если об этом не позаботиться заранее. 
+
+Второй "--- это ограничения (лимиты) 
+в ядре на количество запущенных нотификаторов и длину очереди нотификаций. Лимиты можно и нужно менять, и скорее ваше приложение упрется в ограничения, связанные с производительностью, чем в лимит.  
+
+И последний недостаток "--- это то, что совсем не поддерживается рекурсивная нотификация папок.  
+То есть когда, допустим, мы перемещаем папку внутрь нотифицируемой папки, пока интерфейс просигнализирует о новой папке и мы включим эту новую папку в нотификации, 
+ несколько файлов <<проскочат>> мимо, и мы получим рассинхронизацию данных; это случается практически постоянно. 
+Одним из известных решений по устранению этой проблемы является проект lsync. Действительно, он полностью решает две проблемы: маппинг путей и рекурсивные нотификации. Но он громоздок и непроизводителен в качестве подсистемы. 
+
+В одном из наших проектов мы использовали lsync как сервер нотификаций, но если нужно синхронизировать десяток разных корневых папок с сотнями тысяч файлов и папок внутри, решение с lsinc
+оказывается дорогим в плане потребления системных ресурсов. 
+В итоге мы заменили lsync на библиотеку librnotify. 
+
+Подробно опишем интерфейс этой библиотеки. 
+Он прост и содержит только три вызова: 
+\begin{verbatim}
+Notify* initNotify(const char* path, const uint32_t mask,
+                   const char* exclude); 
+int waitNotify(Notify* ntf, char** const path, uint32_t*
+               mask, const int timeout, uint32_t* cookie); 
+void freeNotify(Notify* ntf);
+\end{verbatim}
+
+Объект Notify является контейнером состояния нотификатора, и с нашей точки зрения нам не интересен. 
+initNotify подписывает некую папку по пути path на список нотификаций, задаваемый в mask (список тот же, что и в man inotify). Естественно, файл \linebreak sys/inotify.h также должен присутствовать. exclude "--- это регулярное выражение, которое задает маску для элементов ФС, которые мы не хотим нотифицировать "--- это удобно, если, например, мы не хотим нотифицировать .git или просто .*.
+
+Вызов waitNotify ждет нотификации timeout секунд (или микросекунд), а при значении 0 ждет вечно. Он возвращает path и битовое поле (mask), где указанно, что именно случилось. 
+Cookie "--- это возвращаемое число, которое позволяет связать нотификации перемещения; оно будет одинаковым для пар операций MOVE\_FROM и MOVE\_TO. 
+Наконец, freeNotify удаляет объект нотификатора.
+
+Библиотека librnotify доступна по адресу \url{https://github.com/zmushko/librnotify}
+
+\end{document}
