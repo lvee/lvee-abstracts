@@ -1,0 +1,92 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\switchlang{en}
+\begin{document}
+\title{An introduction to post-quantum cryptography}
+\author{Andrew Savchenko, Moscow, Russia}
+\maketitle
+\begin{abstract}
+These days cryptography faces a new type of threat: quantum
+computing. An overview of quantum computing and how it works in the context of cryptography is presented. It is discussed when it is dangerous and when it is not for commonly used algorithms. There are well known, but not commonly used algorithms, which are resilient to the quantum computing approach and free software is available to use them in a manner similar to GnuPG.
+\end{abstract}
+\subsection*{Preface}
+
+Post-quantum cryptography is a way to preserve data security in the world of quantum computers: it is a set of algorithms and protocols resilient to cryptanalysis using quantum computing\footnotemark[1]. It has nothing to do with quantum cryptography, which is a science of using quantum mechanical properties for cryptographic tasks (e.g. secure key distribution based on quantum entanglement or data copy protection based on wave function collapse).
+
+\subsection*{Quantum computing}
+
+In classical electronics each bit can be in exactly one state: 0 or 1, e.g. byte of 8 bits can encode 256 states, but can be in only one state at once. Quantum bit (known as qubit) can also encode 0 or 1 state, but can be in superposition of both states at once, so 8 qubits describe 256 states simultaneously. Qubits can be operated by quantum gates the same way as bits are operated by microelectronics gates; quantum gates are very different in nature and properties from classical gates, but can also implement a full set of logical operations. The main power of quantum computing is that single quantum gate can operate on 2\^{}n states for n qubits available.
+
+Quantum computers are probabilistic by the nature: 2+2 = 4 only sometimes, it may be 5 or -10 as well, but with different probabilities, so results must be verified or repeated many times to give acceptable error probability. Thus quantum computer is in no way replacement for classical computations, it is a dedicated machine that can augment classical computations, but never replace them.
+
+\subsection*{Quantum algorithms}
+
+There are many quantum algorithms available, but two of them are of the most importance for crypto analysis
+
+\paragraph{Shor's algorithm}
+
+Shor's algorithm\footnotemark[2] allows for fast integer factorization, thus breaking prime multiplication and elliptic curve algorithms (RSA, ECDSA, ED25519 and so on). It is based on the idea of transforming factorization problem into function period finding problem (this is implemented using classical computing), finding period of a function using quantum Fourier transform. Then using a classical computations for continued fraction expansion prime can be obtained. Of course verification is needed.
+
+As a result, search time is reduced from exponential to polynomial.
+
+\paragraph{Grover's algorithm}
+
+Grover's algorithm\footnotemark[3] is a ``brute force'' algorithm which reduces search complexity from O(N) to O(sqrt(N)), thus halving key strength, e.g. AES-256 will be reduced to AES-128.
+
+\subsection*{Impact on cryptographic algorithms.}
+
+\begin{itemize}
+  \item Symmetric key cryptography\begin{itemize}
+  \item key strength is halved, this is a danger but solvable;
+\end{itemize}
+
+
+  \item Asymmetric key cryptography\begin{itemize}
+  \item RSA/DSA/El-Gamal -- dead;
+  \item elliptic curves cryptography -- dead;
+  \item hash-based -- halve reduced;
+  \item code-based -- halve reduced;
+  \item lattice-based -- halve reduced;
+  \item and so on\ldots{}
+\end{itemize}
+
+
+\end{itemize}
+
+There are plenty of asymmetric key algorithms which can't be reduced to factorization problem. So why they are not used? The answer is: fast and effective implementation is also needed, but with modern CPUs it is not such a big problem.
+
+\subsection*{Free software solutions}
+
+\paragraph{Encryption}
+
+Free software implementing algorithms resistible to quantum computing exists! See codecrypt\footnotemark[4] (LGPL-3). Main features:
+
+\begin{itemize}
+  \item functionality similar to GnuPG:\begin{itemize}
+  \item key pair generation;
+  \item signature;
+  \item asymmetric encryption;
+  \item symmetric encryption;
+  \item import/export/recipients and so on
+\end{itemize}
+
+
+  \item many algorithms are implemented
+\end{itemize}
+
+Of course it is still new and don't rely on it blindly, better combine with GnuPG or other schemes.
+
+Upstream is very dynamic and responsive!
+
+\paragraph{Programming}
+
+For those interested in quantum programming, you can try QCL\footnotemark[5] (GPL-2): it is a quantum computing language with an emulator of a quantum computer!
+
+\begin{thebibliography}{99}
+\bibitem{Savchenko1}Daniel J. Bernstein, Johannes Buchmann, Erik Dahmen (editors). Post-quantum cryptography. Springer, Berlin, 2009. ISBN 978-3-540-88701-0. \url{https://pqcrypto.org/www.springer.com/cda/content/document/cda\_downloaddocument/9783540887010-c1.pdf}
+\bibitem{Savchenko2}\url{https://en.wikipedia.org/wiki/Shor's\_algorithm}
+\bibitem{Savchenko3}\url{https://en.wikipedia.org/wiki/Grover's\_algorithm}
+\bibitem{Savchenko4}\url{http://e-x-a.org/codecrypt/}
+\bibitem{Savchenko5}\url{http://tph.tuwien.ac.at/\~{}oemer/qcl.html}
+\end{thebibliography}
+\end{document}
