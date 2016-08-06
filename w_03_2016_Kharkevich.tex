@@ -1,0 +1,240 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{Как перестать страдать* и начать использовать Let's Encrypt}
+\author{Aliaksandr Kharkevich, Volha Kharkevich, Gomel, Belarus}
+\maketitle
+
+\begin{abstract}
+This article describes several types of SSL certificates, CA with issuing certificates for free, ACME protocol and Let's Encrypt as Certificate Authority.
+\end{abstract}
+
+\subsection*{Глобальное движение в сторону HTTPS}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=5.5cm]{w_03_2016_Kharkevich1.png}
+  
+\end{figure}
+
+HTTPS "--- это обычный HTTP, работающий через шифрованные транспортные механизмы SSL и TLS. Он обеспечивает защиту от атак, основанных на прослушивании сетевого соединения.
+
+Глобальный переход на SSL стал трендом, и разработчики двух популярных браузеров, Mozilla Firefox\footnotemark[1] и Chromium\footnotemark[2] планируют помечать http-ресурсы как небезопасные (Non-secure).
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=5.5cm]{w_03_2016_Kharkevich2.png}
+\caption*{StatCounter "--- статистика за 2015 год}
+\end{figure}
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=10cm]{w_03_2016_Kharkevich3.png}
+\caption*{Пример небезопаснго веб-сайта}\label{fig:Kharkevich3}
+\end{figure}
+
+
+При этом в Google уже с 2014 года предпочтение отдается сайтам с https\footnotemark[3].
+
+\subsection*{Виды SSL-сертификатов}
+
+Можно выделить следующие виды сертификатов:
+
+\begin{itemize}
+  \item Domain Validation "--- сертификат, подтверждающий только доменное имя.
+  \item Organization Validation "--- сертификат, подтверждающий домен и организацию.
+  \item Extended Validation "--- сертификат с расширенной проверкой.
+\end{itemize}
+
+Если Organization Validation и Extended Validation продаются только за деньги, то Domain Validation бывает и \textbf{бесплатный}.
+
+В дальнейшем будем рассматривать только сертификаты Domain Validation.
+
+\subsection*{Варианты получения SSL-сертификатов}
+
+В реальной жизни для получения сертификатов существуют следующие варианты:
+
+\begin{itemize}
+  \item Самоподписанные сертификаты (self-signed-certificate) и сертификаты, подписанные собственным центром сертификации.
+\begin{itemize}
+  \item Из плюсов "--- возможность самостоятельно создавать \linebreak неограниченное количество SSL-сертификатов; отсутствие денежных затрат; быстрота в создании; в случае собственного удостоверяющего центра "--- доверие к данному сертификату.
+  \item Из мнусов "--- необходимость добавления удостоверяющего центра в список доверенных ЦС вручную либо аналогичной процедуры для самоподписанных сертификатов; в случае использования собственного удостоверяющего центра "--- дополнительные требования по размещению и защите.
+\end{itemize}
+
+
+  \item Платные сертификаты от известных центров сертификации.
+\begin{itemize}
+  \item Из их плюсов "--- внешний гарант подлинности.
+  \item Из минусов "--- нужно платить деньги.
+\end{itemize}
+
+  \item Коммерческие триальные SSL-сертификаты в качестве бесплатных.
+\begin{itemize}
+  \item Из их плюсов "--- бесплатность.
+  \item Из минусов "--- малый срок действия и невозможность заказать повторно.
+\end{itemize}
+
+  \item Бесплатные сертификаты от StartSSL.
+\begin{itemize}
+  \item Из их плюсов "--- бесплатность.
+  \item Из минусов "--- ручная установка сертификатов на сервер; сертификат бесплатен только для некоммерческого использования; сложности с отзывом сертификата.
+\end{itemize}
+
+
+  \item Бесплатные сертификаты от WoSign.
+\begin{itemize}
+  \item Из их плюсов "--- сертификат действительно бесплатный; у них появился англоязычный интерфейс; поддержка до пяти поддоменов в запросе на сертификат.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=5.5cm]{w_03_2016_Kharkevich4.png}
+\caption*{WoSign на китайском языке}\label{fig:Kharkevich4}
+\end{figure}
+
+  \item Из минусов "--- ручная установка сертификатов на сервер; OCSP в Китае; для поддоменов постоянно урезаются лимиты; потенциальный MitM в связи с наличием \linebreak The Golden Shield Project.
+\end{itemize}
+
+
+  \item Бесплатные сертификаты от Let’s Encrypt.
+\begin{itemize}
+  \item Из минусов "--- новый игрок на рынке (требуется обновить списки CA); еще не вышел из бета-версии; только DV-сертификаты; есть некоторые лимиты на выпуск/перевыпуск сертификатов.
+  \item Из плюсов "--- нет ограничения по применению сертификатов; может использоваться в коммерческих проектах; ACME "--- полностью автоматический процесс выдачи сертификата; срок действия сертификата до 90 дней.
+\end{itemize}
+
+\end{itemize}
+
+\subsection*{Let’s Encrypt – наш выбор}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=10cm]{w_03_2016_Kharkevich5.png}
+  
+\end{figure}
+
+\subsubsection*{Шаги по установлению глобального доверия}
+
+Для подписания пользовательских сертификатов Let’s Encrypt использует промежуточные сертификаты, которые кроме корневой подписи имеют перекрестную подпись от IdenTrust. Такая конфигурация позволила как минимум взлететь на тех браузерах, в которых еще ничего не было сказано про корневой сертификат Let’s Encrypt \footnotemark[4]
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=5.5cm]{w_03_2016_Kharkevich6.png}
+\caption*{Перекрестная подпись промежуточных сертификатов}\label{fig:Kharkevich6}
+\end{figure}
+
+
+\subsubsection*{Как работает ACME (Automatic Certificate Management Environment)}
+
+Для получения  сертификата необходимо доказать центру сертификации, что домен, для которого пришел запрос сертификата, принадлежит запросившей сертификат стороне.
+
+Это происходит в несколько шагов.
+
+В первый раз взаимодействуя с Let's Encrypt CA, агент сгенерирует пару ключей, которые будет использовать для доказательства наличия прав на доменное имя.
+
+Агент отправляет запрос в Let's Encrypt CA с указанием домена, который необходимо подтвердить.
+
+Let’s Encrypt CA оценивает домен и выдает клиенту как минимум одну задачу на доказательство владения доменом:
+
+\begin{itemize}
+  \item Создание DNS-записи в доменной зоне для запрошенного домена.
+  \item Создание ресурса, доступного по HTTP на известном URI для запрошенного домена.
+\end{itemize}
+
+Наряду с решением вышеописанной задачи, Let’s Encrypt CA  создает одноразовый ключ, который агент должен подписать своим закрытым ключом для домена, чтобы доказать, что он контролирует ключевую пару.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=10cm]{w_03_2016_Kharkevich7.png}
+  
+\end{figure}
+
+Агент выполняет выбранную задачу и уведомляет сервер о готовности пройти валидацию.
+
+Let’s Encrypt CA проверяет электронную цифровую подпись и доступность файлов или записей в DNS.
+
+В случае, если цифровая подпись верна и выбранная задача решена верно, Let’s Encrypt CA считает, что агент имеет право на управление сертификатами для запрошенного домена.
+
+Ключевая пара, использованная агентом, становится <<авторизованной парой ключей>> для запрошенного домена.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=5.5cm]{w_03_2016_Kharkevich8.png}
+\caption*{Успешное выполнение всех задач от Let’s Encrypt}\label{fig:Kharkevich8}
+\end{figure}
+
+
+После авторизации агент может запросить, обновить или отозвать сертификаты для своего домена. Сообщения должны быть подписаны авторизованной парой ключей.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=10cm]{w_03_2016_Kharkevich9.png}
+\caption*{Выпуск сертификата}\label{fig:Kharkevich9}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=5.5cm]{w_03_2016_Kharkevich10.png}
+\caption*{Отзыв сертификата}\label{fig:Kharkevich10}
+\end{figure}
+
+
+\subsubsection*{Клиенты/плагины для Let's Encrypt}
+
+Для Let’s Encrypt существует как официальная реализация клиентской части, так и множество других реализаций протокола \linebreak ACME (написаны на Python, Go, C\#, Ruby, Bash).
+
+Официальный клиент поддерживает расширение функциональности за счет плагинов. На текущий момент, реализованные плагины представлены на странице github \footnotemark[5].
+
+Написать свой плагин достаточно просто: нужно всег лишь прочитать документацию \footnotemark[6] и написать его.
+
+\subsection*{Примеры из реальной жизни и немного статистики}
+
+Судя по crt.sh "--- Let's Encrypt выпустил громадное количество сертификатов и с отрывом лидирует над остальными.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=10cm]{w_03_2016_Kharkevich11.png}
+\caption*{Статистика по версии от crt.sh}\label{fig:Kharkevich11}
+\end{figure}
+
+
+\subsubsection*{Забытые обновления сертификатов}
+
+В заключение "--- несколько случаев пропущенных обновлений сертификатов:
+
+\begin{itemize}
+  \item Ростелеком в 2010 году \footnotemark[7]
+  \item Хабр и habrastorage.org в 2014 году \footnotemark[8]
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=10cm]{w_03_2016_Kharkevich12.png}
+  
+\end{figure}
+
+  \item RU-CENTER (ssl.ru) в 2016 году
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=5.5cm]{w_03_2016_Kharkevich13.png}
+  
+\end{figure}
+
+\end{itemize}
+
+\begin{thebibliography}{99}
+
+\bibitem{Kharkevich1} \url{https://blog.mozilla.org/security/2015/04/30/deprecating-non-secure-http/} {Mozilla Security Blog: Deprecating Non-Secure HTTP}
+\bibitem{Kharkevich2}\url{https://www.chromium.org/Home/chromium-security/marking-http-as-non-secure}{The Chromium Projects proposal: Marking HTTP As Non-Secure}
+\bibitem{Kharkevich3}\url{https://googlewebmastercentral.blogspot.com.by/2014/08/https-as-ranking-signal.html}{Google Webmaster Central Blog: HTTPS as a ranking signal}
+\bibitem{Kharkevich4}\url{https://letsencrypt.org/certificates/}{Let’s Encrypt certificates}
+\bibitem{Kharkevich5}\url{https://github.com/letsencrypt/letsencrypt/wiki/Plugins}{Letsencrypt officially supported plugins}
+\bibitem{Kharkevich6}\url{https://letsencrypt.readthedocs.org/en/latest/contributing.html#dev-plugin}{Writing your own letsencrypt plugin}
+\bibitem{Kharkevich7}\url{https://geektimes.ru/post/102984/}{Geektimes: Ростелеком забыл обновить ssl-сертификат gosuslugi.ru}
+\bibitem{Kharkevich8}\url{https://geektimes.ru/post/243231/}{Geektimes: Пора обновить сертификат на Habrastorage.org!}
+\bibitem{Kharkevich9\url{https://crt.sh/}{Поиск по сертификатам}.
+\bibitem{Kharkevich10}\url{https://www.ssllabs.com/ssltest/}{Тестирование конфигурации SSL}.
+\bibitem{Kharkevich11}\url{https://mozilla.github.io/server-side-tls/ssl-config-generator/}{Генератор SSL конфигурационных файлов от Mozilla}.
+\bibitem{Kharkevich12}\url{http://gs.statcounter.com/}{Анализ веб-трафика}.
+\bibitem{Kharkevich13}\url{https://letsencrypt.org/howitworks/technology/}{Let's Encrypt how it works}.
+
+\end{thebibliography}
+\end{document}
