@@ -15,36 +15,79 @@ One might ask, if Yocto isn't a distribution, how does one make a distribution u
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[height=5.5cm]{w_07_2016_Shadura1.png}
+  \includegraphics[height=4.5cm]{w_07_2016_Shadura1.png}
 \end{figure}
 
 The current Yocto technology stack has evolved from its roots in previously separate OpenEmbedded Project. Since the merger \linebreak of OpenEmbedded and Yocto, OpenEmbedded has introduced a layers system allowing vendors and users to have their bits separate yet \linebreak plugging into each other. There's a number of layers Yocto Project provides ({\ttfamily oe-core, meta-yocto, meta-yocto-bsp}) which form so-called \linebreak <<reference distribution>>, Poky. Poky contains foundation package \linebreak recipes (from OpenEmbedded Core), distribution policy\linebreak configuration, reference BSPs, build tools and documentation. Normally, Poky is what you start from when creating your own distribution.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[height=5.5cm]{w_07_2016_Shadura2.png}
+  \includegraphics[height=2cm]{w_07_2016_Shadura2.png}
 \end{figure}
 
 Package recipes are written in a language similar to both Make and shell, and to certain extent resemble Gentoo's ebuilds. These recipes are being used by BitBake to build binary packages, and provide necessary information on where sources are found, and how to build them. BitBake recipes support includes, inheritance and overrides making it easy to change or extend the behaviour of an existing recipe without touching its code.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=10cm]{w_07_2016_Shadura3.png}
-  \caption* {Fig: Example of a BitBake recipe.}
-\end{figure}
+Fig: Example of a BitBake recipe:
+\lstset{ %
+anguage=C,                 % выбор языка для подсветки (здесь это С)
+basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+breaklines=true,           % автоматически переносить строки (да\нет)
+breakatwhitespace=false, % переносить строки только если есть пробел
+}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=10cm]{w_07_2016_Shadura4.png}
-  \caption* {Fig: Example of a BitBake recipe with inheritance}
-\end{figure}
+\begin{lstlisting}
+SUMMARY = "The canonical example of init scripts"
+SECTION = "base"
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYRIGHT;md5=349c872e0066155e1818b786938876a4"
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[height=2.5cm]{w_07_2016_Shadura5.png}
-  \caption* {Fig: Example of .bbappend}
-\end{figure}
+SRC_URI = "file://skeleton \
+           file://skeleton_test.c \
+           file://COPYRIGHT \
+           "
 
+do_compile () {
+           ${CC} ${WORKDIR}/skeleton_test.c -o ${WORKDIR}/skeleton-test
+}
+
+do_install () {
+           install -d ${D}${sysconfdir}/init.d
+           cat ${WORKDIR}/skeleton | \
+             sed -e 's,/etc,${sysconfdir},g' \
+                 -e 's,/usr/sbin,${sbindir},g' \ 
+                 -e 's,/var,${localstatedir},g' \ 
+                 -e 's,/usr/bin,${bindir},g' \ 
+                 -e 's,/usr,${prefix},g' > ${D}${sysconfdir}/init.d/skeleton 
+           chmod a+x ${D}${sysconfdir}/init.d/skeleton 
+
+           install -d ${D}${sbindir} 
+           install -m 0755 ${WORKDIR}/skeleton-test ${D}${sbindir}/
+}
+
+RDEPENDS_${PN} = "initscripts"
+CONFFILES_${PN} += "${sysconfdir}/init.d/skeleton"
+\end{lstlisting}
+
+Fig: Example of a BitBake recipe with inheritance:
+\begin{lstlisting}
+SUMMARY = "Example of how to build an external Linux kernel module"
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e"
+
+inherit module
+
+SRC_URI = "file://Makefile \
+           file://hello.c \
+           file://COPYING \
+          "
+
+S = "${WORKDIR}"
+\end{lstlisting}
+
+Fig: Example of .bbappend:
+\begin{lstlisting}
+RDEPENDS_${PN}_append = " systemd"
+\end{lstlisting}
 
 Collabora is a company that provides consultancy to companies who are deploying open source technologies in their products, by providing its own open source based products and through knowledge sharing activities such as training. Collabora employs many free software \linebreak developers who are experts or major developers in such areas as \linebreak multimedia (GStreamer), graphics (Wayland, Weston), Linux kernel, productivity software (LibreOffice) and others.
 
@@ -54,24 +97,83 @@ For the project, the customer have decided to eliminate as much as possible cust
 
 Thanks to the layer system Yocto Project uses, building your own distribution based on it is quite an easy job, once you know what you need from it. It all started as a layer with three files: the layer definition itself, distribution configuration file, and a machine definition.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[height=5.5cm]{w_07_2016_Shadura6.png}
-  \caption* {Fig: Layer definition file (conf/layer.conf)}
+Fig: Layer definition file (\verb!conf/layer.conf!)
+\begin{lstlisting}
+# We have a conf and classes directory, add to BBPATH
+BBPATH .= ":${LAYERDIR}"
 
-\end{figure}
+# We have recipes-* directories, add to BBFILES
+BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
+ ${LAYERDIR}/recipes-*/*/*.bbappend"
+ 
+BBFILE_COLLECTIONS += "distro-core"
+BBFILE_PATTERN_distro-core = "^${LAYERDIR}/"
+BBFILE_PRIORITY_distro-core = "10"
+\end{lstlisting}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=10cm]{w_07_2016_Shadura7.png}
-  \caption* {Fig: Distribution definition file (conf/distro/badger.conf)}
-\end{figure}
+Fig: Distribution definition file (\verb!conf/distro/badger.conf!)
+\begin{lstlisting}
+require conf/distro/poky.conf
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=10cm]{w_07_2016_Shadura8.png}
-  \caption* {Fig: Machine definition file (conf/machine/vexpressa9.conf)}
-\end{figure}
+DISTRO = "distro-core"
+DISTRO_NAME = "Core Distro Platform"
+DISTRO_VERSION = "2.0"
+DISTRO_CODENAME = "badger"
+
+DISTRO_FEATURES_append = " systemd wayland xwayland xattr pam apparmor"
+DISTRO_FEATURES_remove = "x11"
+
+# Enable systemd as init
+VIRTUAL-RUNTIME_init_manager = "systemd"
+
+# Disable sysv init and prevent any init scripts in the images
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
+VIRTUAL-RUNTIME_initscripts = ""
+
+PREFERRED_PROVIDER_jpeg = "jpeg"
+PREFERRED_PROVIDER_jpeg-native = "jpeg-native"
+\end{lstlisting}
+
+Fig: Machine definition file (\verb!conf/machine/vexpressa9.conf!)
+\begin{lstlisting}
+#@NAME: vexpress-a9 machine
+#@DESCRIPTION: Machine configuration for the vexpress a9 board 
+
+PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
+
+# Ship all kernel modules by default
+MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+
+# Allow for MMC booting (required by the NAND-less)
+EXTRA_IMAGEDEPENDS += ""
+
+# Uncomment the following line to enable the hard floating point abi. Note that
+# this breaks some binary libraries and 3D (neither of which ship with
+# meta-yocto). For maximum compatibility, leave this disabled.
+#DEFAULTTUNE ?= "cortexa8hf-neon"
+include conf/machine/include/tune-cortexa9.inc
+
+#IMAGE_CLASSES += "sdcard_image"
+
+#IMAGE_FSTYPES += "tar.bz2 ext3 vexpressa9-sdimg"
+IMAGE_FSTYPES += "tar.bz2 ext3"
+
+#EXTRA_IMAGECMD_jffs2 = "-lnp "
+
+# 2.6.37 and later kernels use OMAP_SERIAL, ttyO2
+# earlier kernels use ttyS2
+SERIAL_CONSOLE = "115200 ttyO2"
+
+PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+
+KERNEL_IMAGETYPE = "zImage"
+UBOOT_MACHINE = "ca9x4_ct_vxp_config"
+UBOOT_ENTRYPOINT = "0x80008000"
+UBOOT_LOADADDRESS = "0x80008000"
+KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
+
+MACHINE_FEATURES = "kernel26 apm usbgadget usbhost vfat alsa"
+\end{lstlisting}
 
 
 These files define where recipe files are to be found, exactly what features (systemd, wayland, apparmor) we're using and what we don't (x11, sysvinit), and what processor architectures we're building for, what types of images we need to generate and so on.
