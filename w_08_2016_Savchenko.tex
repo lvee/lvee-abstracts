@@ -7,11 +7,11 @@
 \maketitle
 \begin{abstract}
 These days cryptography faces a new type of threat: quantum
-computing. An overview of quantum computing and how it works in the context of cryptography is presented. It is discussed when it is dangerous and when it is not for commonly used algorithms. There are well known, but not commonly used algorithms, which are resilient to the quantum computing approach and free software is available to use them in a manner similar to GnuPG.
+computing. An overview of quantum computing and how it works in the context of cryptography is presented. It is discussed when it is dangerous and when it is not for commonly used algorithms. There are well known, but not commonly used algorithms, which are resilient to the quantum computing approach and free \linebreak software is available to use them in a manner similar to GnuPG.
 \end{abstract}
 \subsection*{Preface}
 
-Post-quantum cryptography is a way to preserve data security in the world of quantum computers: it is a set of algorithms and protocols resilient to cryptanalysis using quantum computing\footnotemark[1]. It has nothing to do with quantum cryptography, which is a science of using quantum mechanical properties for cryptographic tasks (e.g. secure key distribution based on quantum entanglement or data copy protection based on wave function collapse).
+Post-quantum cryptography is a way to preserve data security in the world of quantum computers: it is a set of algorithms and protocols resilient to cryptanalysis using quantum computing\footnotemark[1]. It has nothing to do with quantum cryptography, which is a science of using quantum mechanical properties for cryptographic tasks (e.g. secure key \linebreak distribution based on quantum entanglement or data copy protection based on wave function collapse).
 
 \subsection*{Quantum computing}
 
@@ -25,7 +25,7 @@ There are many quantum algorithms available, but two of them are of the most imp
 
 \paragraph{Shor's algorithm}
 
-Shor's algorithm\footnotemark[2] allows for fast integer factorization, thus breaking prime multiplication and elliptic curve algorithms (RSA, ECDSA, ED25519 and so on). It is based on the idea of transforming factorization problem into function period finding problem (this is implemented using classical computing), finding period of a function using quantum Fourier transform. Then using a classical computations for continued fraction expansion prime can be obtained. Of course verification is needed.
+Shor's algorithm\footnotemark[2] allows for fast integer \linebreak factorization, thus breaking prime multiplication and elliptic curve \linebreak algorithms (RSA, ECDSA, ED25519 and so on). It is based on the idea of transforming factorization problem into function period finding problem (this is implemented using classical computing), finding period of a function using quantum Fourier transform. Then using a classical computations for continued fraction expansion prime can be obtained. Of course verification is needed.
 
 As a result, search time is reduced from exponential to polynomial.
 
@@ -42,24 +42,24 @@ Grover's algorithm\footnotemark[3] is a ``brute force'' algorithm which reduces 
 
 
   \item Asymmetric key cryptography\begin{itemize}
-  \item RSA/DSA/El-Gamal -- dead;
-  \item elliptic curves cryptography -- dead;
-  \item hash-based -- halve reduced;
-  \item code-based -- halve reduced;
-  \item lattice-based -- halve reduced;
+  \item RSA/DSA/El-Gamal "--- dead;
+  \item elliptic curves cryptography "--- dead;
+  \item hash-based "--- halve reduced;
+  \item code-based "--- halve reduced;
+  \item lattice-based "--- halve reduced;
   \item and so on\ldots{}
 \end{itemize}
 
 
 \end{itemize}
 
-There are plenty of asymmetric key algorithms which can't be reduced to factorization problem. So why they are not used? The answer is: fast and effective implementation is also needed, but with modern CPUs it is not such a big problem.
+There are plenty of asymmetric key algorithms which can't be \linebreak reduced to factorization problem. So why they are not used? The answer is: fast and effective implementation is also needed, but with modern CPUs it is not such a big problem.
 
 \subsection*{Free software solutions}
 
 \paragraph{Encryption}
 
-Free software implementing algorithms resistible to quantum computing exists! See codecrypt\footnotemark[4] (LGPL-3). Main features:
+Free software implementing algorithms resistible to \linebreak quantum computing exists! See codecrypt\footnotemark[4] (LGPL-3). Main features:
 
 \begin{itemize}
   \item functionality similar to GnuPG:\begin{itemize}
