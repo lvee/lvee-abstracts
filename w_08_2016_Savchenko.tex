@@ -11,7 +11,7 @@ computing. An overview of quantum computing and how it works in the context of c
 \end{abstract}
 \subsection*{Preface}
 
-Post-quantum cryptography is a way to preserve data security in the world of quantum computers: it is a set of algorithms and protocols resilient to cryptanalysis using quantum computing\footnotemark[1]. It has nothing to do with quantum cryptography, which is a science of using quantum mechanical properties for cryptographic tasks (e.g. secure key \linebreak distribution based on quantum entanglement or data copy protection based on wave function collapse).
+Post-quantum cryptography is a way to preserve data security in the world of quantum computers: it is a set of algorithms and protocols resilient to cryptanalysis using quantum computing~\cite{Savchenko1}. It has nothing to do with quantum cryptography, which is a science of using quantum mechanical properties for cryptographic tasks (e.g. secure key \linebreak distribution based on quantum entanglement or data copy protection based on wave function collapse).
 
 \subsection*{Quantum computing}
 
@@ -25,13 +25,13 @@ There are many quantum algorithms available, but two of them are of the most imp
 
 \paragraph{Shor's algorithm}
 
-Shor's algorithm\footnotemark[2] allows for fast integer \linebreak factorization, thus breaking prime multiplication and elliptic curve \linebreak algorithms (RSA, ECDSA, ED25519 and so on). It is based on the idea of transforming factorization problem into function period finding problem (this is implemented using classical computing), finding period of a function using quantum Fourier transform. Then using a classical computations for continued fraction expansion prime can be obtained. Of course verification is needed.
+Shor's algorithm~\cite{Savchenko2} allows for fast integer \linebreak factorization, thus breaking prime multiplication and elliptic curve \linebreak algorithms (RSA, ECDSA, ED25519 and so on). It is based on the idea of transforming factorization problem into function period finding problem (this is implemented using classical computing), finding period of a function using quantum Fourier transform. Then using a classical computations for continued fraction expansion prime can be obtained. Of course verification is needed.
 
 As a result, search time is reduced from exponential to polynomial.
 
 \paragraph{Grover's algorithm}
 
-Grover's algorithm\footnotemark[3] is a ``brute force'' algorithm which reduces search complexity from O(N) to O(sqrt(N)), thus halving key strength, e.g. AES-256 will be reduced to AES-128.
+Grover's algorithm~\cite{Savchenko3} is a ``brute force'' algorithm which reduces search complexity from O(N) to O(sqrt(N)), thus halving key strength, e.g. AES-256 will be reduced to AES-128.
 
 \subsection*{Impact on cryptographic algorithms.}
 
@@ -59,7 +59,7 @@ There are plenty of asymmetric key algorithms which can't be \linebreak reduced 
 
 \paragraph{Encryption}
 
-Free software implementing algorithms resistible to \linebreak quantum computing exists! See codecrypt\footnotemark[4] (LGPL-3). Main features:
+Free software implementing algorithms resistible to \linebreak quantum computing exists! See codecrypt~\cite{Savchenko4} (LGPL-3). Main features:
 
 \begin{itemize}
   \item functionality similar to GnuPG:\begin{itemize}
@@ -80,7 +80,7 @@ Upstream is very dynamic and responsive!
 
 \paragraph{Programming}
 
-For those interested in quantum programming, you can try QCL\footnotemark[5] (GPL-2): it is a quantum computing language with an emulator of a quantum computer!
+For those interested in quantum programming, you can try QCL~\cite{Savchenko5} (GPL-2): it is a quantum computing language with an emulator of a quantum computer!
 
 \begin{thebibliography}{99}
 \bibitem{Savchenko1}Daniel J. Bernstein, Johannes Buchmann, Erik Dahmen (editors). Post-quantum cryptography. Springer, Berlin, 2009. ISBN 978-3-540-88701-0. \url{https://pqcrypto.org/www.springer.com/cda/content/document/cda\_downloaddocument/9783540887010-c1.pdf}
