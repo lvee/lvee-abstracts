@@ -22,27 +22,30 @@ strace is a diagnostic, debugging and instructional userspace utility for monito
 полтора раза, а число авторов 80\% коммитов уменьшилось в два раза. Более
 подробно статистическая информация о коммитах и их авторах представлена в
 таблице.
+{\footnotesize
 
-\begin{tabular}{clrrrrrc}
-\hline
-\multicolumn{8}{c}{Число коммитов и их авторов по версиям} \\ \hline
-& & \multicolumn{2}{c}{число} & \multicolumn{3}{c}{число} & число \\
-дата & номер & \multicolumn{2}{c}{коммитов} & \multicolumn{3}{c}{авторов} & авторов 80\% \\
-выпуска & версии & всего & в год & прежних & всего & в год & коммитов \\ \hline
-13.04.2010 & 4.5.20 & & & & & & \\ \hline
-15.03.2011 & 4.6 & 112 & 122 & 5 & 12 & 13 & 4 \\ \hline
-02.05.2012 & 4.7 & 400 & 353 & 3 & 11 & 10 & 2 \\ \hline
-03.06.2013 & 4.8 & 237 & 218 & 4 & 17 & 16 & 3 \\ \hline
-\multicolumn{2}{l}{всего за период} & 749 & 238 & & 33 & 11 & 2 \\ \hline
-\hline
-15.08.2014 & 4.9 & 247 & 206 & 4 & 22 & 18 & 3 \\ \hline
-06.03.2015 & 4.10 & 400 & 719 & 4 & 15 & 27 & 1 \\ \hline
-21.12.2015 & 4.11 & 586 & 737 & 5 & 15 & 19 & 1 \\ \hline
-31.05.2016 & 4.12 & 799 & 1804 & 5 & 16 & 36 & 1 \\ \hline
-26.07.2016 & 4.13 & 182 & 1182 & 4 & 6 & 39 & 1 \\ \hline
-\multicolumn{2}{l}{всего за период} & 2214 & 703 & 8 & 51 & 16 & 1 \\ \hline
-\end{tabular} \bigskip
+\begin{turn}{90} 
+\centering
 
+\begin{tabular}{lllllllll}
+\hline
+\multicolumn{8}{|c|}{Число коммитов и их авторов по версиям:}                                                                                                                                                                                                                         \\ \hline
+\multicolumn{1}{|c|}{дата}         & \multicolumn{1}{c|}{номер}  & \multicolumn{2}{c|}{число коммитов}                                    & \multicolumn{3}{c|}{число авторов}                                                                    & \multicolumn{1}{c|}{число авторов} \\ \cline{3-7}
+\multicolumn{1}{|c|}{выпуска}      & \multicolumn{1}{c|}{версии} & \multicolumn{1}{c|}{всего}         & \multicolumn{1}{c|}{в год}        & \multicolumn{1}{c|}{прежних}    & \multicolumn{1}{c|}{всего}       & \multicolumn{1}{c|}{в год}       & \multicolumn{1}{c|}{80\% коммитов} \\ \hline
+\multicolumn{1}{|c|}{13.04.2010} & \multicolumn{1}{c|}{4.5.20} & \multicolumn{1}{c|}{}              & \multicolumn{1}{c|}{}             & \multicolumn{1}{c|}{}           & \multicolumn{1}{c|}{}            & \multicolumn{1}{c|}{}            & \multicolumn{1}{c|}{}           \\ \hline
+\multicolumn{1}{|c|}{15.03.2011} & \multicolumn{1}{c|}{4.6}    & \multicolumn{1}{c|}{112}           & \multicolumn{1}{c|}{122}          & \multicolumn{1}{c|}{5}          & \multicolumn{1}{c|}{12}          & \multicolumn{1}{c|}{13}          & \multicolumn{1}{c|}{4}          \\ \hline
+\multicolumn{1}{|c|}{02.05.2012} & \multicolumn{1}{c|}{4.7}    & \multicolumn{1}{c|}{400}           & \multicolumn{1}{c|}{353}          & \multicolumn{1}{c|}{3}          & \multicolumn{1}{c|}{11}          & \multicolumn{1}{c|}{10}          & \multicolumn{1}{c|}{2}          \\ \hline
+\multicolumn{1}{|c|}{03.06.2013} & \multicolumn{1}{c|}{4.8}    & \multicolumn{1}{c|}{237}           & \multicolumn{1}{c|}{218}          & \multicolumn{1}{c|}{4}          & \multicolumn{1}{c|}{17}          & \multicolumn{1}{c|}{16}          & \multicolumn{1}{c|}{3}          \\ \hline
+\multicolumn{2}{|r|}{\textbf{всего за период}}                 & \multicolumn{1}{c|}{\textbf{749}}  & \multicolumn{1}{c|}{\textbf{238}} & \multicolumn{1}{c|}{\textbf{}}  & \multicolumn{1}{c|}{\textbf{33}} & \multicolumn{1}{c|}{\textbf{11}} & \multicolumn{1}{c|}{\textbf{2}} \\ \hline
+\multicolumn{1}{|c|}{15.08.2014} & \multicolumn{1}{c|}{4.9}    & \multicolumn{1}{c|}{247}           & \multicolumn{1}{c|}{206}          & \multicolumn{1}{c|}{4}          & \multicolumn{1}{c|}{22}          & \multicolumn{1}{c|}{18}          & \multicolumn{1}{c|}{3}          \\ \hline
+\multicolumn{1}{|c|}{06.03.2015} & \multicolumn{1}{c|}{4.10}   & \multicolumn{1}{c|}{400}           & \multicolumn{1}{c|}{719}          & \multicolumn{1}{c|}{4}          & \multicolumn{1}{c|}{15}          & \multicolumn{1}{c|}{27}          & \multicolumn{1}{c|}{1}          \\ \hline
+\multicolumn{1}{|c|}{21.12.2015} & \multicolumn{1}{c|}{4.11}   & \multicolumn{1}{c|}{586}           & \multicolumn{1}{c|}{737}          & \multicolumn{1}{c|}{5}          & \multicolumn{1}{c|}{15}          & \multicolumn{1}{c|}{19}          & \multicolumn{1}{c|}{1}          \\ \hline
+\multicolumn{1}{|c|}{31.05.2016} & \multicolumn{1}{c|}{4.12}   & \multicolumn{1}{c|}{799}           & \multicolumn{1}{c|}{1804}         & \multicolumn{1}{c|}{5}          & \multicolumn{1}{c|}{16}          & \multicolumn{1}{c|}{36}          & \multicolumn{1}{c|}{1}          \\ \hline
+\multicolumn{1}{|c|}{26.07.2016} & \multicolumn{1}{c|}{4.13}   & \multicolumn{1}{c|}{182}           & \multicolumn{1}{c|}{1182}         & \multicolumn{1}{c|}{4}          & \multicolumn{1}{c|}{6}           & \multicolumn{1}{c|}{39}          & \multicolumn{1}{c|}{1}          \\ \hline
+\multicolumn{2}{|r|}{\textbf{всего за период}}                 & \multicolumn{1}{c|}{\textbf{2214}} & \multicolumn{1}{c|}{\textbf{703}} & \multicolumn{1}{c|}{\textbf{8}} & \multicolumn{1}{c|}{\textbf{51}} & \multicolumn{1}{c|}{\textbf{16}} & \multicolumn{1}{c|}{\textbf{1}} \\ \hline
+\end{tabular}
+\end{turn}
+}
 \section*{Что нового}
 
 Из наиболее заметных изменений можно отметить следующие нововведения и
@@ -109,7 +112,7 @@ personality\cite{glibc};
 функций printf\cite{musl}.
 \end{description}
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 
 \bibitem{lvee2013} LVEE 2013. strace from upstream point of view \\
 \url{https://lvee.org/ru/abstracts/94}
@@ -144,3 +147,4 @@ sys\_sparc64\_personality \\
 \url{http://www.openwall.com/lists/musl/2016/08/04/1}
 
 \end{thebibliography}
+\end{document}
