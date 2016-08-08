@@ -9,7 +9,7 @@ Complexity of graphical user interfaces of mobile applications is growing rapidl
 \end{abstract}
 Каждый год анонсируются новые, все более совершенные гаджеты, использующие ядро Linux и открытые платформы: планшеты, смартфоны, телевизионные приставки, умные часы. Большинство из них оснащается мобильными GPU, используемыми для аппаратного ускорения 3D графики (OpenGL ES) и параллельных вычислений (OpenCL, RenderScript). Наиболее часто встречаются графические процессоры Mali, Adreno и PowerVR. В отличие от GPU, используемых в настольных системах, мобильные GPU не имеют встроенной памяти, а используют часть оперативной (рис. ~\ref{Rogachev1}), предоставляемой ядром ОС "--- такая память становится недоступной ядру ОС и пользовательским программам. Будем называть память, используемую GPU, графической памятью. Оптимизация расхода такой памяти позволит достичь снижения цены устройств или повысить производительность за счет улучшения кешируемости приложений.
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[]{18_2016_Rogachev1.png}
   \caption{Разделение памяти между CPU и GPU}
@@ -36,7 +36,7 @@ Complexity of graphical user interfaces of mobile applications is growing rapidl
 
 Взаимодействие всех компонент во время компрессии отражено на рис. ~\ref{Rogachev2}. Основные шаги пронумерованы.
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[]{18_2016_Rogachev2.png}
   \caption{Взаимодействие компонент системы}
@@ -46,7 +46,7 @@ Complexity of graphical user interfaces of mobile applications is growing rapidl
 
 Рис. ~\ref{Rogachev3} иллюстрирует снятие отображений, компрессию и освобождение страниц с позиции данных, а не потока управления и дополняет рис. ~\ref{Rogachev2}.
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[]{18_2016_Rogachev3.png}
   \caption{Снятие отображений и компрессия}
