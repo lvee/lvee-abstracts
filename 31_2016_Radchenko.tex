@@ -1,0 +1,39 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{Связанные открытые данные в университете}
+\author{Ирина Радченко, Михаил Навроцкий \\Санкт-Петербург, Russian Federation}
+\maketitle
+\begin{abstract}
+LinkedUniversities.org is one of important projects in the field of Linked Open Data in European universities.
+ITMO \linebreak University joined linked open data in universities initiative in 2014. ISST Labs is an organization responsible for developing LOD-IFMO project. I am going to give a talk on project progress and outcomes.
+\end{abstract}
+Уже несколько лет существует европейский проект связанных университетов LinkedUniversities.org, в рамках которого несколько европейских университетов выкладывают наборы связанных открытых данных.
+
+В 2014 году в лаборатории ISST университета ИТМО~\cite{Radchenko1} был запущен проект LOD-IFMO~\cite{Radchenko2} "--- проект связанных открытых данных в российском университете. Этот проект был инициирован совместно с коллегами из исследовательской группы Agile Knowledge Engineering and Semantic Web (AKSW) Лейпцигского университета~\cite{Radchenko3}.
+
+Одной из важных целей этого проекта было присоединение к европейской инициативе университетских связанных открытых данных. Для этого университетские открытые данные (данные по учебным курсам, публикациям, исследовательским проектам, \linebreak профессорско-преподавательскому составу и зданиям университета) необходимо сделать связанными открытыми данными, а точнее "--- перевести в форматы представления данных по модели RDF (Resource Description Framework) при помощи таких онтологий, как FOAF, BIBO, VIVO, AIISO и др. и связать их со связанными открытыми данными европейских университетов.
+
+Для перевода данных из университетских баз данных в RDF-форматы представления данных в проекте LOD-IFMO используется kOre framework (kOre: Lin*k*ed Data for *O*penScience \linebreak Info*r*mation Int*e*gration).
+
+Cерверная часть системы поддерживается при помощи платформы управления данными Virtuoso Universal Server~\cite{Radchenko4}. Это платформа с гибридной серверной архитектурой, позволяющая управлять как реляционными базами данных, так и системами связанных открытых данных, осуществлять управление контентом и веб-приложениями.
+
+Фронт-энд для развертывания интерфейса доступа SPARQL-endpoints разрабатывался при помощи Pubby~\cite{Radchenko5}, который позволяет организовать интерфейс связанных данных на основе SPARQL-endpoints.
+
+Исходный код проекта выложен на GitHub~\cite{Radchenko6}.
+
+Помимо технологической сложности развертывания подобных проектов (проектов с использованием связанных открытых данных) существует сложность в организации работы пользователей с данными, представленными по модели RDF. Для решения этой задачи необходимо разработать учебный курс по работе со связанными открытыми данными, а также систему понятной пользователю документации.
+
+К сожалению, на настоящий момент времени русскоязычная документация на подобные системы почти не представлена. В силу этой причины участниками проекта было принято решение о создании раздела сайта университета ИТМО, посвященного особенностям использования связанных открытых данных в университете. В этом разделе планируется также выкладывать инструкции пользователя, словари данных, описание интерфейса доступа SPARQL-endpoints, документация на систему и тд.
+
+Предварительные макеты проекта расположены по следующему адресу: lu-itmo.herokuapp.com \url{https://lu-itmo.herokuapp.com/}.
+
+\begin{thebibliography}{99}
+\bibitem{Radchenko1} Лаборатория ISST университета ИТМО \url{http://semantics.ifmo.ru/}{semantics.ifmo.ru}.
+\bibitem{Radchenko2} Проект LOD-IFMO \url{http://lod.ifmo.ru}.
+\bibitem{Radchenko3} Группа Agile Knowledge Engineering and Semantic Web Лейпцигского университета \url{http://aksw.org/About.html}.
+\bibitem{Radchenko4} Virtuoso Universal Server \url{http://virtuoso.openlinksw.com/}.
+\bibitem{Radchenko5} Pubby \url{http://wifo5-03.informatik.uni-mannheim.de/pubby}.
+\bibitem{Radchenko6} Исходный код проекта на GitHub \url{https://github.com/AKSW/itmolod}.
+\end{thebibliography}
+\end{document}
