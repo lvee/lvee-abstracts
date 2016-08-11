@@ -76,7 +76,7 @@ apt-get install lxd
 отличный от <<0>>, необходимо добавить соответствие 
 подчиненных идентификаторов пользователя и групп:
 
-\begin{frame}{Непривилигированный root}
+\begin{frame}{Непривилегированный root}
 
 \begin{verbatim}
 usermod -v 100000-165535 -w 100000-165535 root
@@ -164,7 +164,7 @@ usermod -v 100000-165535 -w 100000-165535 root
 Неполный пример профиля, выполняющий специфическую настройку для одного проекта, 
 в котором указано, что:
 \begin{itemize}
-    \item контейнер будет привилигированным
+    \item контейнер будет привилегированным
     \item с полным доступом к {\tt procfs}, {\tt cgroupfs} 
         и частично ограниченным на запись к {\tt sysfs}
     \item без автоматически добавляемой системы {\tt devfs}
@@ -204,42 +204,5 @@ modules:
   type: disk
 \end{verbatim}
 
-\subsection*{Пример создания контейнера}
-
-Создание профиля из файла описания, приведенного выше:
-
-\begin{verbatim}
-lxc profile create customername
-cat profile.yaml | lxd profile edit customername
-\end{verbatim}
-
-Пример минимального файла-описания {\tt metadata.yaml}:
-\begin{verbatim}
-architecture: "x86_64"
-creation_date: 1470920887
-properties:
-  architecture: "x86_64"
-  description: "Custom development image"
-  os: "fedora"
-  release: "1.2.3"
-templates:
-\end{verbatim}
-
-Создание образа для тестирования в формате {\tt split}:
-\begin{verbatim}
-tar -czf custom.tar.gz metadata.yaml
-tar -C <путь к корню> -czf rootfs.tar.gz .
-\end{verbatim}
-
-Импортирование образа в {LXD} с присвоением ему уникального имени <<{\tt imagename}>>:
-\begin{verbatim}
-lxc image import custom.tar.gz rootfs.tar.gz --alias imagename
-\end{verbatim}
-
-Создание и запуск нового контейнера <<{\tt name}>>,  созданного из 
-образа <<{\tt imagename}>> с конфигурацией, указанной в профиле <<{\tt customername}>>:
-\begin{verbatim}
-lxc launch imagename name -p customername
-\end{verbatim}
 
 \end{document}
