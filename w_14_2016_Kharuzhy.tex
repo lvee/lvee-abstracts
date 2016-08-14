@@ -2,7 +2,7 @@
 \input{preamble.tex}
 \begin{document}
 \title{Что такое SMR-диски и как их готовить\footnote{\url{jekhor@gmail.com}, \url{http://lvee.org/ru/abstracts/179}}}
-\author{Yauhen Kharuzhy, Minsk, belarus}
+\author{Yauhen Kharuzhy, Minsk, Belarus}
 \maketitle
 \begin{abstract}
 Brief review of Shingled Magnetic Recording (SMR) drives and status of their support in Linux is presented including projects which are currently in development supported by Seagate and HGST companies.
@@ -80,7 +80,7 @@ Brief review of Shingled Magnetic Recording (SMR) drives and status of their sup
 
 Специализированных ФС нет. Есть наработки Seagate по портированию Ext4, также компанией HGST сейчас ведётся работа по добавлению поддержки SMR в btrfs. Btrfs в данном применении обещает быть более перспективной, чем Ext4, поскольку в ней изначально используется подход Copy on Write, за счёт чего необходимость перезаписи произвольных секторов сведена к минимуму.
 
-\begin{thebibliography}{99}
+\begin{thebibliography}{9}
   \bibitem{Kharuzhy1} H. Reinecke. Strategies for running unmodified filesystems on SMR drives \url{http://www.snia.org/sites/default/files/SDC15_presentations/smr/HannesReinecke_Strategies_for_running_unmodified_FS_SMR.pdf}
   \bibitem{Kharuzhy2} A. Palmer. SMR in Linux Systems \url{http://events.linuxfoundation.org/sites/events/files/slides/SMR\%20in\%20Linux\%20Systems\%20-\%20Vault.pdf}
   \bibitem{Kharuzhy3} \url{https://github.com/Seagate/ZDM-Device-Mapper}
