@@ -1,0 +1,48 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{Make your own USB gadget\footnote{\url{andrzejtp2010@gmail.com} \url{http://lvee.org/ru/abstracts/241}}}
+\author{Andrzej Pietrasiewicz, Warsaw, Poland}
+\maketitle
+\begin{abstract}
+A widely accepted standard for adding functionality to computer systems is the USB bus. GNU/Linux systems have long been supporting USB hosts, but a less known fact is that they also support USB devices. The traditional way of preparing support for devices includes creating a kernel module, which makes the process significantly more difficult. A new approach is presented, which requires only shell scripting.
+\end{abstract}
+\subsection*{Introduction}
+
+Serial communication has been present since very early days of electronic computers in the semiconductor era. In serial communication in principle the data stream is finally decomposed into individual bits which are transmitted over the medium and such a process can be implemented in various ways. The most widely employed standard used to be RS-232-C, which was formalized in 1969 ~\cite{Pietrasiewicz1}. Since then it has found widespread acceptance and served its purposes very well for the next 20  years. However, with processing speed increasing rapidly a demand for faster transmission appeared. On the other hand computer systems miniaturization progressing stimulated dropping the usage of voltages higher than 5V. These, among others, have been the reasons to introduce a newer standard, better suited for the then current and future needs. Such a standard was USB, the Universal Serial Bus ~\cite{Pietrasiewicz2}, first specified in 1996. The standard was and still is successful, and there have been a number of major updates to it in 1998 ~\cite{Pietrasiewicz3}, 2000 ~\cite{Pietrasiewicz4}, 2008 ~\cite{Pietrasiewicz5} and 2013 ~\cite{Pietrasiewicz6}.
+
+\subsection*{USB high level architecture}
+
+USB is a bus with one host node and many (up to 127) device nodes physically connected in a „tree” topology. According to the standard the logical topology is in fact a „star” topology with the host being the central unit. The roles in the communication are strictly defined. In particular, a dedicated piece of hardware is needed at both sides of the cable (host-device) to maintain the physical aspects of data transmission over the medium and to maintain logical interaction \linebreak between the communicating parties. While the host part is in \linebreak widespread use in all modern PCs (and other equipment) and is \linebreak supported by GNU/Linux, the devices tend to be specialized appliances or gadgets like printers, pendrives, broadband modems or digital TV receivers.
+
+\subsection*{USB gadget support in GNU/Linux}
+
+GNU/Linux systems have in-kernel support for the device part of USB communication, which means that provided the system running GNU/Linux is equipped with appropriate hardware it can be turned into a full USB device controlled by Linux kernel and userspace running on it ~\cite{Pietrasiewicz7}. Device (also called gadget) supporting code is organized in a so-called composite framework ~\cite{Pietrasiewicz8}, which factors out code common to all USB functions implemented on the one hand, and delegates function-specific implementation to separate „function” files. USB standard \linebreak requires that a device provides at least one configuration, and in a configuration there are a number of interfaces providing interesting services to the USB host. There can be more than one configuration, but only one can be active at a time. Composite devices are possible, where there are a number of functions (interfaces) and configurations available, e.g. a mass storage device composed with a broadband modem, where the mass storage device contains driver software for the modem. While Linux kernel provides a rather wide choice of USB functions (interfaces), they need to be somehow combined into a device. The traditional way of composing such USB devices has been to provide dedicated kernel modules, where the choice of USB functions, their composition into configurations and the gadget identity is hardcoded. Such an approach makes it difficult to compose new devices as it requires the skills needed to program Linux kernel. And even provided this difficulty is overcome, the code of the new module must be maintained either in-house or accepted by the community to become a part of officially maintained Linux kernel. Either of the two is not necessarily an easy task.
+
+\subsection*{New interface for USB gadget composition}
+
+Around the beginning of 2015 a process of adding support for \linebreak composing USB gadgets at runtime out of existing USB functions has been completed. The new approach still uses the composite framework, but the added functionality allows the components to be specified and composed into a gadget at runtime, which means that it is the user (the system administrator) who controls the gadget creation process. The interface used for this purpose is based on ConfigFS, which in turn is a pseudo file system similar to sysfs, so all interactions of the user controlling gadget creation use well known file system concepts. These are: directory creation/removal (creating gadget's configuration), symbolic link creation/removal (grouping things together, e.g. assigning functions to configurations), file writing/reading (specifying gadget \linebreak parameters, querying gadget parameters).
+
+The new interface for runtime composing USB gadgets out of existing functions allows new interesting possibilities. Among them is the helper userspace library, libusbgx ~\cite{Pietrasiewicz9}. It encapsulates the „bare” ConfigFS interface in an easy-to-use C interface. It also supports so called gadget schemes, which allow specifying gadget's composition and identity in a declarative style configuration file, rather than using an imperative style shell scripting. The former allows the gadget creator to concentrate on what the gadget is going to be composed of, while the latter forces the creator to also know how the ConfigFS interface works. Such declarative gadget schemes enable future use of the framework e.g. for distributing gadget schemes as installable applications.
+
+\begin{thebibliography}{99}
+
+\bibitem{Pietrasiewicz1} EIA standard RS-232-C: Interface between Data Terminal Equipment and Data Communication Equipment Employing Serial Binary Data Interchange. Washington, USA: Electronic Industries Association, Engineering Department. 1969. OCLC 38637094 / ITU-T V.24
+
+\bibitem{Pietrasiewicz2} Universal Serial Bus Specification, 1996 \url{http://fl.hw.cz/docs/usb/usb10doc.pdf}
+
+\bibitem{Pietrasiewicz3} Universal Serial Bus Specification, 1998 \url{ http://esd.cs.ucr.edu/webres/usb11.pdf}
+
+\bibitem{Pietrasiewicz4} Universal Serial Bus Specification, 2000,\url{ http://www.usb.org/developers/docs/usb20\_docs/usb\_20\_033017.zip}
+
+\bibitem{Pietrasiewicz5} Universal Serial Bus Specification, 2008,\url{ http://www.usb.org/developers/docs/documents\_archive/usb\_30\_spec\_070113.zip}
+
+\bibitem{Pietrasiewicz6} Universal Serial Bus Specification, 2013,\url{ http://www.usb.org/developers/docs/usb\_31\_080416.zip}
+
+\bibitem{Pietrasiewicz7} Andrzej Pietrasiewicz, „Make your own usb gadget”, LinuxCon North America 2014, Chicago, USA,\url{ http://events.linuxfoundation.org/sites/events/files/slides/LinuxConNA-Make-your-own-USB-gadget-Andrzej.Pietrasiewicz.pdf}
+\bibitem{Pietrasiewicz8} Michał Nazarewicz, „The USB composite framework”, 
+\url{https://lwn.net/Articles/395712/, 2010}
+
+\bibitem{Pietrasiewicz9} \url{https://github.com/libusbgx/libusbgx}
+\end{thebibliography}
+\end{document}
