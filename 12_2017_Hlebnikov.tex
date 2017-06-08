@@ -21,8 +21,8 @@ for security level estimation.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=6cm]{Hlebnikov1.png}
-  
+  \includegraphics[width=4cm]{Hlebnikov1.png}
+  \caption{SSL-безопасность в Web: что предполагалось}
   \label{Hlebnikov1}
 \end{figure}
 
@@ -37,7 +37,8 @@ Cкриншот с форума, где DDOS-еры предлагают сво�
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=12cm]{Hlebnikov2.png}
+  \includegraphics[width=10cm]{Hlebnikov2.png}
+ \caption{Форум киберпреступников, на котором предлагаются услуги DDOS. SSL-сертификат успешно прошёл проверку}
 
   \label{Hlebnikov2}
 \end{figure}
@@ -52,8 +53,8 @@ Cкриншот с форума, где DDOS-еры предлагают сво�
 \begin{center}
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=8cm]{Hlebnikov3.png}
-  \caption{Скриншот с сайта visa.com}
+  \includegraphics[width=10cm]{Hlebnikov3.png}
+  \caption{Сайт платёжной системы Visa. SSL-сертификат не прошёл проверку}
   \label{Hlebnikov3}
 \end{figure}
 \end{center}
@@ -70,46 +71,36 @@ Cкриншот с форума, где DDOS-еры предлагают сво�
 CA ~\ref{Hlebnikov4}:
 
 \begin{center}
-
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=8cm]{Hlebnikov4.png}
-  \caption{Браузер отвергает даже сам сайт CA}
+  \includegraphics[width=10cm]{Hlebnikov4.png}
+  \caption{Сайт некоммерчесского CA. SSL-сертификат не прошёл проверку}
   \label{Hlebnikov4}
 \end{figure}
-
 \end{center}
-
 Заметим, что браузеры совсем не выдают таких предупреждений для
 сайтов, которые предоставляются не по HTTPS, а по HTTP, то есть
 вообще без сертификата. Таким образом, упрощённая модель
-SSL-безопасности в Web выглядит скорее вот так:
+SSL-безопасности в Web выглядит скорее ~\ref{Hlebnikov5}, что не очень логично, так как <<плохой>> сертификат всё-таки лучше его
+отсутствия.
 
 \begin{center}
-
 \begin{figure}[h!]
   \centering
   \includegraphics[width=6cm]{Hlebnikov5.png}
-  
+  \caption{SSL-безопасность в Web: что получилось}
   \label{Hlebnikov5}
 \end{figure}
-
 \end{center}
-, что не очень логично, так как <<плохой>> сертификат всё-таки лучше его
-отсутствия.
 
-Логичнее было бы ~\ref{Hlebnikov6}:
-
+Логичнее было бы ~\ref{Hlebnikov6}.
 \begin{center}
-
 \begin{figure}[h!]
   \centering
   \includegraphics[width=6cm]{Hlebnikov6.png}
-  \caption{<<Плохой>> сертификат всё-таки лучше его
-отсутствия}
+  \caption{SSL-безопасность в Web: что было бы логичнее}
   \label{Hlebnikov6}
 \end{figure}
-
 \end{center}
 \subsection*{Взломы SSL}
 
@@ -375,17 +366,15 @@ PKI ~--- не серебрянная пуля. И не священная кор
 снижает оценку безопасности.
 
 После всех проверок, оценка безопасности сайта может выглядеть,
-например, вот так:
+например, ~\ref{Hlebnikov7}.
 
 \begin{center}
-
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=12cm]{Hlebnikov7.png}
-  
+  \includegraphics[width=8cm]{Hlebnikov7.png}
+  \caption{Пример оценки безопасности Web-сайта при использовании управления рисками}
   \label{Hlebnikov7}
 \end{figure}
-
 \end{center}
 
 \end{document}
