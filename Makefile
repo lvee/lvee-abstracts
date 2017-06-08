@@ -1,10 +1,10 @@
+all: 00.pdf
+
 -include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*.d)
 
 ifeq ($(wildcard .progress),.progress)
 .DEFAULT_GOAL := progress
 endif
-
-all: 00.pdf
 
 progress: .progress
 	@$(MAKE) all | ./.progress

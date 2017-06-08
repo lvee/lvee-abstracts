@@ -78,7 +78,7 @@
 
 \def\interview #1 (#2), #3, #4, #5\par{
 
-\section[#1, #3, #4]{#1, #5}
+\section[#1, #3, #4]{#1 -- #3, #4}
 \def\qname{LVEE}
 \def\aname{#1}
 \def\q ##1\par{{\noindent \bf \qname: ##1 }\par}
@@ -87,7 +87,8 @@
 
 \def\interview* #1 (#2), #3, #4, #5\par{
 
-\section*{#1, #5}
+\section*{#1\\{\small\rm #3, #4. #5}}
+
 \def\qname{LVEE}
 \def\aname{#1}
 \def\q ##1\par{{\noindent \bf \qname: ##1 }\par}

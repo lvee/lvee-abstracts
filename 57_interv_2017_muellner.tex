@@ -1,0 +1,143 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+%\switchlang{be}
+%\usepackage{color}
+\begin{document}
+%\title{Интервью с участниками}
+%\author{}
+\date{}
+
+\begin{Parallel}[p]{}{}
+
+     \ParallelLText{%
+\interview* Florian Müllner (F.), Madrid, Spain, Red Hat
+
+\q Can you briefly introduce yourself?
+
+\a I'm Florian Müllner and I work for Red Hat's desktop team from Madrid, Spain, where I live with my husband and cat. Within GNOME, I work mainly on GNOME Shell and Mutter, which I maintain. I also like to put some time each cycle into the Polari IRC client, which started as a fun side project some years ago.
+
+\q Tell us something about your first experience with the open source software? It may be your first understanding that free/libre software is not about ‘pay nothing’
+
+\a Between graduating from high school and beginning my substitute service, I had some months of idle time. It was way too much time to fill with party alone, and as I was interested in computers, I decided to take a look at this Linux-thing people were talking about. I fell in love almost instantly - unlike the Windows 98 of the time, it didn't hide away what's going on behind pretty (rather pixelated by modern standards) images and cryptic errors, but invited you to just dive right in and explore - source included (on a separate CD)! Oh, and its "Blue Screen of Death" was a screensaver[0] instead of the real thing…
+
+It didn't take long to come into contact with the philosophical underpinnings - not least to find out why software you paid good money for was still calling itself "free". So I discovered copyleft - using the same copyright law that was used elsewhere to restrict users' rights to grant and guarantee rights instead didn't just look like a good thing: it was a quite brilliant legal hack that was easy to sympathize with. As much as I've learnt since then, I still think it is a brilliant hack :-)
+
+%[0] https://www.jwz.org/xscreensaver/screenshots/
+
+
+\q Which GNU/Linux distro was your first one, if it wasn't already mentioned? 
+Which distro (distros) are you using now? 
+
+\a In case the umlaut in my name hasn't given it away already, I'm originally from Germany. Back in the day, SuSE was the dominating distribution there, so SuSE 6.1[0] was my very first Linux distro - purchased in a bookstore as a set of CD-ROMs. 
+
+Over the years I have used a couple of different distributions - Debian, Gentoo (yes, really), Arch… I switched to Fedora when I started working for Red Hat (I didn't have to, but then maintaining Fedora packages is part of the job). To tell the truth, I usually build all of GNOME from upstream and use that as my login session[1], so the underlying distribution doesn't matter too much anyway.
+
+%[0] https://en.opensuse.org/Archive:SuSE_Linux_6.1
+
+%[1] Did I mention that I was using Gentoo in the past?
+
+
+\q How did you become the developer of FLOSS?
+
+\a I was a Linux user that went to university to study CS, so becoming a FLOSS developer seems obvious. Alas, it wasn't that easy at all. For a very long time, I was working *with* FLOSS rather than working *on* FLOSS - partly because I didn't have a particular itch to scratch, but to be honest, partly because putting your code up for everyone's scrutiny can be scary as well (and the idea that people could blame my sexuality for obvious blunders rather than my inexperience didn't help either). And not least, getting yourself to work after working a day job is hard.
+
+However eventually the GNOME project announced plans for a new major version with a revamped user interface (after the initial "grown-up" plan of only removing deprecated APIs from GTK+). I starting running early versions of gnome-shell; it was rough and more of a runnable prototype at that stage, but there was a lot to like as well - or rather, there was a lot I knew I would like once it became more fledged out.
+
+At last, I had found my itch. Very soon after contributing a first patch, I was working on gnome-shell on a daily basis. I was given git commit access and danced around the house, became a GNOME foundation member, and attended my first GUADEC. GNOME quickly became a second home to me, and it still is to the current day.
+
+
+\q Something about your experience with the community (anything from first
+impressions to your current vision)?
+
+\a There's a popular children's novel in Germany that includes the character of an "illusory giant" - a normally sized person who appears taller the farther you get away. The community is a bit like that - big and scary from the outside, it gets more approachable the closer you get, until you attend a conference and meet the actual people who make up the community, and they turn out to be just friendly, regular people ...
+
+(Well, definitively nerdier than your average person, and as a whole too white and too male, but some effort is put into increasing the community's diversity[0])
+
+%[0] https://www.gnome.org/outreachy/
+
+
+\q Of course it would be great to know something about your impressions from
+contributing to GNOME. How is it to be the part of such a large project?
+
+\a It's smaller on the inside!
+
+Joking aside, GNOME consists of lots of more or less independent modules. At least while starting out, it's common to only focus on a single module - so while you are indeed part of a large project, most of your interactions happen with a fairly small group of people working on the same module (or team - let's not forget that there's more to GNOME than code, like translations, documentation, design or engagement).
+
+There's no denying that it's a big project though, when you travel to a GNOME event knowing that besides meeting with old friends, you'll return with a couple of new ones as well.
+
+
+\q What do you think about serious changes in the vision of the project,
+how did they occur? Something on transition from GNOME 2.x to 3.x. How are
+such changes felt from the inside? 
+
+\a This is a hard question for me, considering that I was a GNOME 2.x user who only became a developer during the 3.x transition itself. While development was still in relatively early stages when I joined, in hindsight the most significant shift had already taken place (at least as far as gnome-shell was concerned): Making design and user experience an integral part of the development process. I'm a big fan of that, but can't compare it to what was there before.
+
+Another important change that took place at around the same time was envisioning the desktop as an integrated product, rather than as a grab bag of interchangeable components - it is worth reminding that 3.0 was the first GNOME version that had built-in printer configuration.
+
+Thanks to those two changes, upstream GNOME now provides a level of polish that was previously only possible on a distribution level (for distros that had the resources to do the integration work, and duplicated for each distro).
+
+
+\q Can you tell us something about Gnome Shell, which is supposedly the most visually noticeable part of this change? Something about appearance of Gnome Shell, its evolution through the years? May be some pieces of further vision, etc. :)
+
+\a It's true that there have been many improvements and refinements over the years, for example:
+
+ - the overview originally used tabs to switch between window- and
+   app picker, until 3.6 added the show-apps button to the dash; in
+   3.8, traditional menu categories where dropped from the app picker
+   in favor of app folders and the separate "frequent" and "all" views
+   we have today; scrolling was replaced by pagination in 3.10, and 3.14
+   finally updated the various transition animations to give the component
+   its current appearance
+
+ - notification handling saw two major redesigns - in 3.6 and 3.16 - each
+   followed by further refinements, the last as recent as the current 3.24
+   release
+
+ - most system status menus where combined into a single system menu in 3.10
+
+However as much as GNOME Shell has changed over time, it's equally impressive to see how much of the initial design document[0] is still relevant today, even despite major changes to the overview layout that happened before 3.0. More so when revisiting the actual release[1], which does show how the project has evolved over time, yet is still easily recognizable as GNOME desktop.
+
+As boring as it sounds, you can expect more of the same in the future - improve and refine what we have, while keeping true to a core vision. And of course is anything in need of refinement itches you: Please get in touch and start scratching!
+     }
+     \ParallelRText{%
+%       \selectlanguage{russian}
+
+\interview* Флориан Мюльнер (F.), Мадрид, Испания, Red Hat
+
+\q Представься, пожалуйста
+
+\a Меня зовут Флориан Мюльнер, я работаю в Red Hat в команде разработчиков окружения рабочего стола. Я живу в Мадриде со своим мужем и котом. В GNOME я в основном работаю над GNOME Shell и Mutter, который я поддерживаю. Ещё я стараюсь уделять какое-то время работе над IRC-клиентом Polari, который я начал разрабатывать в свободное время несколько лет назад.
+
+\q Расскажи нам, пожалуйста, о своём первом опыте со свободным ПО. Например, как ты понял, что свободное ПО — не о цене?
+
+\a После окончания {\color{red} колледжа} у меня было несколько месяцев свободного времени, которое я, не умея проводить время в одиночку, решил занять Линуксом, о котором так много говорили вокруг. Я влюбился в Linux почти сразу: в отличие от Windows 98, здесь ничего не было скрыто за красивыми (по тем временам) картинками и непонятными сообщениями об ошибках, система как будто бы приглашала тебя с головой окунуться в исследования — ведь исходники были здесь же, на отдельном компакт-диске! Ну и конечно же, синий экран смерти был всего лишь заставкой, а не всерьёз.[0]
+
+Вскоре я столкнулся и с философской стороной вопроса, в том числе, пытаясь понять, как это ПО может быть «свободным», если ты за него платишь иногда немалые деньги. Так я узнал о понятии copyleft: использовании законов об авторских правах, которые обычно ограничивают пользователей, для того, чтобы дать им права и гарантии. Этот хитрый «хак» показался мне замечательной идеей. И хотя с тех пор прошло много времени и с тех пор я узнал много нового в этой области, мне всё равно нравится этот «хак» :-)
+
+\q Какой был твой первый дистрибутив? И чем ты пользуешься сейчас?
+
+\a Если умляут в моём имени ещё меня не выдал, я вообще-то немец. В те времена SuSE был самым распространённым дистрибутивом в Германии, так что мой первый дистрибутив был SuSE 6.1[0]. Я его купил в книжном магазине в виде набора компакт-дисков.
+
+С тех пор я пользовался Debian, Gentoo (ну да, серьёзно!), Arch… перейдя на Fedora, когда я начал работать в Red Hat. Переходить было необязательно, но так проще было поддерживать пакеты в Fedora, чем я занимался по работе. По правде, я обычно компилирую GNOME из апстримных исходников и сам пользуюсь результатом [опыт с Gentoo даёт о себе знать!], так что на каком дистрибутиве я работаю, не так уж и важно.
+
+\q Как ты стал разработчиком свободного ПО?
+
+…
+
+     }
+   \end{Parallel}
+
+
+
+
+
+
+
+
+
+ 
+\end{document}
+
+
+%[0] https://people.gnome.org/~mccann/shell/design/GNOME_Shell-20091114.pdf
+%[1] https://help.gnome.org/misc/release-notes/3.0/
