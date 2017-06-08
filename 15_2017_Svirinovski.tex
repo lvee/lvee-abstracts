@@ -1,0 +1,131 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\switchlang{ru}
+\begin{document}
+\title{Taurus: тесты на любителя}
+\author{Taras Svirinovski, Minsk, Belarus \footnote{\url{grey.fenrir@gmail.com} \url {https://lvee.org/ru/abstracts/246}}}
+\maketitle
+\begin{abstract}
+It makes sense to automate anything you repeat 10+ times.
+Taurus improves experience of JMeter, Selenium and others.
+\end{abstract}
+Статья ставит целью продемонстрировать некоторые примеры \linebreak практического применения Taurus tool. Материал предназначен в первую очередь разработчикам и другим техническим специалистам, непосредственно не занимающимся тестированием.
+
+\subsection*{Введение}
+
+Taurus ~--- это кроссплатформенный проект с открытым исходным кодом, предназначенный, в первую очередь, для упрощения автоматизации нагрузочных и функциональных тестов.
+Установка весьма проста ~--- наш инструмент, в частности, распространяется через pip, поэтому для установки вам хватит Python'a (установщику под win не нужно и этого). Есть deb- и rpm-пакеты (что не особо актуально), есть образ для докера. 
+Много дополнительного софта мы можем поставить сами, но часть ~--- нет (например, JVM/JDK, TestNG, \ldots{}), но мы можем проверять на наличие в системе и в случае остутствия понятно ругаться.
+
+\subsection*{Минимальный скрипт}
+
+Мало кто начинает работать с новым инструментом с чистого листа, совершенно не имея каких-либо наработок. Пусть у нас имеется каталог со скриптами для selenium, написанными на Python (а ещё Java, JavaScript,\ldots{}). Самым популярным способом озадачить Tarus является передача ему скрипта на языке YAML. Рассмотрим как выглядит выполнение готовых скриптов:
+
+\begin{verbatim}
+execution:
+- executor: selenium
+  scenario:
+    script: python_tests/\end{verbatim}
+Командная строка:
+
+\begin{verbatim}
+\$ bzt j1.yml \end{verbatim}
+После запуска вы увидите псевдографическую консоль. Во многих случая она не обязательна, но гики любят, поэтому мы решили её добавить. Разумеется, возможности визуализации в текстовом режиме ограничены, но мы можем показать немало ~--- текущую нагрузку в хитах/сек, изменение времени отклика, возникающие ошибки и предупреждения, затраченное/оставшееся время теста и многое другое. После окончания работы Taurus'a можно видеть краткий отчет, кроме этого для каждого запуска создается каталог с файлами логов и отчетов (artifacts dir).
+
+\subsection*{Тест с параметрами}
+
+Усложним скрипт и разберем некоторые базовые опции и возможности.
+
+\begin{verbatim}
+execution:
+- executor: jmeter
+  concurrency: 10
+  ramp-up: 30s
+  hold-for: 1m
+  scenario:
+    requests:
+    - http://blazedemo.com
+modules:
+  jmeter:
+    version: 3.1\end{verbatim}
+Здесь мы указали параметры теста (инструмент ~--- jmteter, десять виртуальных пользователей, полминуты линейного роста нагрузки, минута её поддержания), сценарий теста (получить страницу по URL'у) и параметр для инструмента (запрос конкретной версии).
+
+\subsection*{Multi execution}
+
+Рассмотрим несколько более развитый сценарий:
+
+\begin{verbatim}
+execution:
+- executor: jmeter
+  concurrency: 10
+  hold-for: 1m
+  ramp-up: 30s
+  scenario: shared_scenario
+- executor: pbench
+  concurrency: 3
+  hold-for: 20s
+  delay: 10s
+  scenario: shared_scenario
+scenarios:
+  shared_scenario:
+    requests:
+    - http://blazedemo.com\end{verbatim}
+Обратите внимание на описание структуры в языке YAML ~--- иерархия определяется отступами, элементы списка начинаются с дефиса, все остальные элементы, имеющие подчиненную структуру, считают ключами словаря. 
+Здесь мы видим запрос выполнить два теста с разными инструментами, временными и количественными показателями, но c одним выделенным сценарием. Для разнообразия запустим тест с ключом -report и полюбуемся на результаты.
+Особой пользы пока нету, но что-то явно работает.
+
+\subsection*{Дружелюбный selenium}
+
+Следующий тест позволяет зайти и выйти из веб-почты. Оцените краткость, читабельность, легкость составления и визуальный контроль работы.
+
+\begin{verbatim}
+execution:
+- executor: selenium
+  scenario: 
+    browser: Chrome
+    requests:
+    - url: \url{https://mail.ru
+      actions:
+      - keysByName(Login): strange_user
+      - keysByName(Password): secret_password
+      - clickByID(mailbox__auth__button)
+      - waitByLinkText(выход)
+      - clickByLinkText(выход)\end{verbatim}
+\subsection*{Автоматизация}
+
+Рассмотрим типичную автоматизацию посредством csv-файлов. Итак, пускай имеются следующие данные:
+
+\begin{verbatim}
+\$ cat urls_and_keywords.csv
+URL,KEYWORD
+\url{https://java.com,Java
+\url{https://www.python.org,Python
+\url{https://lvee.org,LVEE 3017\end{verbatim}
+Здесь мы видим через запятую адреса и ключевые слова на странице. Последняя строчка должна вызывать ошибку, так как конференция с таким названием в этом году не проводится.
+
+\begin{verbatim}
+execution:
+- concurrency: 2
+  iterations: 2
+  scenario:
+    data-sources:
+    - urls_and_keywords.csv
+    requests:
+    - url: \${URL}
+      assert:
+      - \${KEYWORD}\end{verbatim}
+После выполнения этого скрипта мы заглянем в kpi.jtl, размещенный в artifacts dir. Этот файл является csv-отчетом, который вернул jmeter. Обратим внимание на следующую часть таблицы:
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{ l l l }
+    \textbf{label} & \textbf{responseCode} & \textbf{success} \\
+    \url{https://java.com} & 200 & true \\
+    \url{https://www.python.org} & 200 & true \\
+    \url{https://lvee.org} & 200 & false \\
+  \end{tabular}
+\end{table}
+Здесь видно, как виртуальный пользователь по очереди запрашивает адреса из списка, определенного в csv-файле. Ответы получены (RC 200), но последний адрес не прошел проверку ~--- и мы уже знаем, почему.
+На этом я желаю вам удачи с использованием нашего инструмента. Мы всегда рады помочь вам, выслушать предложения и рассмотреть пулл-реквесты. За контактами и документацией прошу на gettaurus.org.
+
+\end{document}
