@@ -1,0 +1,30 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{Альт на Эльбрусе: обе вершины\footnote{\url{mike@altlinux.org}, \url{https://lvee.org/en/abstracts/286}}}
+\author{Михаил Шигорин, Москва, Russian Federation}
+\maketitle
+\begin{abstract}
+Elbrus 801-PC workstation supports three displays out-of-box but is further extendable to dual-seat configuration (with each seat still supporting up to three displays); that's what we've done in ALT installer.
+\end{abstract}
+Рабочая станция <<Эльбрус 801-РС(e801)>>~\cite{Shigorin-1} идёт в комплекте с трёхголовой видеокартой, а если добавить ещё одну такую же~--- возможно разместить на одной машине два полноценных рабочих места: ресурсов для них более чем достаточно (8 ядер, 32 Гб ОЗУ), а вот экономический эффект получается кратный.
+
+Мы решили опробовать <<многоголовый>> вариант этой весной в рамках подготовки к конференции OS Day~\cite{Shigorin-2} 2018; сперва воспользовались свободными выходами уже имеющейся видеокарты, но такая конфигурация с промежуточной прослойкой Xephyr получилась небыстрой из-за отсутствия 3D-ускорения (у нас уже MATE 1.20, собранный с GTK+3), плюс достаточно громоздкой и неудобной в настройке и запуске (хотя по факту и она тоже возможна)~--- а вот с раздельными видеокартами всё стало простым и лаконичным, на данном этапе даже не потребовалось ничего патчить.
+
+Описаны разные варианты~\cite{Shigorin-3}~\cite{Shigorin-4}~\cite{Shigorin-5} ~--- с одинаковыми или различными GPU, с задействованием logind или без него; с учётом особенностей платформы и своих предпочтений  остановились на двух Radeon R5 230 (один штатный и один дополнительный во втором слоте PCIe x8) и wdm~\cite{Shigorin-6}, который умеет поднимать несколько X-серверов штатным образом.
+
+Реализация упакована в составе пакета xorg-conf-e801-dualseat~\cite{Shigorin-7} и вместе с доработкой инсталятора дистрибутива Альт Рабочая станция~\cite{Shigorin-8} для Эльбруса попала в августовский выпуск <<репозитория>> и образов(доступны клиентам МЦСТ)~\cite{Shigorin-9}~--- так что обладатели рабочих станций <<Эльбрус 801-РС>> могут уже сейчас обратиться в МЦСТ для получения дистрибутива и его развёртывания.
+
+\begin{thebibliography}{20}
+
+\bibitem{Shigorin-1} Эльбрус 801-РС \url{http://www.mcst.ru/elbrus_801-pc}
+\bibitem{Shigorin-2} OS Day \url{http://osday.ru}
+\bibitem{Shigorin-3} Ныне покойная multiseat wiki \url{http://web.archive.org/web/20101030044616/http://wiki.c3sl.ufpr.br/multiseat/index.php/Main_Page}
+\bibitem{Shigorin-4} Multiseat in Gentoo Wiki \url{https://wiki.gentoo.org/wiki/Multiseat}
+\bibitem{Shigorin-5} Multiseat in Arch Wiki \url{https://wiki.archlinux.org/index.php/xorg_multiseat}
+\bibitem{Shigorin-6} wdm \url{http://altlinux.org/X11/DualSeat}
+\bibitem{Shigorin-7} xorg-conf-e801-dualseat \url{http://git.altlinux.org/people/mike/packages/?p=xorg-conf-e801-dualseat.git}
+\bibitem{Shigorin-8} Альт Рабочая станция \url{http://basealt.ru/products/alt-workstation/}
+\bibitem{Shigorin-9} Репозиторий и образы \url{http://altlinux.org/ports/e2k}
+\end{thebibliography}
+\end{document}

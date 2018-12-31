@@ -1,0 +1,33 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\begin{document}
+\title{Альт на <<Эльбрусе>>: путь к дистрибутиву\footnote{\url{mike@altlinux.org}, \url{https://lvee.org/en/abstracts/269}}}
+\author{Михаил Шигорин, Москва, Россия}
+\maketitle
+\begin{abstract}
+We learned to install our OS onto Elbrus systems in an almost user-friendly manner, not only to just boot it, over this year. Quite a feat given that ALT is the third known operating system to run on e2k!
+\end{abstract}
+Сейчас это кажется странным~--- но год назад, в феврале 2017, мы ещё не умели загружать свою операционку на единственной имеющейся рабочей станции <<Эльбрус-401>>.  Научились только в марте.
+
+С тех пор собраны не только пакеты в достаточном для многих прикладных задач (как вот сесть и написать тезисы для LVEE), но и ядра для всех актуальных процессоров (4С, 8С, 1С+), проверенные на серверных и настольных системах, и инфраструктура сборки образов ОС.
+
+При этом первые установки делались по сути вручную: загруженный спасательный образ клонировался rsync'ом на свежесозданные /boot и корень, подправлялись /boot/boot.conf и /etc/fstab, перегенерировался initrd.
+
+Несколько позже оказалось практичней просто заливать образ сразу на SSD, подключенный через USB-адаптер, вместо промежуточной флэшки и растягивать разделы при помощи gparted~--- такую <<инструкцию по установке>> уже смогли без особых проблем выполнить и другие люди.
+
+Ну а на прошлой неделе мы поставили первую систему при помощи livecd-install почти без рукоприкладства :)
+
+Разумеется, впереди ещё много работы~--- уборка и расширение репозитория, переход на транзакционную сборочницу girar, более глубокая интеграция с альтовыми технологиями, обычный installer, в конце концов.
+
+Но эта работа чем дальше, тем больше переходит в обычную планомерную.  А начиналось всё два года назад с прорывов, тогда без них было никак\ldots{}
+
+%\begin{thebibliography}{20}
+
+%\bibitem{Shigorin-1} \url{https://lvee.org/ru/abstracts/251}
+%\bibitem{Shigorin-2} \url{https://lvee.org/ru/abstracts/180}
+%\bibitem{Shigorin-3} \url{https://altlinux.org/ports/e2k}
+%\bibitem{Shigorin-4} \url{https://www.basealt.ru/partners/}
+%\bibitem{Shigorin-5} \url{https://sdelanounas.ru/blog/shigorin/}
+%\end{thebibliography}
+
+\end{document}

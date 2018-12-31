@@ -1,0 +1,214 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+%\switchlang{be}
+%\usepackage{color}
+\begin{document}
+\title{Интервью с участниками}
+%\author{}
+\date{}
+\maketitle
+
+По традиции в сборник материалов входят интервью, в которых активные участники
+сообщества open source делятся своим мнением о свободном ПО, открытых
+технологиях, роли и месте свободных лицензий, рассказывают, как видят проблематику
+свободных проектов. Из-за англоязычности интервьюируемых, интервью приводятся на двух языках "--- английском и русском.
+
+
+%\begin{figure}[ht]
+%\centering{\includegraphics[width=4cm]{49_spons_altoros.jpg}}
+%\end{figure}
+\begin{Parallel}[p]{}{}
+
+     \ParallelLText{%
+      \selectlanguage{english}
+\interview* Krzysztof Opasiak (K.), Warsaw, Poland, 
+
+{\noindent \bf LVEE: Can you briefly introduce yourself?}
+
+{\noindent \bf Krzysztof Opasiak:} My name is Krzysztof, I live in Poland, partially in a small city Konin, located between Warsaw and Poznan, and partially in Warsaw itself.
+
+{\noindent \bf L: And you work in Polish branch of Samsung. What are you doing there? }
+
+{\noindent \bf K:} I've worked for Samsung R\&D Institute Poland for over a five years now. Most of my time in this company I spent as a Kernel \& System Engineer, mostly focused on USB gadget support in Linux. I created a library called \verb!libusbgx!, which allows easy USB gadget composition from userspace via kernel's ConfigFS interface. In this year I've been moved to Samsung Open Source Group, and I've supported Samsung's contribution in Cloud area, with focus on OpenStack.
+
+Apart from working for Samsung, I'm also a PhD student at Warsaw University of Technology.
+My research area is USB security. Currently I'm working on improving OpenVizsla which is Open Hardware USB analyzer.
+
+{\noindent \bf L: I'd notice that practically whole your current activity is Linux-related. And how did you get acquainted with Linux and open source software in general?} 
+
+{\noindent \bf K:}  Now I'm embedded guy who is sticked to serial console very much and loves Emacs for its simplistic UI. But back in my high school, in times of Windows XP and Vista, I saw a Linux desktop for a first time. One of new teachers during some labs was showing slides from his laptop.
+Suddenly he started to switch all over his cubic desktop and looking for some PDF he wanted to show us.
+
+{\noindent \bf L: Ah, you have been one of these moths attracted by the Compiz desktop cube plugin! The great thing in impressing people :) }
+
+{\noindent \bf K:} Not only me. Whole group was so amazed that there was no way to finish the lesson but discuss about his laptop and this awesome OS.
+Next week we got from him LiveCDs with Mandriva Linux and I started playing with it at home.
+So yes, an embedded guy has been initially attracted by Linux because of it's UI and it's ability to run without installation on HDD ;)
+
+{\noindent \bf L: And how did it go starting from then?}
+
+{\noindent \bf K:} It's a little bit ashamed to admit but after less than half a year and doing couple of simple programming tasks for my school I came back to Windows :(
+
+Fortunately, when I started my studies, I also started to better understand the idea of Linux and Open Source in general and I started to use Ubuntu for my everyday tasks.
+ 
+{\noindent \bf L: So you have started with Mandriva. What are you using now and what are the main reasons?}
+
+{\noindent \bf K:} In theory, it was Mandriva, but I would call myself a Linux noob in that time, so I didn't really care about any particular distro ;) In practice it was Ubuntu and I'm still sticked to it.
+
+To be honest I still don't care to much about distro as long as it allows me to configure everything in a way I want, and run my favorite editor or web browser ;) 
+I think Ubuntu a good compromise between running a recent software and amount of time you have to spend on your system maintenance.
+
+{\noindent \bf L: We already know about your favorite editor :) And what about browser? Which part are you closer to, Firefox or Chrome, or something more exotic?}
+
+{\noindent \bf K:} Generally I use both Firefox and Chrome ;)
+
+I use Chrome if I have couple of spare gigs of RAM and the browser is going to be running for a longer period of time. In contrast, for short web checks or if I have limited RAM left I use Firefox.
+
+{\noindent \bf L: Ok! Lets return to Open Source. How did you came closer to the FLOSS-related development?}
+
+{\noindent \bf K:} My first (other than passive usage) experience with Open Source was during my studies, when I started digging why some software was not working as I expected.
+
+In the end of the day it turned out that the problem was in my expectations, not in software itself, but I had this great feeling that what ever goes wrong I may always download the code and see what's happening under the hood instead of only getting a dialog box with standard help message and care line number.
+
+{\noindent \bf L: A great reason! Perhaps it is a strongest point for many FLOSS-related people.}
+
+{\noindent \bf K:} I really like this feeling.
+
+{\noindent \bf L: Here the same! :) }
+
+{\noindent \bf K:}  So when I saw a job offer with Open Source collaboration as one of key responsibilities I instantly applied. And that's where my journey with Open Source started to speed up.
+I've been hired by Samsung and joined Kernel \& System Framework group which was working (at that time in collaboration with Intel) on Tizen.
+I met a lot of great people who got me even closer with the idea behind Open Source, and learned way more than during my studies.
+
+The key point for me was my first Open Source Conference ever, it was Embedded Linux Conference in 2014 in Dusseldorf.
+
+At that time I not only met all those people sitting behind email addresses from mailing list, but I understood that behind every Open Source project there are people just like you and me.
+They are smart, (usually) friendly, helpful and open for your ideas and contribution, and by contributing you can have a real impact on a software used by billions of people all over the world.
+This is what really motivates me to work with Open Source community every day.
+
+
+{\noindent \bf L: This understanding of the Open Source community wasn't with you from the beginning?}
+
+{\noindent \bf K:} In the beginning I saw Open Source as a bunch of rebel guys (mostly individuals) hacking on some stuff and sharing their code with others for free (kind of volunteering).
+It took me some time to understand that there is no free lunch, and Open Source is something way different than this.
+
+Now I realize that free software means free to evolve, free to modify and finally free to innovate -- not free in a meaning that you don't pay for it. 
+You may not notice this, but you always pay for using it or for making a product based on it, either with your time or other resources.
+But still it's great way to develop the software!
+
+{\noindent \bf L: Indeed! :)}
+
+Currently I see Open Source not only as software, but also a great platform for collaboration between people and companies.
+It's very efficient and flexible because the collaboration happens on developer level instead of going through the whole top management.
+Additionally it's beneficial for everyone because we don't need to waist resources on reinventing the wheel in every company, but focus on the differentiating factor, specific for our product, which means that we may focus on innovation!
+
+{\noindent \bf L: Talking of innovations, could your share some views on currents trends in embedded Linux and, possibly, in open hardware?}
+
+{\noindent \bf K:} I think that Artificial Intelligence is a very hot and important topic now.
+People want their cars, homes etc. to become really smart not only from the name.
+
+Even though we have some very nice algorithms for this, it's very hard to run them in a reasonable time on Embedded Devices.
+That's why we see now (and probably will see more in the nearest future) SoC and dedicated hardware with AI algorithms support.
+I expect that this area will grow rapidly in both Open Source and Open Hardware.
+
+
+\interviewfooter{Questions and Russian translation by Dmitriy Kostiuk.}
+\vfill
+     }
+     \ParallelRText{%
+       \selectlanguage{russian}
+\interview* Кшиштоф Опасек (К.), Варшава, Польша,
+       
+{\noindent \bf LVEE: Для начала, скажи несколько слов о себе.}
+
+{\noindent \bf Кшиштоф Опасек:} Меня зовут Кшиштоф, я живу в Польше, частично в небольшом городке Конин, который расположен между Варшавой и Познанью, а частично собственно в Варшаве.
+
+{\noindent \bf L: И ты работаешь в польском отделении Samsung. А чем именно занимаешься?}
+
+{\noindent \bf K:} Я работаю в Samsung R\&D Institute Poland, сейчас уже пять лет. Большую часть времени в этой компании я провел на позиции Kernel \& System Engineer, в основном занимался поддержкой USB gadget в Linux. Я разработал библиотеку libusbgx для простого составления USB-гаджета в пространстве пользователя с помощью интерфейса ядра ConfigFS. В этом году я перешел в Samsung Open Source Group, участвовал в той работе, которую Samsung вкладывает в облачные технологии, с упором на OpenStack.
+
+Помимо работы в Samsung я учусь в аспирантуре Варшавского политехнического университета.
+Моя область исследований "--- USB-безопасность. Сейчас работаю над OpenVizsla "--- это USB-анализатор, разрабатываемый как свободное аппаратное обеспечение.
+
+{\noindent \bf L: Как можно заметить, практически вся твоя нынешняя активность имеет отношение к Linux. А как ты вообще познакомился с GNU/Linuх и в целом со свободным ПО?} 
+
+{\noindent \bf K:}  Сейчас-то я такой типичный эмбеддедщик, который основательно пристрастился к последовательной консоли и обожает Emacs за его простой UI. Но впервые увидел Linux-десктоп я в старших классах, во времена Windows XP и Vista. Один из новых преподавателей показывал слайды со своего ноутбука на каких-то лабораторных занятиях. И неожиданно он стал переключать рабочие столы с эффектом куба в поисках какого-то PDF, который хотел нам показать.
+
+{\noindent \bf L: А, так ты один из тех мотыльков, привлеченных плагином desktop cube для Compiz! Очень впечатляющая была штука, да.}
+
+{\noindent \bf K:} Не только я "--- группа была настолько очарована, что вместо окончания урока мы обсуждали его ноутбук и замечательную ОС.
+На следующей неделе мы получили от него LiveCDs с Mandriva Linux, и я начал возиться с ним дома.
+Так что да, первоначально эмбеддедщика Linux привлёк своим графическим интерфейсом и возможностью запуска без установки на жесткий диск ;)
+
+{\noindent \bf L: И как оно пошло?}
+
+{\noindent \bf K:} Немного стыдно признаться, но меньше чем через полгода после парочки простых задач по программированию для школы я вернулся на Windows :(
+
+К счастью, когда я начал свои изыскания, я заодно стал лучше понимать саму идею Linux и свободного ПО как такового, и тогда уже начал использовать Ubuntu для повседневных задач.
+ 
+{\noindent \bf L: Значит, ты начинал с Mandriva. А что используешь в данный момент и почему?}
+
+{\noindent \bf K:} В теории это была Mandriva, но так как в тот момент я был Linux-нубом, не думаю, что меня вообще заботил дистрибутив ;) На практике моим первым дистрибутивом всё-таки была Ubuntu, и я всё ещё на ней.
+
+Честно говоря, до сих пор не считаю таким уж важным, какой конкретно дистрибутив использовать, если  он позволяет мне сконфигурировать всё так, как я хочу, и запускать мой любимый редактор и веб-браузер ;) Думаю, Ubuntu хороший компромисс между тем, чтобы иметь свежее ПО, и между тем количеством времени, которое приходится тратить на поддержание этой системы.
+
+{\noindent \bf L: Мы уже знаем о твоём любимом текстовом редакторе :) Что насчёт браузера? Какая сторона тебе ближе "--- Firefox или Chrome, или может что-то более экзотическое?}
+
+{\noindent \bf K:} В общем-то я их оба использую, и Firefox и Chrome ;)
+
+Chrome "--- когда у меня несколько свободных гигабайт ОЗУ, и предполагается, что браузер будет запущен на более долгий период времени. А для каких-то коротких вылазок в веб или в условиях ограниченного объёма свободного ОЗУ я использую Firefox.
+
+{\noindent \bf L: Хорошо, давай вернёмся к свободному ПО. Как ты перешёл к его разработке?}
+
+{\noindent \bf K:} Мой первый (помимо просто использования) опыт со свободным ПО "--- попытки разобраться в коде какой-то софтины, работавшей не так, как я того ожидал.
+
+Под конец дня обнаружилось, что проблема была скорее в моих ожиданиях, а не в ней, но я уже узнал это великолепное ощущение, что если что-то пойдёт не так, я могу всегда скачать исходный код и посмотреть, а что там <<под капотом>>, вместо того чтобы как раньше просто получать диалоговое сообщение с номером службы поддержки.
+
+{\noindent \bf L: Великолепная причина! Пожалуй, это один из самых сильных доводов для многих людей, ориентированных на СПО.}
+
+{\noindent \bf K:} Мне это чувство очень нравится.
+
+{\noindent \bf L: Аналогично! :) }
+
+{\noindent \bf K:}  Поэтому когда я увидел вакансию, в которой одним из ключевых моментов было взаимодействие со свободным ПО, я сразу подал заявку. И начиная с этого момента моё путешествие в мир свободного ПО начало ускоряться. Меня взяли на работу в Samsung, и я присоединился к группе Kernel \& System Framework, в которой работал (в тот момент это было сотрудничество с Intel) над Tizen.
+Встретил множество прекрасных людей, которые ещё больше подтолкнули меня к идеям, стоящим за СПО, и вообще очень многому научился.
+
+Поворотным моментом для меня была первая СПО-\linebreak конференция, в которой я поучаствовал "--- Embedded Linux Conference в 2014 году в Дюссельдорфе.
+
+Я тогда не только повстречался с кучей людей, которые скрывались за email-адресами из списка рассылки, но понял, что за каждым свободным проектом стоят такие же люди, как ты или я.
+Они умные, дружелюбные (как правило), готовые помочь, открытые для твоих идей и для твоего вклада, и привнося свой вклад ты можешь оказывать реальное влияние на программное обеспечение, которое используют миллиарды людей по всему миру.
+Каждый день это мотивирует меня на то, чтобы участвовать в СПО-сообществе.
+
+{\noindent \bf L: Такое понимание СПО-сообщества было с тобой не с самого начала?}
+
+{\noindent \bf K:} Сначала конечно я видел Open Source как кучку бунтовщиков (по большей части одиночек), которые что-то делают и делятся своим кодом со всеми за просто так (такая разновидность волонтёрства).
+Понадобилось какое-то время, чтобы понять, что не существует бесплатных завтраков, и что свободное ПО не об этом.
+
+Сейчас я понимаю, что свободное ПО подразумевает свободу развивать, изменять, и в конце концов свободу инноваций, а не отсутствие необходимости за него платить. 
+Это может быть незаметным, но всегда приходится платить за то, чтобы чем-то пользоваться, или чтобы создать на его основе продукт "--- или своим временем, или какими-то другими ресурсами.
+Но разрабатывать ПО всё равно здорово!
+
+{\noindent \bf L: Несомненно! :)}
+
+Сейчас я вижу в СПО не только программное обеспечение, но также прекрасную платформу для сотрудничества между людьми и компаниями.
+Получается очень эффективно и очень гибко, потому что сотрудничество происходит на уровне разработчика, вместо того, чтобы проходить по цепочке через весь топ-менеджмент.
+К тому же это взаимовыгодно "--- нам не приходится тратить впустую ресурсы на то, чтобы в каждой компании повторно изобретать колесо, и можно сфокусироваться на специфических особенностях собственного продукта, а это значит, что мы можем фокусироваться на инновациях!
+
+{\noindent \bf L: Кстати об инновациях, не мог бы ты поделиться мнением о нынешних тенденциях в embedded Linux, и может быть отчасти в свободном аппаратном обеспечении?}
+
+{\noindent \bf K:} Думаю, сейчас очень <<горячая>> и важная тема "--- искусственный интеллект.
+Люди хотят, чтобы их машины, дома и т.~д. стали действительно умными, не только по названию.
+Пусть даже у нас есть для этого очень хорошие алгоритмы, на встроенных системах и гаджетах не так-то просто заставить их приемлемо быстро работать. 
+Поэтому мы сейчас видим однокристальные системы и специализированное железо с поддержкой алгоритмов искусственного интеллекта (и наверное, скоро увидим ещё больше).
+И мне кажется, эта область будет быстро расти и в свободном программном и аппаратном обеспечении.
+
+\interviewfooter{Вопросы и русский перевод Дмитрия Костюка.}
+\vfill
+
+     }
+   \end{Parallel}
+
+ 
+\end{document}
+
+

@@ -1,0 +1,187 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+%\switchlang{be}
+%\usepackage{color}
+\begin{document}
+\title{Интервью с участниками}
+%\author{}
+\date{}
+%\maketitle
+
+\begin{Parallel}[p]{}{}
+
+     \ParallelLText{%
+      \selectlanguage{english}
+\interview* Lennart Poettering (LP.), Berlin, Germany, 
+
+{\noindent \bf LVEE: Can you briefly introduce yourself? Something for those of our readers, who don't know your name yet, but know systemd :) like ``I'm Lennart Poettering, I live in\ldots''}
+
+{\noindent \bf Lennart Poettering:} I am Lennart Poettering, one of the \verb"systemd" creators.
+
+{\noindent \bf L: Yes! }
+
+{\noindent \bf LP:} I work for Red Hat, and mostly hack on systemd these days, but also on \verb"casync", an OS image synchronizer. And I live in Berlin, Germany.
+
+{\noindent \bf L: Tell us something about your first experience with the open source software.} 
+
+{\noindent \bf LP:}  The first time I came into contact with Linux and Open Source was in high school, when I was 15 or so. A school friend of mine mentioned this free OS, installable from a couple of floppy disks. I didn't really believe him that this thing was real and was free, but soon after he gave me those disks (Slackware) and I installed it on my PC.
+
+{\noindent \bf L: Did you manage to install it from your first attempt? :) }
+
+{\noindent \bf LP:} It was a nightmare: nothing worked, and I didn't understand a thing. Very quickly I removed it again and went back to using Windows. 
+
+{\noindent \bf L: And then\ldots}
+
+{\noindent \bf LP:} Two years later or so, I was tempted again to give it another try. With another friend I bought a CD version of Red Hat Linux 5.0. It had an UI and everything! 
+ 
+{\noindent \bf L: A progress!}
+
+{\noindent \bf LP:} It was pretty bad still, but much better than on my first try. And somehow I stuck with it. I eventually swapped it out with Debian, which was pretty nice at that point. And I slowly started hacking on stuff those days, eventually starting to believe that I could write a better version of the \verb!esd! sound server in a week-end. 
+
+{\noindent \bf L: Do you remember how you got an actual idea to fix or re-implement \verb!esd! source code yourself? Some note on this may be interesting to those of our participants who haven't done something for upstream yet, but think about it\ldots}
+
+{\noindent \bf LP:} Basically I compiled much of Gnome myself back then, and \verb!esd! was a dependency of it, hence I compiled that too. While doing so I looked at the sources in detail because I had an old sound card which couldn't do 16 bit PCM yet, and some extra support was needed for 8 bit PCM. I had done a bit of C programming back then, but of course, it was my first big project, so I didn't really know C as well as I do now\ldots
+
+{\noindent \bf L:  Who would have any doubt :)}
+
+{\noindent \bf LP:} It took me a couple of attempts, then, it turned out to be much longer than just a week-end. And eventually I got offered a job working on it full time. Which brought me to Red Hat.
+
+{\noindent \bf L: Let's return to distros. What are your current preferences and demands with the GNU/Linux distro to use? }
+
+{\noindent \bf LP:} I already mentioned I started with Slackware (and it was a mess), then switched to Red Hat (much better) and then Debian (pretty good). When I joined Red Hat I became a Fedora user and that for the longest time, and I am still using it. If you do development of the OS itself, then Fedora is really the distribution to use, it tends to have everything pretty early on. And as a good part of Linux OS development takes place on Fedora (simply because Red Hat employs so many hackers) it's generally the best choice if you want to participate in Linux OS development.
+
+{\noindent \bf L:  Could you tell something about your experience with the community?}
+
+{\noindent \bf LP:} The Linux community is very diverse. In most cases that's a good thing, but it also attracts a certain kind of people one rather wouldn't have to deal with. 
+
+{\noindent \bf L: Nicely put :) }
+
+{\noindent \bf LP:}  I can tell you I was on the receiving end of a fair share of hateful behaviour in my life in Open Source. I think the Linux community still has a long way to go to become truly welcoming for everybody it should welcome.
+
+{\noindent \bf L: What's your view on talks about \verb!systemd! gradually turn into a separate OS based on Linux? }
+
+{\noindent \bf LP:}  Note sure I grok the question.
+
+{\noindent \bf L: Well, sometimes it's a popular topic. We could hear this previously when some new functional parts have appeared, like \verb!systemd-journald! or \verb!systemd-boot! (by the way, I used this one as \verb!gummiboot!, when searched for something simpler than grub). }
+
+{\noindent \bf LP:} \verb!systemd! is a set of tools people build OSes from, it's not turning into anything besides that.
+
+{\noindent \bf L: Ok. And how do you understand there is a time not to retain backward compatibility, and just to make better or simpler solution? Is there some distinct moment of time to make such decision, or is it a graduate process? Perhaps not supporting separate \verb!/usr! partition is an example most known to our readers :)}
+
+{\noindent \bf LP:} In general, \verb!systemd! has only very infrequently broken compatibility with anything, and the last time has been years ago. You brought up the \verb!/usr! merge, but note that this is not precisely a \verb!systemd! feature, but has been implemented in systems without \verb!systemd! as well. 
+
+{\noindent \bf L: I've mentioned it only because of some hype in maillists.}
+
+{\noindent \bf LP:} But you are still entirely welcome to split \verb!/usr! out, as long as it is mounted together with the root partition very early on, before the hosts' \verb!systemd! takes over (which means in the initial RAM disk). And that's really the only requirement \verb!systemd! makes: if it's split out, mount it earlier than you start the host \verb!systemd!. Things like this are relatively easy to handle within a distribution context, they should not matter to end-user's machines, hence compatibility towards the user and the apps should have been retained.
+
+{\noindent \bf L: Fair enough.}
+
+{\noindent \bf LP:} In general, if anything, the usr-merge actually improved compatibility, since when it is implemented all binaries become available in both \verb!/bin! and \verb!/usr/bin!, and thus scripts become more portable automatically (think about shebang lines at the top).
+
+{\noindent \bf L: You mean there was a problem with location of some interpreters?}
+
+{\noindent \bf LP:} Yeah. People write scripts with interpreters in the shebang line (i.e. the \verb"#!" line in the top of shell, python, perl, m4, awk, \ldots scripts), and these interpreters used to be installed in \verb!/usr/bin! on some distributions and in \verb!/bin! on others. Before the \verb!/usr! merge this mattered a lot, as you always needed to adjust the line to match what the distro needed (there are some hacks around it with \verb!/usr/bin/env!, but it's ugly). The \verb!/usr! merge solved this problem cleanly, as \verb!/bin! in this mode is just a symlink to \verb!/usr/bin! and hence every binary is available in both paths. This means that scripts written for any Linux is suddenly compatible with any distribution implementing the \verb!/usr/! merge.
+
+And besides this: wevalue compatibility. When we broke compatibility in the past we did this with a lot of consideration, involving a lot of people in it. At this point \verb!systemd! is at the core of most modern Linux distributions. This particularly makes it very important for us to maintain compatibility, and we are aware of it, and take it seriously.
+
+I mean, I wished we \textit{could} break compatibility more often, but we really can't. If we could, then there would be many things I'd like to change today rather than tomorrow. For example, we nowadays have all these sandboxing features for system services. However, to maintain compatibility with older \verb!systemd! and SysV services before that they are generally opt-in. If we could we'd make them opt-out, so that things are secure by default. But that of course would be a major break of compatibility, since suddenly all those services wouldn't be able to access whatever resources they needed anymore.
+
+{\noindent \bf L: It would be great to know something about your further plans on \verb!systemd! (no one would forgive me if I don't ask) :)}
+
+{\noindent \bf LP:} Two things we are currently working on are Portable Services support (which adds some select facets of container management to system services, more specifically bundling and sandboxing), as well as OCI runtime support (i.e. run OCI containers with \verb!systemd! components directly, requiring no further tools).
+
+
+\interviewfooter{Questions and Russian translation by Dmitriy Kostiuk.}
+\vfill
+     }
+     \ParallelRText{%
+       \selectlanguage{russian}
+\interview* Леннарт Поттеринг (LP.), Берлин, Германия,
+       
+{\noindent \bf LVEE: Можешь для начала кратко представиться?}
+
+{\noindent \bf Леннарт Поттеринг:} Я Леннарт Поттеринг, один из создателей \verb!systemd!.
+
+{\noindent \bf L: Да! }
+
+{\noindent \bf LP:} Я работаю в Red Hat и в основном сейчас занимаюсь \verb!systemd!, и еще \verb!casync!, синхронизатором образов ОС. И я живу в Берлине, Германия.
+
+{\noindent \bf L: Расскажи о своем первом опыте использования программного обеспечения с открытым исходным кодом.} 
+
+{\noindent \bf LP:} В первый раз я столкнулся с Linux и вообще с Open Source в старшей школе, когда мне было 15 или около того. Мой школьный друг мельком упомянул про бесплатную ОС, которую можно установить с нескольких дискет. Я не поверил, что эта штука была реальной и при том бесплатной, но вскоре он одолжил мне дискеты (Slackware), и я установил его на свой компьютер.
+
+{\noindent \bf L: Установить удалось с первой попытки? :) }
+
+{\noindent \bf LP:} Это был кошмар: ничего не работало, и я ничего не понял. Очень быстро я снова удалил его и вернулся к использованию\linebreak Windows.
+
+{\noindent \bf L: А потом?..}
+
+{\noindent \bf LP:} Через два года или около того я соблазнился на еще одну попытку. С мы с другим другом купили версию компакт-диска Red Hat Linux 5.0. И там оказался графический интерфейс и все такое!
+ 
+{\noindent \bf L: Прогресс!}
+
+{\noindent \bf LP:} Это всё ещё было довольно плохо, но намного лучше, чем в первый раз. И как-то я <<залип>>. В конце концов перешёл на Debian, который в тот момент был довольно хорош. В это время я постепенно стал заниматься хакингом и решил, что смогу за выходные написать лучшую версию звукового сервера \verb!esd!.
+
+{\noindent \bf L: А ты не помнишь, как возникла сама идея исправить или даже самостоятельно переписать код \verb!esd!? Это может пригодиться тем из наших участников, кто пока ещё ничего не сделал для апстрима, но подумывает об этом\ldots}
+
+{\noindent \bf LP:} В сущности, на тот момент я скомпилировал из исходников большую часть Gnome, и \verb!esd! был одной из зависимостей, поэтому его я тоже скомпилировал. И по ходу дела я основательно заглядывал в исходники, потому что у меня была старая звуковая карта, не поддерживавшая 16-битный PCM, а для 8-битного PCM требовалась некоторая дополнительная поддержка. На тот момент у меня был небольшой опыт программирования на C, но конечно это был мой первый большой проект, и я конечно не знал C так хорошо, как сейчас\ldots
+
+{\noindent \bf L: Кто бы сомневался :)}
+
+{\noindent \bf LP:} Потребовалось несколько попыток, и выяснилось, что на это нужно намного больше времени, чем выходные. Но в итоге мне предложили работу, на полный рабочий день "--- которая и привела меня в Red Hat.
+
+{\noindent \bf L: Вернёмся к дистрибутивам. Каковы твои текущие предпочтения и личные требования к дистрибутиву GNU/Linux? }
+
+{\noindent \bf LP:} Я уже упоминал, что начал с Slackware (и это был ужас), затем переключился на Red Hat (намного лучше), а затем на Debian (довольно хорошо). Когда я присоединился к Red Hat, то стал пользователем Fedora, это оказалось надолго, и я все еще использую его. Если вы сами участвуете в разработке ОС, то Fedora "--- очень подходящий дистрибутив. Там обычно всё довольно быстро появляется. И поскольку изрядная часть разработки ОС Linux происходит на Fedora (просто потому, что так много хакеров работают в Red Hat), то это обычно и лучший выбор для участия в разработке ОС Linux.
+
+{\noindent \bf L:  Можешь сказать что-нибудь о своем общении с сообществом?}
+
+{\noindent \bf LP:} Сообщество Linux очень разнообразно. В большинстве случаев это хорошо, но это также привлекает людей определённого толка, с которыми в противном случае едва ли появилось бы желание как-то взаимодействовать. 
+
+{\noindent \bf L: Тактично сформулировано :) }
+
+{\noindent \bf LP:}  Могу сказать, что за время участия в Open Source мне довелось достаточно часто быть объектом агрессии. Я думаю, что сообществу Linux все еще предстоит долгий путь, прежде чем оно сможет стать по-настоящему дружелюбным ко всем, кто этого заслуживает.
+
+{\noindent \bf L: А что ты думаешь о разговорах, будто система \verb!systemd! постепенно превращается в отдельную ОС на базе Linux? }
+
+{\noindent \bf LP:} Не думаю, что я грокнул этот вопрос.
+
+{\noindent \bf L: Ну, иногда это популярная тема. Бывает, мы слышим такое, когда появляются новые функциональные части, такие как \verb!systemd-journald! или \verb!systemd-boot! (кстати, я использовал его ещё раньше как \verb!gummiboot!, когда искал более простую замену \verb!grub!)\ldots }
+
+{\noindent \bf LP:} \verb!systemd!~--- это набор инструментов, из которых люди строят ОС, и ни во что другое он не превращается.
+
+{\noindent \bf L: Хорошо. А как вы в проекте понимаете, что наступило время отказаться от обратной совместимости и просто сделать лучшее или более простое решение? Есть ли какой-то определенный момент времени для принятия такого решения, или это постепенный процесс? Думаю, отказ от отдельного раздела \verb!/usr!  "--- наиболее известный пример :)}
+
+{\noindent \bf LP:} В общем-то \verb!systemd! очень редко нарушает совместимость с чем-либо,  в последний раз это случилось много лет назад. Ты упомянул слияние \verb!/usr!. Но, обрати внимание, это не только особенность \verb!systemd!, то же самое и в системах без \verb!systemd! реализовано.
+
+{\noindent \bf L: Упомянул об этом из-за шумихи в майлистах.}
+
+{\noindent \bf LP:} \verb!/usr! по-прежнему можно иметь на отдельном разделе, до тех пор пока он монтируется на самом раннем этапе вместе с корневым разделом, до того как управление передаётся \verb!systemd! хоста (то есть на том этапе, когда для загрузки используется начальный RAM-диск). И это единственное, что требуется \verb!systemd!: если используется отдельный раздел, он должен быть примонтирован до запуска \verb!systemd! хоста. Такие вещи достаточно легко обрабатываются в контексте дистрибутива, они вообще не должны иметь значение на машине конечного пользователя, поскольку совместимость для пользователя и его приложений полностью сохраняется.
+
+{\noindent \bf L: Достаточно справедливо.}
+
+{\noindent \bf LP:} В общем, если <<usr-merge>> что-то и сделал, то фактически улучшил совместимость, поскольку все двоичные файлы при этом становятся доступными как в \verb!/bin!, так и в \verb!/usr/bin!, в результате скрипты автоматически становятся более переносимыми (подумай о <<шапках>> скриптов).
+
+{\noindent \bf L: Ты имеешь в виду, что была проблема с местом расположения интерпретаторов?}
+
+{\noindent \bf LP:} Ага. Люди прописывают интерпретатор для запуска скрипта в <<шапке>> (после символов \verb"#!" в скриптах shell, python, perl, m4, awk, \ldots), и в некоторых дистрибутивах эти интерпретаторы устанавливались в \verb!/usr/bin!, а в других~--- в \verb!/bin!. До объединения корневого раздела с \verb!/usr! это имело большое значение, потому что эту строчку приходилось редактировать под конкретный дистрибутив (есть способы это обойти, например используя \verb!/usr/bin/env!, но они очень уродливы). И <<usr-merge>> полностью решил эту проблему, \verb!/bin! стал символической ссылкой на \verb!/usr/bin!, и теперь все исполняемые файлы доступны по обоим путям. А это значит, что скрипты, написанные для любого Linux, совместимы сразу со всеми дистрибутивами, в которых реализован \verb!/usr! на корневом разделе.
+
+И помимо этого, мы ценим совместимость. Когда мы нарушали совместимость в прошлом, мы делали это с большой осторожностью, с привлечением многих людей. На данный момент \verb!systemd! лежит в основе большинства современных дистрибутивов Linux, поэтому для нас особенно важно поддерживать совместимость, мы это осознаем и относимся к этому вопросу очень серьезно.
+                      
+Я имею в виду, что мне хотелось бы иметь возможность \textit{чаще} нарушать совместимость, но мы действительно не можем. А если бы могли, я был бы рад изменить многое прямо сегодня, а не когда-нибудь завтра. Например, теперь у нас есть весь функционал для помещения системных сервисов в песочницу (sandbox). Но ради совместимости со старыми сервисами \verb!systemd! и SysV от них приходится отказываться. Ах если бы мы могли отказаться от них, чтобы все по умолчанию запускалось в безопасном режиме! Но это, конечно, было бы серьезным нарушением совместимости, внезапно у всех этих сервисов пропал бы доступ к нужным ресурсам.
+
+{\noindent \bf L: В заключение, было бы здорово узнать что-то о ваших дальнейших планах в отношении \verb!systemd! (меня не простят, если я об этом не спрошу об этом) :)}
+
+{\noindent \bf LP:} Две вещи, над которыми мы сейчас работаем,~--- это поддержка портативных сервисов (которая добавит системным сервисам некоторые элементы управления контейнерами~--- в частности, биндинг и песочницу), а также поддержка OCI runtime (например, запуск контейнеров OCI с компонентами \verb!systemd! напрямую, без каких-либо дополнительных инструментов).
+
+\interviewfooter{Вопросы и русский перевод Дмитрия Костюка.}
+
+\vfill
+
+     }
+   \end{Parallel}
+
+ 
+\end{document}
+
+
