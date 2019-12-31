@@ -1,0 +1,31 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\switchlang{ru}
+\begin{document}
+\title{Set-версии}
+\author{Vladimir D. Seleznev, Москва, Russian Federation\footnote{\url{vseleznv@altlinux.org}, \url {https://lvee.org/ru/abstracts/315}}}
+\maketitle
+\begin{abstract}
+Shared libraries are one of the important parts of Linux \linebreak distribution ecosystems. One of biggest problem is to guarantee the ABI consistency in the package repository and while system updates as well. Shared library is described by its soname and contains exported symbols. To make a program work, dynamic linker should be able to load all needed shared libraries and resolve symbols used by the program.
+
+RPM packages have dependecies, installed system should have all installed packages with satisfied dependencies (i.e. it should not contain unmets). Same is true for package repositories: \linebreak consistent one contains no unmets. During the package build rpm-build calculates needed and provided sonames for of \linebreak packaged ELFs and this information is placed in package provided and required dependencies. But originally it did nothing to \linebreak symbols exported or used by ELFs. Provided all this information in package dependencies would be too expensive.
+
+To keep information about ELF symbols in package \linebreak dependencies, ALT Linux Team introduced new type of RPM dependency: set-versions, based on complementary hashing. It's a way to hash two sets R and P that it is able to check is R a subset of P. It was mainly developed by Alexey Tourbin in 2010.
+\end{abstract}
+Разделяемые библиотеки --- важная часть экосистемы дистрибутивов Linux.
+
+Разделяемые библиотеки очень легко создавать (в тривиальном случае надо передать опцию компилятору \verb@-shared@), но сложно сопровождать стабильное ABI, что является одни из источников проблем. Поломку ABI очень легко пропустить, что неоднократно подтверждалось на практике.
+
+Часть мер предосторожности можно предпринять на уровне репозитория: обнаруживать несовместимые изменения ABI до того, как пакет попадёт в репозиторий, удостоверяться, что все клиенты, которые используют интерфейсы библиотеки связаяны с этой библиотеков, и что ничто нет перелинковки.
+
+На работающей системе во время установки пакетов можно проверять, что все необходимые разделяемые библиотеки предоставлены, равно как и предоставлены необходимые веросионирования интерфейсов. Также нужно удостовериться, что все неходимые символы, требуемые от разделяемой библиотеки, она предоставляет. Первое решение, которое можно было бы предожить, это записать в предоставляемые зависимости пакетов все символы, которые  экспортируют разделяемые библиотеки, упакованные в данные пакеты, а в требуемые зависимостм этой библиотеки записать все неопределённые символы ELF'ов, упакованных в них. Очевидным недостатком этого решения будет то, что зависимости пакетов станут чрезмерно большими, а разрешение зависимостей --- чрезмено доглим. В зависимостях можно связать символы с именем билиотеки (SONAME), которая их экспортирует, тогда надо будет убедиться, что требуемые символы являются подмножеством предоставляемых для разрешения зависимостей. Но такое решение всё ещё слишком тяжёлое.
+
+Вместо множества имён символов реализовать функции хэширования этих множеств и проверки того, что одно множество входит в другое. Такая схема реализована в rpm, используемом в системах ALT, опирающаяся на схему комплементарного хэширования.
+
+
+\begin{thebibliography}{99}
+ \bibitem{Seleznev1}  Ulrich Drepper. How To Write Shared Libraries \url{http://people.redhat.com/drepper/dsohowto.pdf}.
+ \bibitem{Seleznev2}  Dmitry V. Levin. Set-versioned package dependencies addressing the problem of shared library updates.
+\bibitem{Seleznev3}  Алексей Турбин. Комплементарное хэширование подмножеств \url{ftp.altlinux.org/pub/people/at/protva-2010.pdf}
+\end{thebibliography}
+\end{document}

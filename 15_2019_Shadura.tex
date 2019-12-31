@@ -1,0 +1,75 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\switchlang{en}
+\begin{document}
+\title{Wafer conference management system}
+\author{Andrej Shadura, Bratislava, Slovakia\footnote{\url{andrew@shadura.me}, \url {https://lvee.org/ru/abstracts/319}}}
+\maketitle
+\begin{abstract}
+Wafer is a web based conference management software based on Python and Django, targeted at small (or medium) sized conferences, licensed under the ISC License, and developed at GitHub. The most known conference using Wafer is DebConf, which switched to it from the old and poorly supported Pentabarf system.
+\end{abstract}
+Main features of wafer are the website content management, talks submission system and the talks review process, and the conference schedule management.
+
+\subsection*{Web Contents}
+
+Static information for the conference is represented with \emph{pages}, which contain Markdown-formatted contents, and images uploaded as \emph{files}. To provide hierarchical organisation, so-called \emph{container pages} are used: they are parent objects for other pages, and provide minimal content, if any. Pages are stored in the database, and can be edited through the web UI. An alternative is to store them Markdown files (e.g. in a Git repo) with a YAML-formatted preamble and load them into the database with a special management command.
+
+Wafer includes a simple system to generate single levels menus (either static or dynamic ones) for the navigation bar at the top of each page. By default, only two kinds of menu items are dynamically generated: \emph{pages} and \emph{sponsors} menus, and menu items.
+
+Page menus appear when a page is marked for inclusion in the navigation menu.
+
+The sponsor menu is a single sub-menu listing the sponsors in order of precedence with links to their sponsor pages. It also includes links to the full list of sponsors and the list of sponsorship packages at the bottom of the sub-menu.
+
+\emph{Sponsor packages} describe the details of the various sponsorship variants, including the order in which the list on the sponsor packages page is composed. The details about the sponsors (a description) can be formatted using Markdown and uploaded images as with the rest of pages.
+
+The default sponsor template expect each sponsor to have an image for the main logo to be used in the sponsor list (uploaded files can be associated with a sponsor and a name in the admin interface). Also there is an example template block for adding sponsors as a footer to all pages (which can contain its own associated image, e.g. a different size one).
+
+\subsubsection*{Talks}
+
+Users can submit talks from their profile page. The abstract can be formatted using markdown-formatted. Talks have following publicly visible fields: \emph{title}, an \_abstract \_(which can be markdown-formatted) and \emph{authors}. Two additional private fields are \_notes \_(written by the author, e.g. special equipment requirements, etc.) and \_private notes \_(visible to organisers only, e.g. assigned reviewers, etc.).
+
+There also also user-defined \emph{talk types}, which need to be specifed before opening up talk submissions, e.g. \emph{Tutorial}, \emph{Short Talks}, etc. Each \verb@Talk Type@ can be open or closed for submissions individually via the admin interface.
+
+Users can submit talks from their profile page using the \emph{Submit Talk Proposal} option. Talks can have multiple authors, but only one of them is the \emph{corresponding author} who can edit the talk submission.
+
+The talk lifecycle can include the following states:
+
+\begin{itemize}
+  \item Submitted (the initial state),
+  \item Under Consideration (after at least one review was left),
+  \item Withdrawn (talk was withdrawn by the talk submitter before decision was made),
+  \item Provisionally Accepted (positive decision on conferences with \linebreak mandatory submitter's confirmation),
+  \item Accepted (positive decision),
+  \item Cancelled (talk was withdrawn by the talk submitter after the positive decision),
+  \item Not Accepted (negative decision).
+\end{itemize}
+
+Multiple talk tracks are supported as an option; if this feature is turned on, submitters have to additionally choose a track for each submission.
+
+\subsection*{Talks review process}
+
+The \emph{Talk Reviewers} group members have permission to view all talk submissions (not only accepted ones), including notes and private notes, and are able to leave reviews on talks.
+
+The \emph{Talk Mentors} group members have the same list of permissions and additionally are able to edit submitted talks, and view and edit both notes and private notes.
+
+Talk Mentors can review Talks are reviewed by user-defined \emph{metrics}.
+
+Talk Reviewers see a \emph{Review} button on talk pages, and will be prompted to review each talk by each metric. The reviewer has to put a numerical score for each metric and can also leave a textual review. If a reviewer re-reviews a talk, the previous review is updated.
+
+Talks are shown in the publicly available talk listing, where reviewers will see additional items and special emblems (e.g. a clock symbol if the submission was changed making their review out of date).
+
+\subsection*{Schedule}
+
+Wafer scheduling concept is based on days, venues, slots, and items.
+
+Each \emph{venue} is associated with a number of \emph{days} of the conference. Each \emph{slot} is assigned to a given day, and has a start and end time (fixed or based on the end time of a previous slot in a sequence).
+
+Each \emph{item} in the schedule has a number of slots, a venue and either a talk or a page. Each talk can only be assigned to a single schedule item, but pages can be assigned to multiple schedule items (this simplifies scheduling such service items as tea breaks).
+
+
+\begin{thebibliography}{9}
+\bibitem{bib1} I. Olea. An improvised list of opensource conference management software \url{http://olea.org/diario/2017/10/27/opensource-conference-management-software.html}
+\bibitem{bib2} CTPUG/wafer: A wafer-thin web application for running small conferences. Built using Django \url{http://github.com/CTPUG/wafer}
+\bibitem{bib3} Wafer 0.7.6a documentation \url{https://wafer.readthedocs.io/en/latest/}
+\end{thebibliography}
+\end{document}

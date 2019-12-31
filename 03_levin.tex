@@ -1,0 +1,133 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\switchlang{ru}
+\begin{document}
+\title{Modern strace}
+\author{Dmitry Levin, Moscow, Russian Federation\footnote{\url{ldv@altlinux.org}, \url{http://lvee.org/ru/abstracts/227}}}
+\maketitle
+\begin{abstract}
+strace is a diagnostic, debugging and instructional utility for\linebreak Linux. It is used to monitor and tamper with interactions between processes and the Linux kernel, which include system calls, signal deliveries, and changes of process state. Linux developers are usually aware of strace and use it occasionally, but their know\-ledge about modern strace features is often quite limited. Here the maintainer of strace describes features of modern strace and demonstrates what kinds of problems they help to solve.
+\end{abstract}
+\subsection*{Введение} 
+strace как инструмент мониторинга взаимодействия пользовательских процессов с ядром существует уже почти 28 лет и широко применяется для диагностики, отладки и изучения поведения ПО. Многочисленные параметры управления фильтрацией дают возможность пользователю strace легко и гибко настраивать отображение системных вызовов и сигналов. С каждым выпуском strace таких возможностей становится больше, а точность отображения --- выше.
+
+Начиная с версии 4.13, выпущенной в июле 2016 года, расписание выпусков новых версий strace синхронизировано с расписанием выпусков новых версий ядра linux. Таким образом новые интерфейсы, добавляемые в релизы ядра linux, сопровождаются соответствующими парсерами, добавляемыми в релизы strace.
+
+strace относится к традиционным инструментам, и пользователи со стажем зачастую не подозревают о новых возможностях, появившихся в strace за последние несколько лет, таких как 
+\begin{itemize} 
+\item отслеживание файловых путей: параметр \texttt{-y}; 
+\item отслеживание сетевых протоколов: параметр \texttt{-yy}; 
+\item отслеживание стека вызовов: параметр \texttt{-k}; 
+\item сбор статистики по времени, проведённому отслеживаемыми процессами в системных вызовах: параметр \texttt{-w}; 
+\item фильтрация системных вызовов по файловым путям: параметр \texttt{-P}; 
+\item фильтрация системных вызовов по именам: с помощью регулярных выражений и новых классов системных вызовов; 
+\item модификация системных вызовов: инъекции ошибок, кодов возврата, сигналов, и задержек. 
+\end{itemize}
+
+\subsection*{Отслеживание файловых путей и фильтрация по файловым путям}
+
+Начиная с версии 4.7, выпущенной в мае 2012 года, реализована возможность отслеживания файловых путей, соответствующих дескрипторам, с помощью параметра \texttt{-y}.
+
+В той же версии была реализована возможность фильтрации системных вызовов по файловым путям, соответствующим аргументам системных вызовов и файловым дескрипторам, с помощью параметра \texttt{-P}.
+
+\subsection*{Отслеживание сетевых протоколов и устройств}
+
+Начиная с версии 4.10, выпущенной в марте 2015 года, реализована возможность отслеживания характеристик сетевых протоколов, соответствующих дескрипторам сокетов, с помощью параметра \texttt{-yy}.
+
+Начиная с версии 4.22, выпущенной в апреле этого года, с помощью этого же параметра можно отслеживать и характеристики устройств.
+
+\subsection*{Отслеживание стека вызовов}
+
+Начиная с версии 4.9, выпущенной в августе 2014 года, реализована экспериментальная возможность отслеживания стека вызовов функций с помощью параметра \texttt{-k}. Начиная с версии 4.23, выпущенной в июне этого года, усовершенствованная реализация этой возможности с использованием библиотеки libdw уже не носит экспериментальный статус.
+
+\subsection*{Cбор статистики} 
+Начиная с версии 4.9, выпущенной в августе 2014 года, реализована возможность сбора статистики по времени, проведённому отслеживаемыми процессами в системных вызовах, с помощью параметра \texttt{-w}.
+
+\subsection*{Фильтрация системных вызовов по именам} 
+Начиная с версии 4.17, выпущенной в мае 2017 года, синтаксис описания множества системных вызовов существенно расширился.
+
+В описании имён системных вызовов теперь поддерживаются регулярные выражения:
+
+\texttt{strace \textbf{-e trace}=/\textit{regexp}}.
+
+В описании множества системных вызовов поддерживаются описания, которым не соответствует ни одного системного вызова:
+
+\texttt{strace \textbf{-e trace}=?\textit{set}}.
+
+Имена классов системных вызовов теперь начинаются с префикса \texttt{\%}:
+
+\texttt{strace \textbf{-e trace}=\%\textit{class}}.
+
+Прежний способ именования классов без префикса \texttt{\%} поддерживается, но уже считается устаревшим и не рекомендуется для применения.
+
+Добавлены новые классы системных вызовов семейства stat: 
+\%\texttt{stat}, 
+\%\texttt{lstat}, 
+\%\texttt{fstat}, 
+\%\%\texttt{stat}, 
+\%\texttt{statfs}, 
+\%\texttt{fstatfs}, 
+\%\%\texttt{statfs}.
+
+\subsection*{Модификация системных вызовов} 
+Начиная с версии 4.15, выпущенной в декабре 2016 года, реализован механизм инъекций ошибок в системные вызовы. 
+Синтаксис syscall fault injection выглядит следующим образом:
+
+\texttt{strace \textbf{-e fault}=\textit{set}[:\textbf{error}=\textit{errno}][:\textbf{when}=\textit{expr}]}
+
+Начиная с версии 4.16, выпущенной в феврале 2017 года, реализован более общий механизм вмешательства в системные вызовы, который, помимо инъекций ошибок, позволяет осуществлять инъекции кодов возврата и сигналов, а начиная с версии 4.22, выпущенной в апреле 2018 года, ещё и инъекции задержек. 
+Интерфейс этого нового механизма выглядит следующим образом:
+
+\texttt{strace \textbf{-e inject}=\textit{set}[parameters]}
+
+где \texttt{parameters} могут принимать следующие значения: 
+\begin{itemize} 
+\item \texttt{:\textbf{error}=\textit{errno}} либо \texttt{:\textbf{retval}=\textit{value}} -- 
+инъекция ошибки либо кода возврата; 
+\item \texttt{:\textbf{syscall}=\textit{syscall}} -- 
+подменяемый системный вызов для инъекции ошибок либо кода возврата; 
+\item \texttt{:\textbf{signal}=\textit{sig}} -- 
+инъекция сигнала; 
+\item \texttt{:\textbf{delay\_enter}=\textit{usecs}} -- 
+инъекция задержки перед системным вызовом; 
+\item \texttt{:\textbf{delay\_exit}=\textit{usecs}} -- 
+инъекция задержки после системного вызова; 
+\item \texttt{:\textbf{when}=\textit{expr}} -- 
+правило применения инъекции. 
+\end{itemize}
+
+Пример инъекции ошибки:
+
+ 
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+\begin{lstlisting}[language=bash]
+$ strace -e trace=/open -e inject=/open:when=3:error=EACCES cat /dev/null 
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3 
+openat(AT_FDCWD, "/lib64/libc.so.6", O_RDONLY|O_CLOEXEC) = 3 
+openat(AT_FDCWD, "/dev/null", O_RDONLY) = -1 EACCES (Permission denied) (INJECTED) 
+cat: /dev/null: Permission denied 
++++ exited with 1 +++ 
+\end{lstlisting}
+
+Пример инъекции задержки:
+
+\begin{lstlisting}[language=bash]
+$ dd if=/dev/zero of=/dev/null bs=1M count=10 
+10+0 records in 
+10+0 records out 
+10485760 bytes (10 MB, 10 MiB) copied, 0.00211354 s, 
+5.0 GB/s
+
+$ strace -e inject=write:delay_exit=100000 -e write -o /dev/null \ 
+dd if=/dev/zero of=/dev/null bs=1M count=10 
+10+0 records in 
+10+0 records out 
+10485760 bytes (10 MB, 10 MiB) copied, 1.10658 s, 
+9.5 MB/s 
+\end{lstlisting}
+\end{document}

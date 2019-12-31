@@ -1,0 +1,100 @@
+\documentclass[10pt, a5paper]{article}
+\input{preamble.tex}
+\switchlang{ru}
+\begin{document}
+\title{Dark Background and Light Text --- Firefox add-on}
+\author{Mikhail Khvoinitsky, Минск, Belarus\footnote{\url{lvee.org@khvoinitsky.org}, \url{http://lvee.org/ru/abstracts/313}}}
+\maketitle
+\begin{abstract}
+Modern Web is barely customizable. Most web designers try really hard to make their websites look the same for all users on all OSes and browsers and they try to eliminate any browser-specific behavior. This includes: font, font size, button placement guidelines (close button on the right or on the left, OK, Cancel buttons order and so on) and colors. We will concentrate on one problem: color customizability. People may want to override page colors for a variety of reasons: accessibility, preference to work in a dark room or just taste. But this is more complicated task rather than applying custom CSS with few overrides
+\end{abstract}
+Кастомизируемость современного веба оставляет желать лучшего. Большинство веб-дизайнеров стараются, чтобы их веб-сайты выглядели одинаково у всех пользователей независимо от их операционных систем, браузеров и, как следствие, их предпочтений. Но потребность в кастомизации есть. Например, не всегда стандартный размер шрифта подходит всем пользователям, да и сам шрифт не всегда выбирают как самый различимый. Также часто пользователи хотели бы видеть сайты в других цветах, часто в тёмных. Некоторые браузеры предоставляют возможность масштабирования страниц, а также игнорирования цветов, выставленных автором вебсайта, но часто это или слишком грубо (когда цвет текста несёт смысловую нагрузку, например, предупреждающая надпись на жёлтом фоне или программный код с подсвеченным синтаксисом), или этого недостаточно (есть ещё фоновые изображения). К счастью, уже все современные распространённые браузеры поддерживают расширения. Об одном таком, которое решает проблему изменения цветовой схемы страниц, и будет доклад, а также немного о смежных темах.
+
+\subsection*{Краткое введение в то, что такое аддоны и что они могут делать}
+
+Аудитория, думаю, прекрасно с этим понятием знакома и не раз пользовалась, но на всякий случай. Аддоны --- небольшие приложения на javascript для браузеров, которые могут незначительно встраиваться в UI браузеров (в виде кнопок, сайдбаров и хоткеев), а так же встраивать свой javascript и CSS в вебстраницы. Наиболее распространённый класс аддонов --- блокировщики рекламы.
+
+\subsection*{Зачем люди могут предпочитать тёмные темы}
+
+\begin{enumerate}
+  \item Доступность. При некоторых патологиях зрения значительно проще воспринимать светлый текст на тёмном фоне.
+  \item Удобство при работе в тёмной комнате (например, ночью). Поэтому часто такие темы называется ночным режимом (Night Mode).
+  \item Личные вкусовые предпочтения.
+\end{enumerate}
+
+\subsection*{Ограничения user CSS как общего решения для изменения цветов сайтов}
+
+\begin{enumerate}
+  \item Узкоспециализированный CSS для конкретного вебсайта.\linebreak Плюсы: при желании и упорстве можно сделать очень качественно. Минусы: при малейшем изменении на сайте стиль поломается; требуется создавать подобный стиль вручную для каждого сайта.
+  \item Грубо перекрасить \textbf{весь} текст и фон в нужные цвета. Плюсы: просто и быстро (как с точки зрения разработки, так и с точки зрения производительности). Минусы: потеряется вся цветовая семантика текста (например, подсветка синтаксиса кода, выделенное жёлтым предупреждение, красным ошибка и т. д.); фоновые изображения можно или все оставить, или все убрать (см. ниже о проблеме).
+  \item CSS filter: invert и аналоги. Плюсы: просто с точки зрения разработки; для средней светлой страницы результат будет максимально качественным. Минусы: производительность ­— даже прокрутка страницы начнёт заметно подтормаживать (Firefox for Android становится практически неюзабельным); изначально тёмные страницы станут светлыми, смешанные страницы останутся смешанными, только наоборот.
+\end{enumerate}
+
+\subsection*{Решение на javascript, трудности с ним и их решения}
+
+\begin{itemize}
+  \item Обход и модификация стилей в <<document.styleSheets>>
+  \item Изменение цвета на тёмный или светлый, сохранение тона (например, красный остаётся красным, но в зависимости от того, фон это или текст, становится тёмно-красным или светло-красным).
+\begin{itemize}
+  \item Преобразование цвета в пространство HSL, замена канала L (Lightness).
+  \item Преобразование цвета в пространство YPbPr, замена канала Y.
+\end{itemize}
+
+
+  \item Фоновые изображения. Веб-стандарт никак не регламентирует указание того факта, несут ли фоновые изображения какую-либо смысловую нагрузку (например, это иконка на кнопке) или являются только декорацией (например, текстура на фоне текста). Решение: использование эвристики на основе различных параметров (URL, CSS-класс или id, значение background-repeat и т. д.).
+\begin{itemize}
+  \item Градиенты в качестве фоновых изображений. Решение: парсинг значений и обработка цветов как фоновых как в пункте выше.
+\end{itemize}
+\end{itemize}
+
+\subsection*{Ссылки}
+
+\begin{itemize}
+  \item \href{https://addons.mozilla.org/firefox/addon/dark-background-light-text/}{addons.mozilla.org/firefox/addon/dark-background-light-text/}
+  \item \href{https://github.com/m-khvoinitsky/dark-background-light-text-extension}{github.com/m-khvoinitsky/dark-background-light-text-extension}
+\end{itemize}
+
+\subsection*{Альтернативы, заслуживающие внимания}
+
+\begin{itemize}
+  \item \href{https://addons.mozilla.org/firefox/addon/darkreader/}{addons.mozilla.org/firefox/addon/darkreader/}
+  \item \href{https://addons.mozilla.org/firefox/addon/midnight-lizard-quantum/}{addons.mozilla.org/firefox/addon/midnight-lizard-quantum/}
+\end{itemize}
+
+\subsection*{Краткая история технического устройство аддонов для Firefox}
+
+\begin{itemize}
+  \item overlay add-on\begin{itemize}
+  \item Установка\textbackslash{}обновление только с перезагрузкой браузера
+  \item Аддон имеет полный доступ к внутренним API браузера, никак не ограничен.
+  \item Нет стабильного API --- аддоны могут спонтанно ломаться при обновлении браузера.
+\end{itemize}
+
+
+  \item bootstrapped add-on\begin{itemize}
+  \item Первая попытка сделать аддоны безперезагрузочными
+  \item Аддон начинается с файла bootstrap.js с функциями startup и shutdown, в которых разработчик должен сделать то, что хочет с браузером при помощи его DOM API.
+  \item Все плюсы и минусы предыдущего типа, кроме необходимости перезагрузки браузера.
+\end{itemize}
+
+
+  \item Add-on SDK\begin{itemize}
+  \item Попытка сделать стабильный API для аддонов.
+  \item всё ещё есть возможность (теперь опциональная) получить доступ к внутренним API браузера (которое не имеет гарантии стабильности)
+\end{itemize}
+
+
+  \item WebExtensions\begin{itemize}
+  \item Стабильное API и невозможность выйти за его пределы (последнее --- самый большой недостаток, который вызвал массу недовольств и даже сделал реализацию некоторых существующих аддонов невозможной)
+  \item Причины появления:\begin{itemize}
+  \item Необходимость закрыть внутренний API от аддонов, так как довольно сложно вносить изменения в браузер не ломая аддонов. Примеры крупных изменений, которые ломали аддоны: e10s (мультипроцессность), интеграция наработок из Servo.
+  \item Трудности конкуренции с Chrome.
+\end{itemize}
+
+
+\end{itemize}
+
+
+\end{itemize}
+
+\end{document}
